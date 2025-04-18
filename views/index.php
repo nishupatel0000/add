@@ -1,59 +1,56 @@
 <?php
 session_start();
-
 require_once 'config.php';
-if (isset($_POST['login'])) {
-    if (empty($_POST['lemail'])) {
-        $_SESSION['lemail'] = "Email is required";
-    } else {
-        $email = $_POST['lemail'];
-    }
+if(isset($_POST['submit'])){
 
-    if (empty($_POST['lpassword'])) {
-        $_SESSION['lpassword'] = "Password is required";
-    } else {
-        $password = $_POST['lpassword'];
-    }
+  if(!empty($_POST['name'])){
+    $name = $_POST['name'];
 
-    if (!empty($email) && !empty($password)) {
-        $select = "SELECT * FROM admin WHERE email='$email'";
-        $res = mysqli_query($con_query, $select);
+  }
+  else{
+    $_SESSION['name'] = "name is required";
 
-        if (mysqli_num_rows($res) > 0) {
-            $data = mysqli_fetch_assoc($res);
-            $old_email = $data['email'];
-            $old_password = $data['password'];
-
-            if ($email == $old_email && $password == $old_password) {
-                $_SESSION['username'] = $data['username'];
-                $_SESSION['lemail'] = $email;
-                header('Location: dashboard.php');
-                exit();
-            } else {
-               
-                $_SESSION['error'] = "Email or password does not match";
-            }
-        } else {
-            $_SESSION['error'] = "No account found with this email";
-        }
-    }
+  }
+  if (!empty($_POST['email'])) {
+    $email = $_POST['email'];
+} else {
+    $_SESSION['email'] = " * Please enter email";
 }
 
+if (!empty($_POST['password'])) {
+  $password = $_POST['password'];
+} else {
+  $_SESSION['password'] = " * Please enter password";
+}
 
-// $row = mysqli_num_rows($res);
-// echo $row;
+  if(isset($name) && isset($email) &&  isset($password)){
+  $ins_query = "insert into admin(username,email,password)values('$name','$email','$password')";
+  $result = mysqli_query($con_query,$ins_query);
+  if($result){
+   $_SESSION['success'] = "You can do login using your username and email";
+   
+   header('location:login.php');
+  }
+  else{
+    echo "errror";
+  }
 
+
+
+}
+
+}
 
 ?>
 <!doctype html>
 <html lang="en">
+  <!--begin::Head-->
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>AdminLTE 4 | Login Page</title>
-
+    <title>Admin  Register Page</title>
     <!--begin::Primary Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="title" content="AdminLTE 4 | Login Page" />
+    <meta name="title" content="AdminLTE 4 | Register Page" />
     <meta name="author" content="ColorlibHQ" />
     <meta
       name="description"
@@ -66,11 +63,11 @@ if (isset($_POST['login'])) {
     <!--end::Primary Meta Tags-->
     <!--begin::Fonts-->
     <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css"
-    integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q="
-    crossorigin="anonymous"
-  />
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css"
+      integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q="
+      crossorigin="anonymous"
+    />
     <!--end::Fonts-->
     <!--begin::Third Party Plugin(OverlayScrollbars)-->
     <link
@@ -82,17 +79,19 @@ if (isset($_POST['login'])) {
     <!--end::Third Party Plugin(OverlayScrollbars)-->
     <!--begin::Third Party Plugin(Bootstrap Icons)-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+
     <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    integrity="sha256-9kPW/n5nn53j4WMRYAxe9c1rCY96Oogo/MKSVdKzPmI="
-    crossorigin="anonymous"
-  />
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      integrity="sha256-9kPW/n5nn53j4WMRYAxe9c1rCY96Oogo/MKSVdKzPmI="
+      crossorigin="anonymous"
+    />
     <!--end::Third Party Plugin(Bootstrap Icons)-->
     <!--begin::Required Plugin(AdminLTE)-->
     <link rel="stylesheet" href="../css/adminlte.css" />
+    <!--end::Required Plugin(AdminLTE)-->
     <style>
-   .alert {
+      .alert {
     padding: 15px 20px;
     margin: 20px 0;
     border-radius: 6px;
@@ -118,81 +117,57 @@ if (isset($_POST['login'])) {
     content: "⚠️ ";
     margin-right: 8px;
     font-weight: bold;
-}
-
-
+} 
     </style>
-        <!--end::Required Plugin(AdminLTE)-->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        
   </head>
   <!--end::Head-->
   <!--begin::Body-->
-  <body class="login-page bg-body-secondary">
-    <div class="login-box">
-      <div class="login-logo">
-        <a href="#"><b>Login</b></a>
+  <body class="register-page bg-body-secondary">
+    <div class="register-box">
+      <div class="register-logo">
+        <a href="#"><b>Register </b></a>
+
       </div>
-
-       
-      <!-- /.login-logo -->
+      <!-- /.register-logo -->
       <div class="card">
- 
+        <div class="card-body register-card-body">
+       
+          <form method="POST"   action="<?php echo $_SERVER['PHP_SELF']; ?>">
+      
 
-<!-- SweetAlert2 CDN -->
 
-<?php
-if (isset($_SESSION['success'])) {
-    $msg = addslashes($_SESSION['success']);
-    echo "<script>
-        document.addEventListener('DOMContentLoaded', function() {
-            Swal.fire({
-               position: 'top-end',
-                title: 'Success!',
-                text: '$msg',
-                icon: 'success',
-                confirmButtonText: 'OK'
-            });
-        });
-    </script>";
-    unset($_SESSION['success']);
-}
-if (isset($_SESSION['error'])) {
-    $error = addslashes($_SESSION['error']);
-    echo "<script>
-        document.addEventListener('DOMContentLoaded', function() {
-            Swal.fire({
-                title: 'Error!',
-                text: '$error',
-                icon: 'error',
-                confirmButtonText: 'Try Again'
-            });
-        });
-    </script>";
-    unset($_SESSION['error']);
-}
-
-?>
-        <div class="card-body login-card-body">
-          <form  method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
             <div class="input-group mb-3">
-              <input type="email" class="form-control" placeholder="Email" name="lemail" />
-              <div class="input-group-text"><span class="bi bi-envelope"></span></div>
+              <input type="text" class="form-control" name="name" placeholder="Full Name" />
+              <div class="input-group-text"><span class="bi bi-person"></span></div>
             </div>
             <?php
-              if (isset($_SESSION['lemail'])){
-                echo '<div class="alert error-alert "> ' .  $_SESSION['lemail'] . '</div>';
-                unset($_SESSION['lemail']);     
+              if (isset($_SESSION['name'])){
+                echo '<div class="alert error-alert"> ' .  $_SESSION['name'] . '</div>';
+                unset($_SESSION['name']);     
                 }
               ?>
             <div class="input-group mb-3">
-              <input type="password" class="form-control" placeholder="Password" name="lpassword" />
-              <div class="input-group-text"><span class="bi bi-lock-fill"></span></div>
+              <input type="email" class="form-control" placeholder="Email" name="email" />
+              <div class="input-group-text"><span class="bi bi-envelope"></span></div>
+              <div class="error-msg"></div>
+
             </div>
             <?php
-              if (isset($_SESSION['lpassword'])){
-                echo '<div class="alert error-alert "> ' .  $_SESSION['lpassword'] . '</div>';
-                unset($_SESSION['lpassword']);     
+              if (isset($_SESSION['email'])){
+                echo '<div class="alert error-alert"> ' .  $_SESSION['email'] . '</div>';
+                unset($_SESSION['email']);     
+                }
+              ?>
+            <div class="input-group mb-3">
+              <input type="password" class="form-control" placeholder="Password" name="password" />
+              <div class="input-group-text"><span class="bi bi-lock-fill"></span></div>
+              <div class="error-msg"></div>
+
+            </div>
+            <?php
+              if (isset($_SESSION['password'])){
+                echo '<div class="alert error-alert"> ' .  $_SESSION['password'] . '</div>';
+                unset($_SESSION['password']);     
                 }
               ?>
             <!--begin::Row-->
@@ -200,14 +175,16 @@ if (isset($_SESSION['error'])) {
               <div class="col-8">
                 <div class="form-check">
                   <!-- <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                  <label class="form-check-label" for="flexCheckDefault"> Remember Me </label> -->
+                  <label class="form-check-label" for="flexCheckDefault">
+                    I agree to the <a href="#">terms</a>
+                  </label> -->
                 </div>
               </div>
               <!-- /.col -->
               <div class="col-4">
                 <div class="d-grid gap-2">
-                <input type="submit" name="login"  class="btn btn-primary" value="Log In">
-
+                  <!-- <button type="submit" class="btn btn-primary">Register</button> -->
+                   <input type="submit" name="submit"  class="btn btn-primary" value="Submit">
                 </div>
               </div>
               <!-- /.col -->
@@ -216,7 +193,7 @@ if (isset($_SESSION['error'])) {
           </form>
           <div class="social-auth-links text-center mb-3 d-grid gap-2">
             <p>- OR -</p>
-            <a href="https://www.facebook.com/tecocraft.infusion.pvt.ltd/" class="btn btn-primary">
+            <a href="#" class="btn btn-primary">
               <i class="bi bi-facebook me-2"></i> Sign in using Facebook
             </a>
             <a href="#" class="btn btn-danger">
@@ -225,33 +202,14 @@ if (isset($_SESSION['error'])) {
           </div>
           <!-- /.social-auth-links -->
           <p class="mb-0">
-            <a href="index.php" class="text-center" style="text-decoration: none;"> Don't have account? Register</a>
+            <a href="login.php" class="text-center" style="text-decoration: none;"> I already have account </a>
           </p>
         </div>
-        <!-- /.login-card-body -->
+        <!-- /.register-card-body -->
       </div>
     </div>
-    <!-- /.login-box -->
+    <!-- /.register-box -->
     <!--begin::Third Party Plugin(OverlayScrollbars)-->
-    <script>
-    window.onload = function () {
-        // Check if the error messages exist and hide them after a delay
-        var successMessage = document.getElementById("error-message");
-        var updateMessage = document.getElementById("error-update");
-
-        if (successMessage) {
-            setTimeout(function () {
-                successMessage.style.display = "none";
-            }, 2000);  
-        }
-
-        if (updateMessage) {
-            setTimeout(function () {
-                updateMessage.style.display = "none";
-            }, 2000);  
-        }
-    };
-</script>
     <script
       src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.10.1/browser/overlayscrollbars.browser.es6.min.js"
       integrity="sha256-dghWARbRe2eLlIJ56wNB+b760ywulqK3DzZYEpsg2fQ="
@@ -270,7 +228,7 @@ if (isset($_SESSION['error'])) {
       crossorigin="anonymous"
     ></script>
     <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
-    <script src="../js/adminlte.js"></script>
+    <script src="../../js/adminlte.js"></script>
     <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
     <script>
       const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
@@ -295,12 +253,31 @@ if (isset($_SESSION['error'])) {
     <!--end::OverlayScrollbars Configure-->
     <!--end::Script-->
   </body>
+
+  
   <!--end::Body-->
 </html>
+<!-- 
+ 
+// if ($_SERVER["REQUEST_METHOD"] == "POST") {
+//   if (isset($_POST['submit'])) {
+//       // Button was clicked
+//       $username = $_POST['name'];
+//       echo "Form submitted. Username: " . htmlspecialchars($username);
+//   }
+//   else{
+//     echo "no";
+//   }
+// }
+?> -->
+
+
+<!-- // This part only runs when the form is submitted -->
+ 
 
 <?php
 session_unset();
 session_destroy();
-?>
 
+?>
 
