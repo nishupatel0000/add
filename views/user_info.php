@@ -52,58 +52,16 @@ require_once '../aside.html';
         <td id="mytd"> 
          
          <a href="#"><button class="btn  btn-danger delete" data-id="<?php echo $row['id']; ?>"><i class="fa fa-trash"></i></button></a>
-         <a href="#"> <button class="btn  btn-primary edit" data-id="<?php echo $row['id'];?>" data-bs-toggle="modal" data-bs-target="#edit_modal"><i class="fa fa-edit"></i></button> </a>
-         <!-- <a href="#"> <button type="button" class="btn   btn-warning view"  data-id="<?php echo $row['id']; ?>" data-target="view_data"   data-toggle="modal"><i class="fa fa-eye" aria-hidden="true"></i></i></button> -->
-            <!-- Button trigger modal -->
+         <button type="button" class="btn btn-primary edit" data-bs-toggle="modal" data-bs-target="#editModal" data-id="<?php echo $row['id']; ?>"><i class="fa fa-edit"></i>
+  </button>
+      
             <a href="#">
   <button class="btn btn-warning view" data-id="<?php echo $row['id']; ?>" data-bs-toggle="modal" data-bs-target="#viewModal">
     <i class="fa fa-eye" aria-hidden="true"></i>
   </button>
 </a>
 <!-- Modal -->
-<div class="modal fade" id="edit_modal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editModalLabel">Edit User</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <!-- Modal content will be populated here dynamically -->
-        <form id="editForm">
-          <div class="mb-3">
-            <label for="user-name" class="form-label">Name</label>
-            <input type="text" class="form-control" id="user-name" name="name" required>
-          </div>
-          <div class="mb-3">
-            <label for="user-username" class="form-label">Username</label>
-            <input type="text" class="form-control" id="user-username" name="username" required>
-          </div>
-          <div class="mb-3">
-            <label for="user-email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="user-email" name="email" required>
-          </div>
-          <div class="mb-3">
-            <label for="user-mobile" class="form-label">Mobile</label>
-            <input type="text" class="form-control" id="user-mobile" name="mobile" required>
-          </div>
-          <div class="mb-3">
-            <label for="user-vehicle" class="form-label">Vehicle No</label>
-            <input type="text" class="form-control" id="user-vehicle" name="vehicle" required>
-          </div>
-          <div class="mb-3">
-            <label for="user-vehicle-type" class="form-label">Vehicle Type</label>
-            <input type="text" class="form-control" id="user-vehicle-type" name="vehicle_type" required>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary" id="saveChangesButton">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
+
 
 <script>
   $(document).ready(function() {
@@ -118,12 +76,12 @@ require_once '../aside.html';
           // Parse the JSON response
           var userDetails = JSON.parse(response);
           // Populate the modal with user details
-          $("#user-name").val(userDetails.name);
-          $("#user-username").val(userDetails.username);
-          $("#user-email").val(userDetails.email);
-          $("#user-mobile").val(userDetails.mobileno);
-          $("#user-vehicle").val(userDetails.vehicle_no);
-          $("#user-vehicle-type").val(userDetails.vehicle_type);
+          $("#name").val(userDetails.name);
+          $("#username").val(userDetails.username);
+          $("#email").val(userDetails.email);
+          $("#mobile").val(userDetails.mobileno);
+          $("#vehicle_no").val(userDetails.vehicle_no);
+          $("#vehicle_type").val(userDetails.vehicle_type);
           
 
           // Add more fields as needed
@@ -219,6 +177,61 @@ require_once '../aside.html';
 
   </tbody>
 </table>
+
+<!-- Button trigger modal -->
+ 
+
+<!-- Modal -->
+ <!-- Edit Button -->
+
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form action="update.php" method="POST" id="editForm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editModalLabel">Edit User</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          
+          <!-- Hidden ID field -->
+          <input type="hidden" name="id" > <!-- Replace 1 with dynamic PHP if needed -->
+
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+          </div>
+          <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" name="username" required>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+          </div>
+          <div class="mb-3">
+            <label for="mobile" class="form-label">Mobile</label>
+            <input type="text" class="form-control" id="mobile" name="mobileno" required>
+          </div>
+          <div class="mb-3">
+            <label for="vehicle_no" class="form-label">Vehicle No</label>
+            <input type="text" class="form-control" id="vehicle_no" name="vehicle_no" required>
+          </div>
+          <div class="mb-3">
+            <label for="vehicle_type" class="form-label">Vehicle Type</label>
+            <input type="text" class="form-control" id="vehicle_type" name="vehicle_type" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <input type="submit" class="btn btn-primary" name="update"> 
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
 
 
 
