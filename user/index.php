@@ -52,7 +52,7 @@ if (!empty($_POST['vehicle_type'])) {
 }
 
   if(isset($name) && isset($email) &&  isset($password)){
-  $ins_query = "insert into user(name,username,email,password,mobileno,vehilcle_no,vehicle_type)values('$name','$username','$email','$password','$vehicle_no','$vehicle_type')";
+  $ins_query = "insert into user(name,username,email,password,mobileno,vehicle_no,vehicle_type)values('$name','$username','$email','$password','$mobile','$vehicle_no','$vehicle_type')";
   $result = mysqli_query($con_query,$ins_query);
   if($result){
    $_SESSION['data'] = "You can do login using your username and email";
@@ -245,9 +245,9 @@ if (!empty($_POST['vehicle_type'])) {
                 
               <label for="cars">Choose a car:</label>
               <option value="" disabled selected>Select Vehicle type</option>
-                <option value="volvo">Car</option>
-                <option value="saab">Bike</option>
-                <option value="mercedes">Bicycle</option>
+                <option value="Car">Car</option>
+                <option value="Bike">Bike</option>
+                <option value="Bicycle">Bicycle</option>
               </select>
               <?php
               if (isset($_SESSION['vehicle_type'])){
@@ -372,8 +372,8 @@ if (!empty($_POST['vehicle_type'])) {
  
 
 <?php
+
 session_unset();
 session_destroy();
-
 ?>
 
