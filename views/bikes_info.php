@@ -7,8 +7,16 @@ require_once '../aside.html';
 
    
 ?> 
+<style>
+  #myTable2 {
+    margin-top: 53px;
+}
+#mytd{
+    text-align: center;
+}
+</style>
 
-<table id="myTable" class="table table-striped table table-bordered"" border="0" cellspacing="0" width="100%"    >
+<table id="myTable2" class="table table-striped table table-bordered"" border="0" cellspacing="0" width="100%"    >
   <thead>
     <tr>
       <th scope="col">Name</th>
@@ -44,7 +52,11 @@ require_once '../aside.html';
     <?php
     }
     ?>
-
+<script>
+  $(document).ready( function () {
+    $('#myTable2').DataTable();
+  });
+</script>
 
   </tbody>
 </table>

@@ -1,16 +1,43 @@
+
+
+
 <?php
-require_once 'config.php';
 session_start();
-require_once '../header.html';
-require_once '../aside.html';  
+require_once 'config.php';
 
 
+
+?>
+
+<?php  require_once  '../header.html';   ?>
+  
    
-?> 
-
+    <?php  require_once  '../aside.html';   ?>
+     
+    
+         
+    <div class="col-sm-6"><h3 class="mb-0">Admin Data
+                    </h3>   </div>
+                <div class="col-sm-6">
+                 <ol class="breadcrumb float-sm-end">
+                  <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                 </ol>
+                </div>
+              </div>
+           
+           
+       
+        
+        <div class="app-content">
+         
+          <div class="container-fluid">
+      
+            <div class="row"> 
 <table id="myTable" class="table table-striped table table-bordered"" border="0" cellspacing="0" width="100%"    >
   <thead>
     <tr>
+     
       <th scope="col">Username</th>
       <th scope="col">Email</th>  
       <!-- <th scope="col">Operation</th> -->
@@ -25,21 +52,19 @@ require_once '../aside.html';
     while ($row = mysqli_fetch_assoc($result)) {
     ?>
       <tr>
+       
         <td><?php echo $row['username']; ?></td>
         <td><?php echo $row['email']; ?></td>
        
-        <!-- <td id="mytd"> 
-         
-         <a href="#"><button class="btn  btn-danger delete" data-id="<?php echo $row['id']; ?>"><i class="fa fa-trash"></i></button></a>
-         <a href="edit.php?id=<?php echo $row['id'];?> "> <button class="btn   btn-primary edit"><i class="fa fa-edit"></i></button>
-          </td> -->
       </tr>
     <?php
     }
-    ?>
-
-
+    ?> 
   </tbody>
 </table>
-
+  
+           
+<?php   
+require_once '../footer.html';
+?>
 

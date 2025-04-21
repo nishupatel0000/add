@@ -18,14 +18,20 @@ require_once 'config.php';
      
     
          
-              <div class="col-sm-6"><h3 class="mb-0">Hello Good morning   <?php if (isset($_SESSION['username'])){ 
-                    echo  $_SESSION['username'];
+              <div class="col-sm-6"><h3 class="mb-0"> 
+                 <?php if (isset($_SESSION['username'])){ 
+                    echo "Hello Good mornig " . $_SESSION['username'];
+                    }
+                    else{
+                 
+                    echo "Please login first";
+                     exit;
                     }
                     ?>   
-                   ...  </h3>   </div>
+                   </h3>   </div>
                 <div class="col-sm-6">
                  <ol class="breadcrumb float-sm-end">
-                  <li class="breadcrumb-item"><a href="#">Home</a></li>
+                  <li class="breadcrumb-item"><a href="index.php">Home</a></li>
                   <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
                  </ol>
                 </div>
@@ -179,4 +185,5 @@ require_once 'config.php';
            
 <?php   
 require_once '../footer.html';
+
 ?>
