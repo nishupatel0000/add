@@ -23,18 +23,20 @@ require_once 'config.php';
                     echo "Hello Good mornig " . $_SESSION['username'];
                     }
                     else{
-                 
-                    echo "Please login first";
+                 ?>
+                    // echo "Please login first";
+                    <script>window.location.href = 'permisson.html'</script>
+<?php
                      exit;
                     }
                     ?>   
                    </h3>   </div>
-                <div class="col-sm-6">
+                <!-- <div class="col-sm-6">
                  <ol class="breadcrumb float-sm-end">
                   <li class="breadcrumb-item"><a href="index.php">Home</a></li>
                   <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
                  </ol>
-                </div>
+                </div> -->
               </div>
            
           </div>
