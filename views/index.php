@@ -3,27 +3,45 @@ session_start();
 require_once 'config.php';
 if(isset($_POST['submit'])){
 
-  if(!empty($_POST['name'])){
+  if(strlen($_POST['name']) < 8){
+    $_SESSION['name'] = " * name must be 8 characters long";
+  }  
+  else{
     $name = $_POST['name'];
 
   }
-  else{
-    $_SESSION['name'] = "name is required";
-
-  }
-  if (!empty($_POST['email'])) {
-    $email = $_POST['email'];
-} else {
+  // email validation
+  if(empty($_POST['email'])){
     $_SESSION['email'] = " * Please enter email";
-}
+  }   
+  else {
+    $email = $_POST['email'];
+  }
+  
+//   if (!empty($_POST['email'])) {
+//     $email = $_POST['email'];
+// } else {
+//     $_SESSION['email'] = " * Please enter email";
+// }
 
-if (!empty($_POST['password'])) {
-  $password = $_POST['password'];
-} else {
+
+
+
+if (empty($_POST['password'])) {
   $_SESSION['password'] = " * Please enter password";
+ 
+  
+} 
+elseif (!preg_match("/(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $_POST['password'])) {
+  $_SESSION['password'] = " * Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.";
+  
+}  else {
+  $password = $_POST['password'];
+ 
 }
 
   if(isset($name) && isset($email) &&  isset($password)){
+    
   $ins_query = "insert into admin(username,email,password)values('$name','$email','$password')";
   $result = mysqli_query($con_query,$ins_query);
   if($result){
@@ -137,13 +155,19 @@ if (!empty($_POST['password'])) {
 
 
             <div class="input-group mb-3">
-              <input type="text" class="form-control" name="name" placeholder="Full Name" />
+              <input type="text" class="form-control" name="name" placeholder="Full Name"  />
               <div class="input-group-text"><span class="bi bi-person"></span></div>
             </div>
             <?php
               if (isset($_SESSION['name'])){
                 echo '<div class="alert error-alert"> ' .  $_SESSION['name'] . '</div>';
                 unset($_SESSION['name']);     
+                }
+              ?>
+                <?php
+              if (isset($_SESSION['length'])){
+                echo '<div class="alert error-alert"> ' .  $_SESSION['length'] . '</div>';
+                unset($_SESSION['length']);     
                 }
               ?>
             <div class="input-group mb-3">
@@ -276,8 +300,7 @@ if (!empty($_POST['password'])) {
  
 
 <?php
-session_unset();
-session_destroy();
+ 
 
 ?>
 

@@ -1,8 +1,8 @@
 <?php
 require_once 'config.php';
 session_start();
-require_once '../layouts/header.html';
-require_once '../layouts/aside.html';  
+require_once '../layouts/header.php';
+require_once '../layouts/aside.php';  
 
 
    
@@ -62,5 +62,8 @@ require_once '../layouts/aside.html';
 
   </tbody>
 </table>
-
+<?php   
+require_once '../layouts/footer.php';
+ 
+?>
 

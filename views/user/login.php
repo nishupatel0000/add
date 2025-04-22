@@ -27,7 +27,7 @@ if (isset($_POST['login'])) {
             if ($email == $old_email && $password == $old_password) {
                 $_SESSION['username'] = $data['username'];
                 $_SESSION['lemail'] = $email;
-                header('Location:dashboard.php');
+                header('Location:./dashboard.php');
                 exit();
             } else {
                

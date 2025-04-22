@@ -11,7 +11,9 @@ if (isset($_POST['login'])) {
 
     if (empty($_POST['lpassword'])) {
         $_SESSION['lpassword'] = "Password is required";
-    } else {
+    }
+    
+     else {
         $password = $_POST['lpassword'];
     }
 

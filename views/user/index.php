@@ -5,22 +5,26 @@ require_once '../config.php';
 
 if(isset($_POST['submit'])){
 
-  if(!empty($_POST['name'])){
+  if(strlen($_POST['name']) < 8){
+    $_SESSION['name'] = " * Please enter name with 8 characters";
+  }  
+  else{
     $name = $_POST['name'];
-
+  
   }
-  else{
-    $_SESSION['name'] = "name is required";
-
+  if (empty($_POST['username'])) {
+    $_SESSION['username'] = " * Please enter username";
   }
-  if(!empty($_POST['username'])){
-    $username = $_POST['username'];
+  
+    else if (!preg_match('/^@/',$_POST['username'])){
+       
+    $_SESSION['username'] = " *username must be start with @"; 
 
-  }
-  else{
-    $_SESSION['username'] = "username is required";
-
-  }
+    }
+    else{
+      $username = $_POST['username'];
+    }
+ 
   if (!empty($_POST['email'])) {
     $email = $_POST['email'];
 } else {
@@ -29,10 +33,18 @@ if(isset($_POST['submit'])){
 
 
 
-if (!empty($_POST['password'])) {
-  $password = $_POST['password'];
-} else {
+if (empty($_POST['password'])) {
   $_SESSION['password'] = " * Please enter password";
+}
+else if (strlen($_POST['password']) < 6) {
+  $_SESSION['password'] = "Password must be at least 6 characters long";       
+}  
+elseif (!preg_match("/(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/", $_POST['password'])) {
+  $_SESSION['password'] = " * Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.";
+  
+}
+else {
+  $password = $_POST['password'];
 }
 if (!empty($_POST['mobile'])) {
   $mobile = $_POST['mobile'];
@@ -51,7 +63,7 @@ if (!empty($_POST['vehicle_type'])) {
   $_SESSION['vehicle_type'] = " * Please select Your vehicle type";
 }
 
-  if(isset($name) && isset($email) &&  isset($password)){
+  if(isset($name) && isset($email) && isset($username) &&  isset($password)){
   $ins_query = "insert into user(name,username,email,password,mobileno,vehicle_no,vehicle_type)values('$name','$username','$email','$password','$mobile','$vehicle_no','$vehicle_type')";
   $result = mysqli_query($con_query,$ins_query);
   if($result){
@@ -64,11 +76,10 @@ if (!empty($_POST['vehicle_type'])) {
   }
 
 
-
+  }
 }
 
-}
-
+ 
 ?>
 <!doctype html>
 <html lang="en">
@@ -374,7 +385,6 @@ if (!empty($_POST['vehicle_type'])) {
 
 <?php
 
-session_unset();
-session_destroy();
+ 
 ?>
 

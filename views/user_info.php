@@ -1,8 +1,14 @@
+
+
+
+
+
+
 <?php
 require_once 'config.php';
 session_start();
-require_once '../layouts/header.html';
-require_once '../layouts/aside.html';
+require_once '../layouts/header.php';
+require_once '../layouts/aside.php';
 ?>
 
 <style>
@@ -233,37 +239,19 @@ require_once '../layouts/aside.html';
               <option value="Bicycle">Bicycle</option>
             </select>
           </div>
-        </div>
-        <div class="modal-footer">
+        
+        <!-- <div class="modal-footer">
         
             <input type="text" class="form-control" id="mobile" name="mobileno" required>
+          </div> -->
+        
           </div>
-          <div class="mb-3">
-            <label for="vehicle_no" class="form-label">Vehicle No</label>
-            <input type="text" class="form-control" id="vehicle_no" name="vehicle_no" required>
-          </div>
-          <div class="mb-3">
-            <label for="vehicle_type" class="form-label">Vehicle Type</label>
-            <!-- <input type="text" class="form-control" id="vehicle_type" name="vehicle_type" required> -->
-             <select name="vehicle_type" id="vehicle_type" class=form-control required>
-               
-
-             <option value="" se >Select Vehicle type</option>
-            
-                <option value="Car" <?php if(("#vehicle_type") == 'Car') echo  'selected'?>>Car</option>
-                <option value="Bike">Bike</option>
-                <option value="Bicycle">Bicycle</option>
-            
-          
-               
-             
-             </select>
-          </div>
-        </div>
-        <div class="modal-footer">
+          <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
           <input type="submit" class="btn btn-primary" name="update"> 
         </div>
+        </div>
+       
       </div>
     </form>
   </div>
@@ -310,6 +298,6 @@ Swal.fire({
 </script> -->
 
 <?php
-require_once '../layouts/footer.html';
+require_once '../layouts/footer.php';
 
 ?>
