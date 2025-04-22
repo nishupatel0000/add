@@ -186,5 +186,6 @@ require_once 'config.php';
            
 <?php   
 require_once '../layouts/footer.html';
-
+session_unset();
+session_destroy();
 ?>

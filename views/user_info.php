@@ -1,6 +1,6 @@
 <?php
-session_start();
 require_once 'config.php';
+session_start();
 require_once '../layouts/header.html';
 require_once '../layouts/aside.html';
 ?>
@@ -19,8 +19,19 @@ require_once '../layouts/aside.html';
     margin-left: 0;
     padding: 10px;
   }
+  .btn_user {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 10px;
+  }
+    
+ 
 </style>
-
+<div class="mb-3 btn_user">
+  <a href="../views/user/index.php"><button type="button" class="btn btn-success">
+    <i class="fa fa-plus"></i>&nbsp; Add New User
+  </button></a>
+</div>
 <table id="myTable" class="table table-striped table-bordered" border="0" cellspacing="0" width="100%">
   <thead>
     <tr>
@@ -224,14 +235,81 @@ require_once '../layouts/aside.html';
           </div>
         </div>
         <div class="modal-footer">
+        
+            <input type="text" class="form-control" id="mobile" name="mobileno" required>
+          </div>
+          <div class="mb-3">
+            <label for="vehicle_no" class="form-label">Vehicle No</label>
+            <input type="text" class="form-control" id="vehicle_no" name="vehicle_no" required>
+          </div>
+          <div class="mb-3">
+            <label for="vehicle_type" class="form-label">Vehicle Type</label>
+            <!-- <input type="text" class="form-control" id="vehicle_type" name="vehicle_type" required> -->
+             <select name="vehicle_type" id="vehicle_type" class=form-control required>
+               
+
+             <option value="" se >Select Vehicle type</option>
+            
+                <option value="Car" <?php if(("#vehicle_type") == 'Car') echo  'selected'?>>Car</option>
+                <option value="Bike">Bike</option>
+                <option value="Bicycle">Bicycle</option>
+            
+          
+               
+             
+             </select>
+          </div>
+        </div>
+        <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <input type="submit" class="btn btn-primary" name="update">
+          <input type="submit" class="btn btn-primary" name="update"> 
         </div>
       </div>
     </form>
   </div>
 </div>
 
+
+
+<script>
+  $(document).ready( function () {
+    $('#myTable').DataTable();
+  });
+</script>
+ 
+<script>
+    $(".delete").click(function(e) {
+        e.preventDefault(); // prevent default link behavior if it's an <a> tag
+
+let userId = $(this).data("id"); // get data-id
+
+Swal.fire({
+    title: 'Are you sure?',
+    text: "You are about to delete this user.",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#e3342f',
+    cancelButtonColor: '#6c757d',
+    confirmButtonText: 'Yes, delete it!'
+}).then((result) => {
+    if (result.isConfirmed) {
+        window.location.href = 'delete.php?id=' + userId;
+    }
+});
+    
+    });
+</script>
+<!-- <script>
+  $(document).ready(function() {
+   $(".view").click(function() {
+  
+        alert("hello"); 
+
+   });
+    });   
+</script> -->
+
 <?php
 require_once '../layouts/footer.html';
+
 ?>
