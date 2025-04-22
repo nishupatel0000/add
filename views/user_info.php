@@ -1,8 +1,8 @@
 <?php
 require_once 'config.php';
 session_start();
-require_once '../header.html';
-require_once '../aside.html';  
+require_once '../layouts/header.html';
+require_once '../layouts/aside.html';  
 
 
    
@@ -25,6 +25,7 @@ require_once '../aside.html';
 <table id="myTable" class="table table-striped table table-bordered" border="0" cellspacing="0" width="100%"    >
   <thead>
     <tr>
+    <th scope="col">Id</th> 
       <th scope="col">Name</th>
       <th scope="col">Username</th>
       <th scope="col">Email</th>
@@ -37,12 +38,27 @@ require_once '../aside.html';
   </thead>
   <tbody>
     <?php
+    if (isset($_SESSION['update'])) {
+      $msg = addslashes($_SESSION['update']);
+      echo "<script>
+          document.addEventListener('DOMContentLoaded', function() {
+              Swal.fire({   
+                  title: 'Update!',
+                  text: '$msg',
+                  icon: 'success',
+                  confirmButtonText: 'OK'
+              });
+          });
+      </script>";
+      unset($_SESSION['update']);
+  }
     $select = "SELECT * FROM user";
     $result = mysqli_query($con_query, $select);
 
     while ($row = mysqli_fetch_assoc($result)) {
     ?>
       <tr>
+      <td><?php echo $row['id']; ?></td>
         <td><?php echo $row['name']; ?></td>
         <td><?php echo $row['username']; ?></td>
         <td><?php echo $row['email']; ?></td>
@@ -73,9 +89,10 @@ require_once '../aside.html';
         type: 'POST',
         data: { id: userId },
         success: function(response) {
-          // Parse the JSON response
+           
           var userDetails = JSON.parse(response);
-          // Populate the modal with user details
+    
+          $("#myid").val(userDetails.id);  
           $("#name").val(userDetails.name);
           $("#username").val(userDetails.username);
           $("#email").val(userDetails.email);
@@ -197,7 +214,7 @@ require_once '../aside.html';
         <div class="modal-body">
           
           <!-- Hidden ID field -->
-          <input type="hidden" name="id" > <!-- Replace 1 with dynamic PHP if needed -->
+          <input type="hidden" name="id" id="myid" > <!-- Replace 1 with dynamic PHP if needed -->
 
           <div class="mb-3">
             <label for="name" class="form-label">Name</label>
@@ -221,7 +238,20 @@ require_once '../aside.html';
           </div>
           <div class="mb-3">
             <label for="vehicle_type" class="form-label">Vehicle Type</label>
-            <input type="text" class="form-control" id="vehicle_type" name="vehicle_type" required>
+            <!-- <input type="text" class="form-control" id="vehicle_type" name="vehicle_type" required> -->
+             <select name="vehicle_type" id="vehicle_type" class=form-control required>
+               
+
+             <option value="" disabled selected>Select Vehicle type</option>
+            
+                <option value="Car" <?php if(("#vehicle_type") == 'Car') echo  'selected'?>>Car</option>
+                <option value="Bike">Bike</option>
+                <option value="Bicycle">Bicycle</option>
+            
+          
+               
+             
+             </select>
           </div>
         </div>
         <div class="modal-footer">
@@ -274,6 +304,6 @@ Swal.fire({
 </script> -->
 
 <?php
-require_once '../footer.html';
+require_once '../layouts/footer.html';
 
 ?>

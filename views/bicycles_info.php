@@ -1,8 +1,8 @@
 <?php
 require_once 'config.php';
 session_start();
-require_once '../header.html';
-require_once '../aside.html';  
+require_once '../layouts/header.html';
+require_once '../layouts/aside.html';  
 
 
    
@@ -19,6 +19,7 @@ require_once '../aside.html';
 <table id="myTable3" class="table table-striped table table-bordered"" border="0" cellspacing="0" width="100%"    >
   <thead>
     <tr>
+    <th scope="col">Id</th> 
       <th scope="col">Name</th>
       <th scope="col">Username</th>
       <th scope="col">Email</th>
@@ -37,6 +38,7 @@ require_once '../aside.html';
     while ($row = mysqli_fetch_assoc($result)) {
     ?>
       <tr>
+      <td><?php echo $row['id']; ?></td>
         <td><?php echo $row['name']; ?></td>
         <td><?php echo $row['username']; ?></td>
         <td><?php echo $row['email']; ?></td>

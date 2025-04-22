@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require_once '../views/config.php';
+require_once '../config.php';
 if (isset($_POST['login'])) {
     if (empty($_POST['lemail'])) {
         $_SESSION['lemail'] = "Email is required";
@@ -90,7 +90,7 @@ if (isset($_POST['login'])) {
   />
     <!--end::Third Party Plugin(Bootstrap Icons)-->
     <!--begin::Required Plugin(AdminLTE)-->
-    <link rel="stylesheet" href="../css/adminlte.css" />
+    <link rel="stylesheet" href="../../css/adminlte.css" />
     <style>
    .alert {
     padding: 15px 20px;

@@ -9,10 +9,10 @@ require_once 'config.php';
 
 ?>
 
-<?php  require_once  '../header.html';   ?>
+<?php  require_once  '../layouts/header.html';   ?>
   
    
-    <?php  require_once  '../aside.html';   ?>
+    <?php  require_once  '../layouts/aside.html';   ?>
      
     
          
@@ -65,6 +65,6 @@ require_once 'config.php';
   
            
 <?php   
-require_once '../footer.html';
+require_once '../layouts/footer.html';
 ?>
 
