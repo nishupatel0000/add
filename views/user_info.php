@@ -244,9 +244,9 @@ require_once '../layouts/aside.php';
       searchable: false,
       render: function (data, type, row) {
         return `
-          <button class="btn btn-primary edit" data-id="${row.id}" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
-          <button class="btn btn-danger delete" data-id="${row.id}">Delete</button>
-          <button class="btn btn-info view" data-id="${row.id}" data-bs-toggle="modal" data-bs-target="#viewModal">View</button>
+          <button class="btn btn-primary edit" data-id="${row.id}" data-bs-toggle="modal" data-bs-target="#editModal"> <i class="fa fa-edit"></i></button>
+          <button class="btn btn-danger delete" data-id="${row.id}">  <i class="fa fa-trash"></i></button>
+          <button class="btn btn-warning view" data-id="${row.id}" data-bs-toggle="modal" data-bs-target="#viewModal"> <i class="fa fa-eye" aria-hidden="true"></i></button>
         `;
       }
     }
