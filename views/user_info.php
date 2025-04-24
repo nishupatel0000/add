@@ -106,6 +106,14 @@ require_once '../layouts/aside.php';
             <div id="vehicle_type_err" class="error"></div>
 
           </div>
+        <select name="vehicle_time" id="vehicle_time" class="form-control">
+          <option value="">Select time</option>
+          <option value="15 minutues">0 to 15 Mintues</option>
+          <option value="15 minutues">15 to 30 Mintues</option>
+          <option value="15 minutues">30 to 45 Mintues</option>
+          <option value="15 minutues">45 to 60 Mintues</option>   
+
+        </select>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -123,7 +131,6 @@ require_once '../layouts/aside.php';
       <th scope="col">Name</th>
       <th scope="col">Username</th>
       <th scope="col">Email</th>
-      <th scope="col">password</th>
       <th scope="col">Mobile No</th>
       <th scope="col">Vehicle No</th>
       <th scope="col">Vehicle Type</th>
@@ -227,7 +234,7 @@ require_once '../layouts/aside.php';
         {data : 'name'},
         {data : 'username'},
         {data : 'email'},
-        {data : 'password'},
+     
         {data : 'mobileno'},
         {data : 'vehicle_no'},
         {data : 'vehicle_type'},
