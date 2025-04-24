@@ -1,5 +1,6 @@
 <?php
 $id = $_POST['id'];
+ 
 require_once 'config.php';  
 $select = "SELECT * FROM user where id='$id'";
 $result = mysqli_query($con_query, $select);

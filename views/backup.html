@@ -174,3 +174,95 @@ require_once '../footer.html';
 
 
 <a href="#"> <button class="btn  btn-primary edit" data-id="<?php echo $row['id'];?>" data-bs-toggle="modall" data-bs-target="#edit_modal"><i class="fa fa-edit"></i></button> </a>
+
+
+<tr>
+  <td><?php echo $row['id']; ?></td>
+  <td><?php echo $row['name']; ?></td>
+  <td><?php echo $row['username']; ?></td>
+  <td><?php echo $row['email']; ?></td>
+  <td><?php echo $row['password']; ?></td>
+  <td><?php echo $row['mobileno']; ?></td>
+  <td><?php echo $row['vehicle_no']; ?></td>
+  <td><?php echo $row['vehicle_type']; ?></td>
+  <td id="mytd">
+    <a href="#">
+      <button class="btn btn-danger delete" data-id="<?php echo $row['id']; ?>">
+        <i class="fa fa-trash"></i>
+      </button>
+    </a>
+    <button type="button" class="btn btn-primary edit" data-bs-toggle="modal" data-bs-target="#editModal" data-id="<?php echo $row['id']; ?>">
+      <i class="fa fa-edit"></i>
+    </button>
+    <a href="#">
+      <button class="btn btn-warning view" data-id="<?php echo $row['id']; ?>" data-bs-toggle="modal" data-bs-target="#viewModal">
+        <i class="fa fa-eye" aria-hidden="true"></i>
+      </button>
+
+
+  
+    </a>
+  </td>
+</tr>
+
+----display data 
+
+
+$select = "SELECT * FROM user";
+$result = mysqli_query($con_query, $select);
+
+while ($row = mysqli_fetch_assoc($result)) {
+?>
+  <tr>
+    <td><?php echo $row['id']; ?></td>
+    <td><?php echo $row['name']; ?></td>
+    <td><?php echo $row['username']; ?></td>
+    <td><?php echo $row['email']; ?></td>
+    <td><?php echo $row['password']; ?></td>
+    <td><?php echo $row['mobileno']; ?></td>
+    <td><?php echo $row['vehicle_no']; ?></td>
+    <td><?php echo $row['vehicle_type']; ?></td>
+    <td id="mytd">
+      <a href="#">
+        <button class="btn btn-danger delete" data-id="<?php echo $row['id']; ?>">
+          <i class="fa fa-trash"></i>
+        </button>
+      </a>
+      <button type="button" class="btn btn-primary edit" data-bs-toggle="modal" data-bs-target="#editModal" data-id="<?php echo $row['id']; ?>">
+        <i class="fa fa-edit"></i>
+      </button>
+      <a href="#">
+        <button class="btn btn-warning view" data-id="<?php echo $row['id']; ?>" data-bs-toggle="modal" data-bs-target="#viewModal">
+          <i class="fa fa-eye" aria-hidden="true"></i>
+        </button>
+
+
+    
+      </a>
+    </td>
+  </tr>
+<?php
+}
+?>
+
+
+
+
+
+"columnDefs": [{
+  "targets": 8,
+  "data": null,
+  "defaultContent": "<button class='btn btn-primary edit'  data-bs-toggle='modal' data-bs-target='#editModal'>Edit</button> <button class='btn btn-danger delete' data-id=''>Delete</button> <button class='btn btn-info view' data-id='' data-bs-toggle='modal' data-bs-target='#viewModal'>View</button>"  
+      }],
+
+
+
+      {
+        data: null,  
+        render: function(data, type, row) {
+         
+          return "<button class='btn btn-primary edit' id='edit' data-id='" + row.id + "' data-bs-toggle='modal' data-bs-target='#editModal'>Edit</button>" +
+                 "<button class='btn btn-danger delete' data-id='" + row.id + "'>Delete</button>" +
+                 "<button class='btn btn-info view' data-id='" + row.id + "' data-bs-toggle='modal' data-bs-target='#viewModal'>View</button>";
+        }
+      }

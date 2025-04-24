@@ -3,7 +3,8 @@ session_start();
 require_once 'config.php';
 
 
-if(isset($_POST['update'])){ 
+ echo json_encode("sfesf");
+ die();
    
     if (isset($_POST['id'])) {
         $id = trim($_POST['id']);
@@ -47,13 +48,34 @@ if(isset($_POST['update'])){
         $vehicle_type = '';
     }
 
-    if (empty($id) || empty($name) || empty($username) || empty($email) || empty($mobileno) || empty($vehicle_no) || empty($vehicle_type)) {
-      ?>
-        <script>
-            alert("Please fill all fields.");
-            window.location.href = "user_info.php";
-        </script>
-        <?php
+    $errors = [];
+
+    if (empty($id)) {
+        $errors['id'] = "ID is required.";
+    }
+    if (empty($name)) {
+        $errors['name'] = "Name is required.";
+    }
+    if (empty($username)) {
+        $errors['username'] = "Username is required.";
+    }
+    if (empty($email)) {
+        $errors['email'] = "Email is required.";
+    }
+    if (empty($mobileno)) {
+        $errors['mobileno'] = "Mobile number is required.";
+    }
+    if (empty($vehicle_no)) {
+        $errors['vehicle_no'] = "Vehicle number is required.";
+    }
+    if (empty($vehicle_type)) {
+        $errors['vehicle_type'] = "Vehicle type is required.";
+    }
+
+    if (!empty($errors)) {
+        $_SESSION['errors'] = $errors;
+        header("Location: user_info.php");
+        exit;
     }
    
  else{
@@ -64,15 +86,12 @@ if(isset($_POST['update'])){
         $_SESSION['update'] = "your data has been updated successfully";
         header("Location:user_info.php");
     }else{
-        echo "sdsdf";
-        die();
+       
         echo "<script>alert('Data Not Updated');</script>";
     }
 }
-}   
-else{
-    echo "<script>alert('Data Not Updated');</script>";
-}
+ 
+
  
  
  

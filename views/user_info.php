@@ -5,9 +5,10 @@
 
 
 <?php
-require_once 'config.php';
 session_start();
+require_once 'config.php';
 require_once '../layouts/header.php';
+
 require_once '../layouts/aside.php';
 ?>
 
@@ -30,14 +31,91 @@ require_once '../layouts/aside.php';
     justify-content: flex-end;
     margin-right: 10px;
   }
+
+  .error{
+    color:red;
+    font-size:18px;
+   
+  }
     
  
 </style>
 <div class="mb-3 btn_user">
-  <a href="../views/user/index.php"><button type="button" class="btn btn-success">
+  <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#newuser">
     <i class="fa fa-plus"></i>&nbsp; Add New User
-  </button></a>
+  </button> 
 </div>
+
+ 
+ 
+
+<!-- Modal -->
+<div class="modal fade" id="newuser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form  id="add_user">
+     <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <div class="mb-3">
+     
+            <label for="name_user" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name_user" name="firstname" placeholder = "Minimum 6 characters" >
+            <div id="name" class="error"></div>
+          </div>
+          <div class="mb-3">
+            <label for="username_user" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username_user" name="user_name" >
+            <div id="username" class="error"></div>
+        
+          </div>
+          <div class="mb-3">
+            <label for="email_user" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email_user" name="email_user" >
+            <div id="email_err" class="error"></div>
+         
+          </div>
+          <div class="mb-3">
+            <label for="password_user" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password_user" name="password_user" autocomplete="current-password"  >
+            <div id="password_err" class="error"></div>
+         
+          </div>
+          <div class="mb-3">
+            <label for="mobile_user" class="form-label">Mobile</label>
+            <input type="text" class="form-control" id="mobile_user" name="mobileno_user" placeholder="918596785748">
+            <div id="mobileno_err" class="error"></div>
+          
+          </div>
+          <div class="mb-3">
+            <label for="vehicle_no_user" class="form-label">Vehicle No</label>
+            <input type="text" class="form-control" id="vehicle_no_user" name="vehicle_no_user" placeholder="GJAD1234">
+        
+            <div id="vehicle_no_err" class="error"></div>
+            </div>
+          <div class="mb-3">
+            <label for="vehicle_type__user" class="form-label">Vehicle Type</label>
+            <select name="vehicle_type_user" id="vehicle_type_user" class="form-control" >
+              <option value="">Select Vehicle Type</option>
+              <option value="Car">Car</option>
+              <option value="Bike">Bike</option>
+              <option value="Bicycle">Bicycle</option>
+            </select>
+            <div id="vehicle_type_err" class="error"></div>
+
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <input type="submit" class="btn btn-primary" name="submit" value="Add User" id="add_user_btn">   
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
+
 <table id="myTable" class="table table-striped table-bordered" border="0" cellspacing="0" width="100%">
   <thead>
     <tr>
@@ -45,6 +123,7 @@ require_once '../layouts/aside.php';
       <th scope="col">Name</th>
       <th scope="col">Username</th>
       <th scope="col">Email</th>
+      <th scope="col">password</th>
       <th scope="col">Mobile No</th>
       <th scope="col">Vehicle No</th>
       <th scope="col">Vehicle Type</th>
@@ -67,55 +146,29 @@ require_once '../layouts/aside.php';
       </script>";
       unset($_SESSION['update']);
     }
+    
 
-    $select = "SELECT * FROM user";
-    $result = mysqli_query($con_query, $select);
-
-    while ($row = mysqli_fetch_assoc($result)) {
-    ?>
-      <tr>
-        <td><?php echo $row['id']; ?></td>
-        <td><?php echo $row['name']; ?></td>
-        <td><?php echo $row['username']; ?></td>
-        <td><?php echo $row['email']; ?></td>
-        <td><?php echo $row['mobileno']; ?></td>
-        <td><?php echo $row['vehicle_no']; ?></td>
-        <td><?php echo $row['vehicle_type']; ?></td>
-        <td id="mytd">
-          <a href="#">
-            <button class="btn btn-danger delete" data-id="<?php echo $row['id']; ?>">
-              <i class="fa fa-trash"></i>
-            </button>
-          </a>
-          <button type="button" class="btn btn-primary edit" data-bs-toggle="modal" data-bs-target="#editModal" data-id="<?php echo $row['id']; ?>">
-            <i class="fa fa-edit"></i>
-          </button>
-          <a href="#">
-            <button class="btn btn-warning view" data-id="<?php echo $row['id']; ?>" data-bs-toggle="modal" data-bs-target="#viewModal">
-              <i class="fa fa-eye" aria-hidden="true"></i>
-            </button>
-          </a>
-        </td>
-      </tr>
-    <?php
-    }
-    ?>
+?>
+ 
   </tbody>
 </table>
 
 <script>
   $(document).ready(function() {
-    $(".edit").click(function() {
+    $(document).on("click", ".edit", function() {
       var userId = $(this).data("id");
+    
       $.ajax({
         url: 'fetch_data.php',
         type: 'POST',
         data: { id: userId },
         success: function(response) {
+        
           var userDetails = JSON.parse(response);
           $("#myid").val(userDetails.id);
-          $("#name").val(userDetails.name);
-          $("#username").val(userDetails.username);
+          
+          $("#e_name").val(userDetails.name);
+          $("#e_username").val(userDetails.username);
           $("#email").val(userDetails.email);
           $("#mobile").val(userDetails.mobileno);
           $("#vehicle_no").val(userDetails.vehicle_no);
@@ -127,7 +180,7 @@ require_once '../layouts/aside.php';
       });
     });
 
-    $(".view").click(function() {
+    $(document).on("click",".view",function() {
       var userId = $(this).data("id");
       $.ajax({
         url: 'fetch_user_details.php',
@@ -148,7 +201,7 @@ require_once '../layouts/aside.php';
       });
     });
 
-    $(".delete").click(function(e) {
+    $(document).on("click",".delete",function(e) {
       e.preventDefault();
       let userId = $(this).data("id");
       Swal.fire({
@@ -165,8 +218,38 @@ require_once '../layouts/aside.php';
         }
       });
     });
+    $('#myTable').DataTable({
+    processing : true,
+    serverSide: true,
+    ajax: 'display.php',
+       columns : [
+        {data : 'id'},
+        {data : 'name'},
+        {data : 'username'},
+        {data : 'email'},
+        {data : 'password'},
+        {data : 'mobileno'},
+        {data : 'vehicle_no'},
+        {data : 'vehicle_type'},
+         {
+      data: null,
+      orderable: false,
+      searchable: false,
+      render: function (data, type, row) {
+        return `
+          <button class="btn btn-primary edit" data-id="${row.id}" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
+          <button class="btn btn-danger delete" data-id="${row.id}">Delete</button>
+          <button class="btn btn-info view" data-id="${row.id}" data-bs-toggle="modal" data-bs-target="#viewModal">View</button>
+        `;
+      }
+    }
+      ],
+      
+       
 
-    $('#myTable').DataTable();
+
+  });
+  
   });
 </script>
 
@@ -199,10 +282,10 @@ require_once '../layouts/aside.php';
   </div>
 </div>
 
-<!-- Edit Modal -->
+ 
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <form action="update.php" method="POST" id="editForm">
+    <form  method="POST" id="editForm">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="editModalLabel">Edit User</h5>
@@ -212,23 +295,32 @@ require_once '../layouts/aside.php';
           <input type="hidden" name="id" id="myid">
           <div class="mb-3">
             <label for="name" class="form-label">Name</label>
-            <input type="text" class="form-control" id="name" name="name" required>
+            <input type="text" class="form-control" id="e_name" name="name"  >
+         <div id="name_er" class="error"></div>
           </div>
           <div class="mb-3">
             <label for="username" class="form-label">Username</label>
-            <input type="text" class="form-control" id="username" name="username" required>
+            <input type="text" class="form-control" id="e_username" name="username" required>
+         <div id="username_er" class="error"></div>
+            
           </div>
           <div class="mb-3">
             <label for="email" class="form-label">Email</label>
             <input type="email" class="form-control" id="email" name="email" required>
+         <div id="email_er" class="error"></div>
+          
           </div>
           <div class="mb-3">
             <label for="mobile" class="form-label">Mobile</label>
             <input type="text" class="form-control" id="mobile" name="mobileno" required>
+            <div id="mobile_er" class="error"></div>
+       
           </div>
           <div class="mb-3">
             <label for="vehicle_no" class="form-label">Vehicle No</label>
             <input type="text" class="form-control" id="vehicle_no" name="vehicle_no" required>
+            <div id="vehicle_no_er" class="error"></div>
+
           </div>
           <div class="mb-3">
             <label for="vehicle_type" class="form-label">Vehicle Type</label>
@@ -238,19 +330,18 @@ require_once '../layouts/aside.php';
               <option value="Bike">Bike</option>
               <option value="Bicycle">Bicycle</option>
             </select>
+            <div id="vehicle_type_er" class="error"></div>
+
           </div>
         
-        <!-- <div class="modal-footer">
-        
-            <input type="text" class="form-control" id="mobile" name="mobileno" required>
-          </div> -->
+       
         
           </div>
           <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <input type="submit" class="btn btn-primary" name="update"> 
+          <input type="submit" class="btn btn-primary" name="update" id="update_user"> 
         </div>
-        </div>
+        
        
       </div>
     </form>
@@ -259,11 +350,7 @@ require_once '../layouts/aside.php';
 
 
 
-<script>
-  $(document).ready( function () {
-    $('#myTable').DataTable();
-  });
-</script>
+ 
  
 <script>
     $(".delete").click(function(e) {
@@ -296,6 +383,165 @@ Swal.fire({
    });
     });   
 </script> -->
+<script>
+  $(document).ready(function(){
+    $("#add_user_btn").click(function(e){
+      e.preventDefault()
+      var form = document.getElementById('add_user');
+      var formData = new FormData(form);
+      formData.append("action", "user_insert");
+      $.ajax({
+        url : "user/add_user.php",
+        type : "POST",
+        dataType: "json",
+
+        data : formData,
+        processData: false,
+        contentType: false,
+        success : function(data){
+      if(data.status == 200){
+      //   Swal.fire({
+      //   title: "Drag me!",
+      //   icon: "success",
+      //   draggable: true
+      // });
+      $('#newuser'). modal('hide'); 
+      location.reload();
+        // $("#newuser").hide();
+ 
+       
+        // $")
+      }
+      else{
+        if(data.errors.name){
+          $("#name").text(data.errors.name);
+        }
+        else{
+         
+          $("#name").text("");
+        }
+        if(data.errors.username){
+          $("#username").text(data.errors.username);
+        }
+        else{
+         
+         $("#username").text("");
+       }
+        if(data.errors.email){
+          $("#email_err").text(data.errors.email);
+        }
+        else{
+         $("#email_err").text("");
+
+        }
+        if(data.errors.password){
+          $("#password_err").text(data.errors.password);
+        }
+        else{
+          $("#password_err").text("");
+  
+        }
+        if(data.errors.mobileno){
+          $("#mobileno_err").text(data.errors.mobileno);
+        }
+        else{
+         
+         $("#mobileno_err").text("");
+       }
+        if(data.errors.vehicle_no){
+          $("#vehicle_no_err").text(data.errors.vehicle_no);
+        }
+        else{
+         
+         $("#vehicle_no_err").text("");
+       }
+        if(data.errors.vehicle_type){
+          $("#vehicle_type_err").text(data.errors.vehicle_type);
+        }
+        else{
+          $("#vehicle_type_err").text("");
+        } 
+      }    
+      }
+     }); 
+    });
+  });
+
+
+
+</script>
+
+<script>
+ 
+
+  $("#update_user").click(function(e){
+    e.preventDefault();
+    var editform = document.getElementById('editForm');
+    
+    var formdata = new FormData(editform);
+    formdata.append("action","update_user");
+  $.ajax({
+   url : "user/add_user.php",
+   type : "POST",
+   dataType: "json",
+   data : formdata,
+   processData: false,
+   contentType: false,
+    success : function(res){
+    if(res.code == 200){
+    //  $("#editModal").hide();  
+     $('#editModal'). modal('hide'); 
+ 
+          location.reload();
+    }
+    else{
+      // alert(res.errors.email);
+        
+    if(res.errors.name){
+      $("#name_er").text(res.errors.name);
+    }
+    else{
+      $("#name_er").text("");
+    }
+    if(res.errors.username){
+      $("#username_er").text(res.errors.username);
+    }  
+    else{
+      $("#username_er").text("");
+    } 
+     if(res.errors.email){
+      $("#email_er").text(res.errors.email);
+    }  
+    else{
+      $("#email_er").text("");
+    }
+      if(res.errors.mobileno){
+      $("#mobile_er").text(res.errors.mobileno);
+    }
+    else{
+      $("#mobile_er").text("");
+    }
+    if(res.errors.vehicle_no){
+      $("#vehicle_no_er").text(res.errors.vehicle_no);
+    }
+    else{
+      $("#vehicle_no_er").text("");
+    }
+    if(res.errors.vehicle_type){
+      $("#vehicle_type_er").text(res.errors.vehicle_type);
+    }
+    else{
+      $("#vehicle_type_er").text("");
+    }
+
+    }
+   }
+ 
+  });
+
+});
+ 
+</script>
 
 <?php
 require_once '../layouts/footer.php';

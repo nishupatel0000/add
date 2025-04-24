@@ -300,7 +300,8 @@ elseif (!preg_match("/(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a
  
 
 <?php
- 
+ session_unset();
+ session_destroy();
 
 ?>
 

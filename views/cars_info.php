@@ -1,9 +1,10 @@
 <?php
-require_once 'config.php';
 session_start();
+require_once 'config.php';
 require_once '../layouts/header.php';
-require_once '../layouts/aside.php';  
 
+require_once '../layouts/aside.php';  
+ 
 
    
 ?> 
