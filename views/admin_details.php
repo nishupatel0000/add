@@ -99,24 +99,110 @@
 <body>
 
 <div class="container">
-    <h1> Add Data</h1>
+    <h1 class="text-center mb-5">Add Data</h1>
 
-    <form id="add_user" enctype="multipart/form-data">
-     
-        <label for="title">Title</label>
-        <input type="text" name="title"     placeholder="Enter the title of food" /> 
-        <label for="content">Content / Description</label>
-        <textarea name="description"   placeholder="Enter the content or description"></textarea>
-        <input type="file" name="image" id="image">
-       
+    <!-- Section for Adding Food Data -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h2 class="h5 mb-0">Food Data</h2>
+        </div>
+        <div class="card-body">
+            <form id="add_user" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" name="title" class="form-control" placeholder="Enter the title of food">
+                </div>
+                <div class="mb-3">
+                    <label for="content" class="form-label">Content / Description</label>
+                    <textarea name="description" class="form-control" placeholder="Enter the content or description"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Image</label>
+                    <input type="file" name="image" class="form-control">
+                </div>
+            </form>
+        </div>
+    </div>
 
-        <!-- Submit Button -->
-       <input type="submit" class="btn btn-primary" value="Add" id="add" name="submit">
-     
-    </form>
+    <!-- Section for Adding About Information -->
+    <div class="card mb-4">
+        <div class="card-header bg-success text-white">
+            <h2 class="h5 mb-0">About Information</h2>
+        </div>
+        <div class="card-body">
+            <form id="add_about" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="atitle" class="form-label">Title</label>
+                    <input type="text" name="about_title" id="atitle" class="form-control" placeholder="Enter the title">
+                </div>
+                <div class="mb-3">
+                    <label for="content" class="form-label">Content / Description</label>
+                    <textarea name="about_description" id="content" class="form-control" placeholder="Enter the content or description"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Image</label>
+                    <input type="file" name="about_image" class="form-control">
+                </div>
+            </form>
+        </div>
+    </div>
 
+    <!-- Section for Adding Categories -->
+    <div class="card mb-4">
+        <div class="card-header bg-warning text-dark">
+            <h2 class="h5 mb-0">Categories</h2>
+        </div>
+        <div class="card-body">
+            <form id="add_categories" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="cat_title" class="form-label">Title</label>
+                    <input type="text" name="category_title" id="cat_title" class="form-control" placeholder="Enter the title">
+                </div>
+                <div class="mb-3">
+                    <label for="des" class="form-label">Content / Description</label>
+                    <textarea name="category_description" id="des" class="form-control" placeholder="Enter the content or description"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="price" class="form-label">Price</label>
+                    <input type="text" name="category_price" id="price" class="form-control" placeholder="Enter the price">
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Image</label>
+                    <input type="file" name="category_image" class="form-control">
+                </div>
+            </form>
+        </div>
+    </div>
 
-    
+    <!-- Section for Adding Testimonials -->
+    <div class="card mb-4">
+        <div class="card-header bg-info text-white">
+            <h2 class="h5 mb-0">Testimonials</h2>
+        </div>
+        <div class="card-body">
+            <form id="testimonial" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="content" class="form-label">Description</label>
+                    <textarea name="testimonial_description" id="content" class="form-control" placeholder="Enter description"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" name="testimonial_username" id="username" class="form-control" placeholder="Enter Username">
+                </div>
+                <div class="mb-3">
+                    <label for="designation" class="form-label">Designation</label>
+                    <input type="text" name="testimonial_designation" id="designation" class="form-control" placeholder="Enter designation">
+                </div>
+                <div class="mb-3">
+                    <label for="rating" class="form-label">Rating</label>
+                    <input type="text" name="testimonial_rating" id="rating" class="form-control" placeholder="Enter rating">
+                </div>
+                <div class="text-center">
+                    <input type="submit" class="btn btn-primary btn-lg" value="Add" id="add" name="submit">
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
  
@@ -126,14 +212,21 @@
   
     $("#add").click( function(e) {
         e.preventDefault()
-      var form = document.getElementById('add_user');
-      var formdata = new FormData(form);
- 
-      $.ajax({
+    //   var form = document.getElementById('add_user');
+    //   var formdata = new FormData(form);
+    let formData = new FormData();
+    let forms = ['add_user', 'add_about', 'add_categories', 'testimonial'];
+    forms.forEach(id => {
+        let currentForm = new FormData(document.getElementById(id));
+        for (let [key, value] of currentForm.entries()) {
+            formData.append(key, value);
+        }
+    });
+    $.ajax({
         url: 'data-submit.php',
         type: 'POST',
         dataType: "json",
-        data: formdata,
+        data: formData,
         processData: false,
         contentType: false,
         success: function(data) {
