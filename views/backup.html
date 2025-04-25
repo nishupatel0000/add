@@ -266,3 +266,13 @@ while ($row = mysqli_fetch_assoc($result)) {
                  "<button class='btn btn-info view' data-id='" + row.id + "' data-bs-toggle='modal' data-bs-target='#viewModal'>View</button>";
         }
       }
+
+
+      if($result){
+        $data = [
+          'respone' => "successfully inserted"
+        ];
+        header('location: ../data_display/index.html');
+        // echo json_encode($data);
+      
+      }
