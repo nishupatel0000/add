@@ -215,6 +215,7 @@
     //   var form = document.getElementById('add_user');
     //   var formdata = new FormData(form);
     let formData = new FormData();
+    formData.append("action", "user_insert");
     let forms = ['add_user', 'add_about', 'add_categories', 'testimonial'];
     forms.forEach(id => {
         let currentForm = new FormData(document.getElementById(id));
