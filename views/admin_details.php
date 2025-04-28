@@ -78,6 +78,11 @@
             background-color: #f1f1f1;
             margin-top: 30px;
         }
+        .error{
+        color:red;
+        font-size:18px;
+    
+        }
 
         /* Make the form responsive */
         @media screen and (max-width: 768px) {
@@ -111,14 +116,19 @@
                 <div class="mb-3">
                     <label for="title" class="form-label">Title</label>
                     <input type="text" name="title" class="form-control" placeholder="Enter the title of food">
+                    <div id="title_err" class="error"></div>
+              
                 </div>
                 <div class="mb-3">
                     <label for="content" class="form-label">Content / Description</label>
                     <textarea name="description" class="form-control" placeholder="Enter the content or description"></textarea>
+                    <div id="description_err" class="error"></div>
                 </div>
                 <div class="mb-3">
                     <label for="image" class="form-label">Image</label>
                     <input type="file" name="image" class="form-control">
+                    <div id="image_err" class="error"></div>
+                  
                 </div>
             </form>
         </div>
@@ -134,14 +144,20 @@
                 <div class="mb-3">
                     <label for="atitle" class="form-label">Title</label>
                     <input type="text" name="about_title" id="atitle" class="form-control" placeholder="Enter the title">
+                    <div id="about_title_err" class="error"></div>
+
                 </div>
                 <div class="mb-3">
                     <label for="content" class="form-label">Content / Description</label>
                     <textarea name="about_description" id="content" class="form-control" placeholder="Enter the content or description"></textarea>
+                    <div id="about_description_err" class="error"></div>
+
                 </div>
                 <div class="mb-3">
                     <label for="image" class="form-label">Image</label>
                     <input type="file" name="about_image" class="form-control">
+               
+                    <div id="about_image_err" class="error"></div>
                 </div>
             </form>
         </div>
@@ -157,18 +173,26 @@
                 <div class="mb-3">
                     <label for="cat_title" class="form-label">Title</label>
                     <input type="text" name="category_title" id="cat_title" class="form-control" placeholder="Enter the title">
+                    <div id="category_title_err" class="error"></div>
+
                 </div>
                 <div class="mb-3">
                     <label for="des" class="form-label">Content / Description</label>
                     <textarea name="category_description" id="des" class="form-control" placeholder="Enter the content or description"></textarea>
+                    <div id="category_description_err" class="error"></div>
+                   
+                   
                 </div>
                 <div class="mb-3">
                     <label for="price" class="form-label">Price</label>
                     <input type="text" name="category_price" id="price" class="form-control" placeholder="Enter the price">
+                 
+                    <div id="category_price_err" class="error"></div>
                 </div>
                 <div class="mb-3">
                     <label for="image" class="form-label">Image</label>
                     <input type="file" name="category_image" class="form-control">
+                    <div id="category_image_err" class="error"></div>
                 </div>
             </form>
         </div>
@@ -184,18 +208,32 @@
                 <div class="mb-3">
                     <label for="content" class="form-label">Description</label>
                     <textarea name="testimonial_description" id="content" class="form-control" placeholder="Enter description"></textarea>
+                    <div id="testimonial_description_err" class="error"></div>
                 </div>
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
                     <input type="text" name="testimonial_username" id="username" class="form-control" placeholder="Enter Username">
+                    <div id="testimonial_username_err" class="error"></div>
                 </div>
                 <div class="mb-3">
                     <label for="designation" class="form-label">Designation</label>
                     <input type="text" name="testimonial_designation" id="designation" class="form-control" placeholder="Enter designation">
+                    <div id="testimonial_designation_err" class="error"></div>
+
                 </div>
                 <div class="mb-3">
                     <label for="rating" class="form-label">Rating</label>
                     <input type="text" name="testimonial_rating" id="rating" class="form-control" placeholder="Enter rating">
+                    <div id="testimonial_rating_err" class="error"></div>
+
+                </div>
+
+                <div class="mb-3">
+                    <label for="image" class="form-label">Image</label>
+                    <input type="file" name="testimonial_image" id="image" class="form-control"  >
+                    <div id="testimonial_image_err" class="error"></div>
+                    <div class="mb-3"> 
+                </div>
                 </div>
                 <div class="text-center">
                     <input type="submit" class="btn btn-primary btn-lg" value="Add" id="add" name="submit">
@@ -211,7 +249,7 @@
 <script>
   
     $("#add").click( function(e) {
-        e.preventDefault()
+        e.preventDefault();
     //   var form = document.getElementById('add_user');
     //   var formdata = new FormData(form);
     let formData = new FormData();
@@ -231,11 +269,125 @@
         processData: false,
         contentType: false,
         success: function(data) {
-        //  alert(data.respone);
-        window.location.href = '../data_display/index.php'
+            if(data.status == 200){
+            window.location.href = '../data_display/index.php'
+            }
+            else{
+                if(data.errors.title)
+                {
+                $("#title_err").text(data.errors.title);
+                }
+                else{
+                $("#title_err").text("");
+                }   
+                if(data.errors.description)
+                {
+                $("#description_err").text(data.errors.description);
+                }
+                else{
+                $("#description_err").text("");
+                }  
+                if(data.errors.image)
+                {
+                $("#image_err").text(data.errors.image);
+                }
+                else{
+                $("#image_err").text("");
+                }  
 
-        }
-       
+                if(data.errors.about_title)
+                {
+                $("#about_title_err").text(data.errors.about_title);
+                }
+                else{
+                $("#about_title_err").text("");
+                }  
+                if(data.errors.about_description)
+                {
+                $("#about_description_err").text(data.errors.about_description);
+                }
+                else{
+                $("#about_description_err").text("");
+                }   
+                if(data.errors.about_image)
+                {
+                $("#about_image_err").text(data.errors.about_image);
+                }
+                else{
+                $("#about_image_err").text("");
+                }   
+                if(data.errors.category_title)
+                {
+                $("#category_title_err").text(data.errors.category_title);
+                }
+                else{
+                $("#category_title_err").text("");
+                }   
+                if(data.errors.category_description)
+                {
+                $("#category_description_err").text(data.errors.category_description);
+                }
+                else{
+                $("#category_description_err").text("");
+                }  
+                if(data.errors.category_price)
+                {
+                $("#category_price_err").text(data.errors.category_description);
+                }
+                else{
+                $("#category_price_err").text("");
+                }  
+                if(data.errors.category_image)
+                {
+                $("#category_image_err").text(data.errors.category_image);
+                }
+                else{
+                $("#category_image_err").text("");
+                }  
+
+                if(data.errors.testimonial_description)
+                {
+                $("#testimonial_description_err").text(data.errors.testimonial_description);
+                }
+                else{
+                $("#testimonial_description_err").text("");
+
+                } 
+                
+                if(data.errors.testimonial_username)
+                {
+                $("#testimonial_username_err").text(data.errors.testimonial_username);
+                }
+                else{
+                $("#testimonial_username_err").text("");
+
+                }
+                if(data.errors.testimonial_designation)
+                {
+                $("#testimonial_designation_err").text(data.errors.testimonial_designation);
+                }
+                else{
+                $("#testimonial_designation_err").text(""); 
+                }
+
+                if(data.errors.testimonial_image)
+                {
+                $("#testimonial_image_err").text(data.errors.testimonial_image);
+                }
+                else{
+                $("#testimonial_image_err").text(""); 
+                }
+
+                
+                if(data.errors.testimonial_rating)
+                {
+                $("#testimonial_rating_err").text(data.errors.testimonial_rating);
+                }
+                else{
+                $("#testimonial_rating_err").text("");
+                }  
+            }  
+        } 
       });
     });
  

@@ -613,7 +613,7 @@ while($data=mysqli_fetch_assoc($result)){
 
     </section><!-- /Menu Section -->
 
-    <!-- Testimonials Section -->
+ 
     <section id="testimonials" class="testimonials section light-background">
 
       <!-- Section Title -->
