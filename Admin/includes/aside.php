@@ -31,11 +31,11 @@
           data-accordion="false"
         >
           <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon bi bi-person-fill"></i>
+            <a href="dashboard.php" class="nav-link active">
+              <i class="nav-icon bi bi-palette"></i>
               <p>
-              Admin  Dashboard
-                <i class="nav-arrow bi bi-chevron-right"></i>
+     Dashboard
+                <!-- <i class="nav-arrow bi bi-chevron-right"></i> -->
               
               </p>
             </a>
@@ -72,7 +72,7 @@
                   </li>
                   <li class="nav-item has-treeview menu-open">
     <a href="#" class="nav-link">
-        <i class="nav-icon fas fa-users"></i>
+        <i class="nav-icon bi bi-book"></i>
         <p>
             Static Page
             <i class="nav-arrow bi bi-chevron-right"></i>
@@ -87,45 +87,9 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href=" " class="nav-link">
-                <i class="nav-icon fa fa-flag"></i>
-                <p>Community Guidelines</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href=" " class="nav-link">
-                <i class="nav-icon fa fa-info"></i>
-                <p>About Us</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href=" " class="nav-link">
-                <i class="nav-icon fa fa-book"></i>
-                <p>Terms and Conditions</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href=" " class="nav-link">
-                <i class="nav-icon fa fa-lock"></i>
-                <p>Privacy Policy</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href=" " class="nav-link">
-                <i class="nav-icon fas fa-window-close"></i>
-                <p>Cancellation Policy</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href=" " class="nav-link">
-                <i class="nav-icon fas fa-money-bill-alt"></i>
-                <p>Payment Details</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="" class="nav-link">
-                <i class="nav-icon fa fa-bolt"></i>
-                <p>Royalty Point Info</p>
+            <a href="#" class="nav-link">
+                <i class="nav-icon fa fa-eye-alt"></i>
+                <p></p>
             </a>
         </li>
     </ul>

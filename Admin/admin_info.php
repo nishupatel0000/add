@@ -27,9 +27,7 @@ require_once "../common/config.php";
   </div>
 </div>
 
-          
- 
- 
+   
    
         <div class="app-content">
          

@@ -1,6 +1,6 @@
 <?php
-require_once '../common/config.php';
 session_start();
+require_once '../common/config.php';
 require_once 'includes/header.php';
 require_once 'includes/aside.php';  
 
@@ -48,6 +48,7 @@ require_once 'includes/aside.php';
       <th scope="col">Designation</th>
       <th scope="col">Description</th>
       <th scope="col">Image</th>
+      <th scope="col">Operation</th>
     
       
 
@@ -66,7 +67,9 @@ require_once 'includes/aside.php';
         <td><?php echo $row['designation']; ?></td>
         <td><?php echo $row['description']; ?></td>
         <td><img src="../../foodflow/user/assets/image/<?php echo $row['image']; ?>" width="300px" height="250px"></td>
-        
+        <td id="mytd">  
+             <a href="#"><button class="btn  btn-danger delete_btn" data-id="<?php echo $row['id']; ?>"><i class="fa fa-trash"></i></button></a>
+                 </td>
          
         
       </tr>
@@ -85,6 +88,33 @@ require_once 'includes/aside.php';
     </div>
   </div>
 </div>
+<script>
+  $(".delete_btn").click(function(){
+   var id = $(this).data("id");
+   Swal.fire({
+    title: "Are you sure?",
+    text: "Do You Want to delete this record? !",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "Yes, delete it!"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire("Delete Successfully!", "", "success");
+  $.ajax({
+    url : "category_data.php",
+    type : "POST",
+    data : {"action" : "chef_delete" , "id" : id},
+    success : function(data){
+      // alert(data);
+    }
+  });
+    }
+  });
+ 
+  });
+</script>
 <?php   
 require_once 'includes/footer.php';
  
