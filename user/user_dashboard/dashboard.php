@@ -1,12 +1,18 @@
 <?php
+<<<<<<< HEAD
 session_start();
+=======
+>>>>>>> 6320afb0230e0e9bd1c59da62d2dae9deff1ed4a
 
 require_once '../../common/config.php';
 $select_home = "select * from hom_about LIMIT 1";
 $result = mysqli_query($con_query,$select_home);
 $row = mysqli_num_rows($result);
 while($data=mysqli_fetch_assoc($result)){ 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6320afb0230e0e9bd1c59da62d2dae9deff1ed4a
 ?>
 
 <!DOCTYPE html>
@@ -37,8 +43,11 @@ while($data=mysqli_fetch_assoc($result)){
 
   <!-- Main CSS File -->
   <link href="../user_dashboard/assets/css/main.css" rel="stylesheet">
+<<<<<<< HEAD
   <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+=======
+>>>>>>> 6320afb0230e0e9bd1c59da62d2dae9deff1ed4a
 
   <!-- =======================================================
   * Template Name: Yummy
@@ -84,11 +93,15 @@ while($data=mysqli_fetch_assoc($result)){
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 
+<<<<<<< HEAD
       <!-- <a class="btn-getstarted" href="index.html#book-a-table">Book a Table</a> -->
       <a href="#" class="btn btn-danger d-flex align-items-center gap-2" id="logoutbtn" title="Logout">
   <i class="bi bi-box-arrow-right"></i>
  
 </a>
+=======
+      <a class="btn-getstarted" href="index.html#book-a-table">Book a Table</a>
+>>>>>>> 6320afb0230e0e9bd1c59da62d2dae9deff1ed4a
 
     </div>
   </header>
@@ -936,7 +949,11 @@ while($data=mysqli_fetch_assoc($result)){
 
   <!-- Preloader -->
   <div id="preloader"></div>
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> 6320afb0230e0e9bd1c59da62d2dae9deff1ed4a
   <!-- Vendor JS Files -->
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
@@ -949,6 +966,7 @@ while($data=mysqli_fetch_assoc($result)){
   <script src="assets/js/main.js"></script>
 
 </body>
+<<<<<<< HEAD
 <script>
 
   $("#logoutbtn").click(function(e){
@@ -970,5 +988,7 @@ e.preventDefault();
     });
   });
 </script>
+=======
+>>>>>>> 6320afb0230e0e9bd1c59da62d2dae9deff1ed4a
 
 </html>

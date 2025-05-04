@@ -1,7 +1,10 @@
 <?php
+<<<<<<< HEAD
  session_start();
 
 
+=======
+>>>>>>> 6320afb0230e0e9bd1c59da62d2dae9deff1ed4a
 require_once '../common/config.php';
 
 
@@ -14,7 +17,10 @@ if ($_POST['action'] == "login") {
         $error['email'] = "* Email is required";
     } else {
         $email = $_POST['email'];
+<<<<<<< HEAD
         
+=======
+>>>>>>> 6320afb0230e0e9bd1c59da62d2dae9deff1ed4a
     }
     // $pattern = "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/";
     if (empty($_POST['password'])) {
@@ -47,7 +53,11 @@ if ($_POST['action'] == "login") {
         $data = mysqli_fetch_assoc($res);
         $old_email = $data['email'];
         $old_password = $data['password'];
+<<<<<<< HEAD
         $_SESSION['email'] = $data['email'];
+=======
+
+>>>>>>> 6320afb0230e0e9bd1c59da62d2dae9deff1ed4a
         if ($email == $old_email && $password == $old_password) {
             $result = [
                 "code" => 200,

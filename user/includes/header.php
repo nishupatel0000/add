@@ -29,12 +29,16 @@
 	<link href="css/styles.css" rel="stylesheet"> 
 	<!-- Favicon  -->
     <link rel="icon" href="image/favicon.png">
+<<<<<<< HEAD
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 </head>
+=======
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+>>>>>>> 6320afb0230e0e9bd1c59da62d2dae9deff1ed4a
 
 </head>
 
