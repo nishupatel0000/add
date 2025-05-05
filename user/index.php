@@ -130,7 +130,7 @@
             dataType : "json",
             success : function(data){
                if(data.code==200){
-                alert(data.msg);
+                window.location.href = "log-in.php";
                }
                else{
 

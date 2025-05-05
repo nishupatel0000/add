@@ -1,5 +1,4 @@
 <?php 
-<<<<<<< HEAD
 session_start();
 
 // if (isset($_SESSION['logout_msg'])) {
@@ -7,8 +6,6 @@ session_start();
 //     unset($_SESSION['logout_msg']); // Remove it after showing
 // }
  
-=======
->>>>>>> 6320afb0230e0e9bd1c59da62d2dae9deff1ed4a
 require_once '../common/config.php';
 
 
@@ -19,7 +16,6 @@ require_once '../common/config.php';
     <!-- end of navbar -->
     <!-- end of navigation -->
      <style>
-<<<<<<< HEAD
 
           /* Toast styles */
     .toasts {
@@ -98,8 +94,6 @@ require_once '../common/config.php';
       from { opacity: 1; transform: translateX(0); }
       to { opacity: 0; transform: translateX(100%); }
     }
-=======
->>>>>>> 6320afb0230e0e9bd1c59da62d2dae9deff1ed4a
     .error{
     color:red;
     font-size:18px;
@@ -128,7 +122,6 @@ require_once '../common/config.php';
       }
  
 </style>
-<<<<<<< HEAD
 <div class="toasts">
   <!-- Master Toast Template -->
   <div class="toast-notification master-toast-notification hide-toast">
@@ -144,8 +137,6 @@ require_once '../common/config.php';
   </div>
 </div>
 
-=======
->>>>>>> 6320afb0230e0e9bd1c59da62d2dae9deff1ed4a
     <!-- Header -->
     <header id="header" class="ex-2-header">
         <div class="container">
@@ -252,7 +243,6 @@ require_once '../common/config.php';
           }
       });
   </script>
-<<<<<<< HEAD
   
 <!-- Toast function -->
 <script>
@@ -287,8 +277,6 @@ function displayToastNotification(msg, iconClass, iconBgColor, animationClass) {
 </script>
 <?php unset($_SESSION['logout_msg']); ?>
 <?php endif; ?>
-=======
->>>>>>> 6320afb0230e0e9bd1c59da62d2dae9deff1ed4a
     <!-- Scripts -->
     <?php  include_once 'includes/footer.php'; ?>
   
