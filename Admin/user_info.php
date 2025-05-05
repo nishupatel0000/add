@@ -65,12 +65,7 @@ require_once 'includes/aside.php';
             <input type="text" class="form-control" id="name_user" name="firstname" placeholder = "Minimum 6 characters" >
             <div id="name" class="error"></div>
           </div>
-          <div class="mb-3">
-            <label for="username_user" class="form-label">Username</label>
-            <input type="text" class="form-control" id="username_user" name="user_name" >
-            <div id="username" class="error"></div>
-        
-          </div>
+          
           <div class="mb-3">
             <label for="email_user" class="form-label">Email</label>
             <input type="email" class="form-control" id="email_user" name="email_user" >
@@ -89,31 +84,9 @@ require_once 'includes/aside.php';
             <div id="mobileno_err" class="error"></div>
           
           </div>
-          <div class="mb-3">
-            <label for="vehicle_no_user" class="form-label">Vehicle No</label>
-            <input type="text" class="form-control" id="vehicle_no_user" name="vehicle_no_user" placeholder="GJAD1234">
         
-            <div id="vehicle_no_err" class="error"></div>
-            </div>
-          <div class="mb-3">
-            <label for="vehicle_type__user" class="form-label">Vehicle Type</label>
-            <select name="vehicle_type_user" id="vehicle_type_user" class="form-control" >
-              <option value="">Select Vehicle Type</option>
-              <option value="Car">Car</option>
-              <option value="Bike">Bike</option>
-              <option value="Bicycle">Bicycle</option>
-            </select>
-            <div id="vehicle_type_err" class="error"></div>
-
-          </div>
-        <select name="vehicle_time" id="vehicle_time" class="form-control">
-          <option value="">Select time</option>
-          <option value="15 minutues">0 to 15 Mintues</option>
-          <option value="15 minutues">15 to 30 Mintues</option>
-          <option value="15 minutues">30 to 45 Mintues</option>
-          <option value="15 minutues">45 to 60 Mintues</option>   
-
-        </select>
+ 
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -129,11 +102,10 @@ require_once 'includes/aside.php';
     <tr>
       <th scope="col">Id</th>
       <th scope="col">Name</th>
-      <th scope="col">Username</th>
+   
       <th scope="col">Email</th>
       <th scope="col">Mobile No</th>
-      <th scope="col">Vehicle No</th>
-      <th scope="col">Vehicle Type</th>
+     
       <th scope="col">Operation</th>
     </tr>
   </thead>
@@ -232,12 +204,12 @@ require_once 'includes/aside.php';
        columns : [
         {data : 'id'},
         {data : 'name'},
-        {data : 'username'},
         {data : 'email'},
+        
+
      
         {data : 'mobileno'},
-        {data : 'vehicle_no'},
-        {data : 'vehicle_type'},
+        
          {
       data: null,
       orderable: false,
@@ -273,11 +245,8 @@ require_once 'includes/aside.php';
           <div class="row">
             <div class="col-sm">
               <p><strong>Name:</strong> <span id="modal-user-name"></span></p>
-              <p><strong>Username:</strong> <span id="modal-user-username"></span></p>
               <p><strong>Email:</strong> <span id="modal-user-email"></span></p>
               <p><strong>Mobile No:</strong> <span id="modal-user-mobile"></span></p>
-              <p><strong>Vehicle No:</strong> <span id="modal-user-vehicle_no"></span></p>
-              <p><strong>Vehicle Type:</strong> <span id="modal-user-vehicle_type"></span></p>
             </div>
           </div>
         </div>
@@ -306,8 +275,7 @@ require_once 'includes/aside.php';
          <div id="name_er" class="error"></div>
           </div>
           <div class="mb-3">
-            <label for="username" class="form-label">Username</label>
-            <input type="text" class="form-control" id="e_username" name="username" required>
+             
          <div id="username_er" class="error"></div>
             
           </div>
@@ -323,23 +291,8 @@ require_once 'includes/aside.php';
             <div id="mobile_er" class="error"></div>
        
           </div>
-          <div class="mb-3">
-            <label for="vehicle_no" class="form-label">Vehicle No</label>
-            <input type="text" class="form-control" id="vehicle_no" name="vehicle_no" required>
-            <div id="vehicle_no_er" class="error"></div>
-
-          </div>
-          <div class="mb-3">
-            <label for="vehicle_type" class="form-label">Vehicle Type</label>
-            <select name="vehicle_type" id="vehicle_type" class="form-control" required>
-              <option value="">Select Vehicle Type</option>
-              <option value="Car">Car</option>
-              <option value="Bike">Bike</option>
-              <option value="Bicycle">Bicycle</option>
-            </select>
-            <div id="vehicle_type_er" class="error"></div>
-
-          </div>
+           
+          
         
        
         
@@ -488,7 +441,7 @@ Swal.fire({
     var formdata = new FormData(editform);
     formdata.append("action","update_user");
   $.ajax({
-   url : "user/add_user.php",
+   url : "add_user.php",
    type : "POST",
    dataType: "json",
    data : formdata,
@@ -510,12 +463,7 @@ Swal.fire({
     else{
       $("#name_er").text("");
     }
-    if(res.errors.username){
-      $("#username_er").text(res.errors.username);
-    }  
-    else{
-      $("#username_er").text("");
-    } 
+ 
      if(res.errors.email){
       $("#email_er").text(res.errors.email);
     }  
@@ -528,18 +476,8 @@ Swal.fire({
     else{
       $("#mobile_er").text("");
     }
-    if(res.errors.vehicle_no){
-      $("#vehicle_no_er").text(res.errors.vehicle_no);
-    }
-    else{
-      $("#vehicle_no_er").text("");
-    }
-    if(res.errors.vehicle_type){
-      $("#vehicle_type_er").text(res.errors.vehicle_type);
-    }
-    else{
-      $("#vehicle_type_er").text("");
-    }
+ 
+ 
 
     }
    }

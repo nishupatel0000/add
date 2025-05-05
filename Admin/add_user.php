@@ -20,16 +20,7 @@ else{
  
 }
 
-if(empty( $_POST['user_name'])){
-    $error['username'] = "username is required";
-}
-else if(!preg_match('/^@/',$_POST['user_name'])){
-    $error['username'] = "username must start with @";
 
-}
-else{
-  $username = $_POST['user_name']; 
-  }
 if(empty( $_POST['email_user'])){
     $error['email'] = "email is required";
 }
@@ -52,32 +43,12 @@ $password = $_POST['password_user'];
 if(empty( $_POST['mobileno_user'])){
     $error['mobileno'] = "mobileno is required";
 }
-else if(!preg_match('/^91[0-9]{10}+$/', $_POST['mobileno_user'])){
-    $error['mobileno'] = "start with 91 and should be 10 digits";
 
-}
 else{
 $mobileno = $_POST['mobileno_user'];
 
 }
 
-if(empty( $_POST['vehicle_no_user'])){
-    $error['vehicle_no'] = "vehicleno is required"; 
-}
-else if(!preg_match('/^GJ[a-zA-Z]{2}[0-9]{4}$/', $_POST['vehicle_no_user'])){
-    $error['vehicle_no'] = "vehicleno must start with GJ followed by two letters and four numbers"; 
-}
-else{
-$vehicle_no = $_POST['vehicle_no_user'];
-
-}
-if(empty( $_POST['vehicle_type_user'])){
-    $error['vehicle_type'] = "vehicletype is required";
-}
-else{
-$vehicle_type = $_POST['vehicle_type_user'];
-
-}
 
 if(!empty($error)){
     $allerror = [
@@ -90,7 +61,7 @@ if(!empty($error)){
 }
 else{
   
-$ins_query = "insert into user(name,username,email,password,mobileno,vehicle_no,vehicle_type)values('$name','$username','$email','$password','$mobileno','$vehicle_no','$vehicle_type')";
+$ins_query = "insert into user(name,email,password,mobileno)values('$name','$email','$password','$mobileno')";
 $res_query = mysqli_query($con_query,$ins_query);
 if($res_query){
     $final = [
@@ -117,11 +88,9 @@ if ($_POST["action"] == "update_user") {
 
    $id = $_POST['id'];
    $name = mysqli_real_escape_string($con_query, $_POST['name']);
-   $username = mysqli_real_escape_string($con_query, $_POST['username']);
    $email = mysqli_real_escape_string($con_query, $_POST['email']);
    $mobileno = mysqli_real_escape_string($con_query, $_POST['mobileno']);
-   $vehicle_no = mysqli_real_escape_string($con_query, $_POST['vehicle_no']);
-   $vehicle_type = mysqli_real_escape_string($con_query, $_POST['vehicle_type']);
+
 
  
 if($name == NULL){ 
@@ -137,19 +106,7 @@ else{
 }
 
 
-   
-if($username == NULL){ 
-    $err['username'] = "* Username is required";
-    
-}
-else if(!preg_match('/^@/',$username)){
-    $err['username'] = "username must start with @";
-
-}
-else{ 
-    $username = $_POST['username'];
-   
-}
+ 
 
 if($email == NULL){ 
     $err['email'] = "*Email is required";
@@ -163,35 +120,14 @@ if($mobileno == NULL){
     $err['mobileno'] = "* Mobileno is required";
     
 }
-else if(!preg_match('/^91[0-9]{10}+$/',$mobileno)){
-    $err['mobileno'] = "start with 91 and should be 10 digits";
-
-}
+ 
  
 else{ 
     $mobileno = $_POST['mobileno'];
    
 }
  
-if($vehicle_no == NULL){ 
-    $err['vehicle_no'] = " * Vehicle_no is required";
-    
-}
-else if(!preg_match('/^GJ[a-zA-Z]{2}[0-9]{4}$/', $vehicle_no)){
-    $err['vehicle_no'] = "vehicleno must start with GJ followed by two letters and four numbers"; 
-}
-else{ 
-    $vehicle_no = $_POST['vehicle_no'];
-   
-}
-if($vehicle_type == NULL){ 
-    $err['vehicle_type'] = "* Vehicle_type is required";
-    
-}
-else{ 
-    $vehicle_type = $_POST['vehicle_type'];
-   
-}
+ 
  
  
 
@@ -204,7 +140,7 @@ if(!empty($err)){
     return false;
 }
 else{
-    $update = "UPDATE user SET name='$name', username='$username', email='$email', mobileno='$mobileno', vehicle_no='$vehicle_no', vehicle_type='$vehicle_type' WHERE id='$id'";
+    $update = "UPDATE user SET name='$name', email='$email', mobileno='$mobileno'  WHERE id='$id'";
     $result = mysqli_query($con_query,$update);
     if($result){
         $output = [

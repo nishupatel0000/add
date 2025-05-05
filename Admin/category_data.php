@@ -50,7 +50,7 @@ if($_POST['action']=="food_insert"){
   else{
 
     $category_image = $_FILES['category_image']['name'];
-    $category_folder = "../../foodflow/user/assets/image/" . $category_image;
+    $category_folder = "../Admin/assets/img/" . $category_image;
     $category_tmp_name = $_FILES['category_image']['tmp_name'];
     move_uploaded_file($category_tmp_name,$category_folder);
  

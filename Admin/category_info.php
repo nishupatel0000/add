@@ -43,7 +43,7 @@ require_once 'includes/aside.php';
 
 <div class="row">
       <div class="col-md-12">
-        <div class="card mb-4" style="height: 1900px;">
+        <div class="card mb-4" style="height: 2000px;">
           <div class="card-header" >
                  List of foods  
                  <div class="mb-4 btn_user">
@@ -143,7 +143,7 @@ require_once 'includes/aside.php';
                                   <td><?php echo $row['food_description']; ?></td>
                                   <td><?php echo $row['food_price']; ?></td>
                                   <td><?php echo $row['type']; ?></td>
-                                  <td><img src="../../foodflow/user/assets/image/<?php echo $row['image']; ?>" width="200px" height="150px"></td>
+                                  <td><img src="../Admin/assets/img/<?php echo $row['image']; ?>" width="200px" height="150px"></td>
                                   <td id="mytd">  
                                   <a href="#"><button class="btn  btn-danger delete_btn" data-id="<?php echo $row['id']; ?>"><i class="fa fa-trash"></i></button></a>
                                     </td>

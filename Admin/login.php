@@ -1,5 +1,5 @@
 <?php
-session_start();
+ 
 
 require_once '../common/config.php';
 if (isset($_POST['login'])) {
@@ -52,7 +52,7 @@ if (isset($_POST['login'])) {
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Admin Login Page</title>
+    <title>Admin Login</title>
 
     <!--begin::Primary Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -94,6 +94,9 @@ if (isset($_POST['login'])) {
     <!--end::Third Party Plugin(Bootstrap Icons)-->
     <!--begin::Required Plugin(AdminLTE)-->
     <link rel="stylesheet" href="assets/css/adminlte.css" />
+    <link rel="icon" href="assets/img/favicon.jpg">
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
     <style>
    .alert {
     padding: 15px 20px;
@@ -122,6 +125,14 @@ if (isset($_POST['login'])) {
     margin-right: 8px;
     font-weight: bold;
 }
+.error {
+      color: red;
+      font-size: 18px;
+      font-weight: 10px;
+      margin-top: 10px;
+      
+
+    }
 
 
     </style>
@@ -177,27 +188,20 @@ if (isset($_SESSION['error'])) {
 
 ?>
         <div class="card-body login-card-body">
-          <form  method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+          <form  method="post" id="login">
             <div class="input-group mb-3">
-              <input type="email" class="form-control" placeholder="Email" name="lemail" />
+              <input type="email" class="form-control" placeholder="Email" name="email" id="email" />
               <div class="input-group-text"><span class="bi bi-envelope"></span></div>
             </div>
-            <?php
-              if (isset($_SESSION['lemail'])){
-                echo '<div class="alert error-alert "> ' .  $_SESSION['lemail'] . '</div>';
-                unset($_SESSION['lemail']);     
-                }
-              ?>
+          <b id="emailerr" class="error"></b>
+          <b id="email_not_err" class="error"></b>
+           
             <div class="input-group mb-3">
-              <input type="password" class="form-control" placeholder="Password" name="lpassword" />
+              <input type="password" class="form-control" placeholder="Password" name="password" id="password" />
               <div class="input-group-text"><span class="bi bi-lock-fill"></span></div>
             </div>
-            <?php
-              if (isset($_SESSION['lpassword'])){
-                echo '<div class="alert error-alert "> ' .  $_SESSION['lpassword'] . '</div>';
-                unset($_SESSION['lpassword']);     
-                }
-              ?>
+          <b id="passworderr" class="error"></b>
+            
             <!--begin::Row-->
             <div class="row">
               <div class="col-8">
@@ -209,7 +213,7 @@ if (isset($_SESSION['error'])) {
               <!-- /.col -->
               <div class="col-4">
                 <div class="d-grid gap-2">
-                <input type="submit" name="login"  class="btn btn-primary" value="Log In">
+                <input type="submit" name="login" id="login_btn"  class="btn btn-primary" value="Log In">
 
                 </div>
               </div>
@@ -295,13 +299,57 @@ if (isset($_SESSION['error'])) {
         }
       });
     </script>
+    <script>
+  $("#login_btn").click(function(e){
+   e.preventDefault();
+
+     var form = document.getElementById("login");
+    var formdata = new FormData(form);
+    formdata.append("action", "login");
+
+    $.ajax({
+      url: "insert_user.php",
+      type: "post",
+      data: formdata,
+      processData: false,
+      contentType: false,
+      dataType: "json",
+      success: function(data) {
+        if (data.code == 200) {
+          window.location.href = "dashboard.php";
+        } else {
+         
+       
+
+          if (data.error.email) {
+            $("#emailerr").text(data.error.email);
+          } else {
+            $("#emailerr").text("");
+          }
+
+          if (data.error.password) {
+            $("#passworderr").text(data.error.password);
+          } else {
+            $("#passworderr").text("");
+          }
+
+          if (data.error.notfound) {
+            $("#email_not_err").text(data.error.notfound);
+          } else {
+            $("#email_not_err").text("");
+          }
+
+        }
+      }
+
+
+    })
+  })
+    </script> 
     <!--end::OverlayScrollbars Configure-->
     <!--end::Script-->
   </body>
   <!--end::Body-->
 </html>
 
-<?php
-session_unset();
-session_destroy();
-?>
+ 

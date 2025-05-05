@@ -52,16 +52,16 @@
                   <!-- Sign Up Form -->
                   <div class="form-container">
                       <form id="signUpForm">
-                          <div class="form-group">
-                              <input type="email" class="form-control-input" id="email" name="email"  >
-                              <label class="label-control" for="semail">Email</label>
-                              <div id="emailerr"  class=" error"></div>
-                          </div>
-                          <div class="form-group">
-                              <input type="text" class="form-control-input" id="name" name="firstname"  >
-                              <label class="label-control" for="sname">Name</label>
-                              <div  id="nameerr" class="error "></div>
-                          </div>
+                        <div class="form-group">
+                          <input type="text" class="form-control-input" id="name" name="firstname"  >
+                          <label class="label-control" for="sname">Name</label>
+                          <div  id="nameerr" class="error "></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control-input" id="email" name="email"  >
+                            <label class="label-control" for="semail">Email</label>
+                            <div id="emailerr"  class=" error"></div>
+                        </div>
                           <div class="form-group">
                               <input type="text" class="form-control-input" id="number"  name="number" >
                               <label class="label-control" for="sname">Mobile Number</label>

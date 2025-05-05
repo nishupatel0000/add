@@ -1,7 +1,7 @@
 <?php
 include_once '../common/config.php';
 $request = $_REQUEST;
-$columms = ['id','name','username','email','password','mobileno','vehicle_no','vehicle_type'];
+$columms = ['id','name','email','mobileno'];
  
  
  

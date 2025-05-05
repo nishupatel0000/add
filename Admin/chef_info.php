@@ -66,7 +66,7 @@ require_once 'includes/aside.php';
         <td><?php echo $row['title']; ?></td>
         <td><?php echo $row['designation']; ?></td>
         <td><?php echo $row['description']; ?></td>
-        <td><img src="../../foodflow/user/assets/image/<?php echo $row['image']; ?>" width="300px" height="250px"></td>
+        <td><img src="../Admin/assets/img/<?php echo $row['image']; ?>" width="300px" height="250px"></td>
         <td id="mytd">  
              <a href="#"><button class="btn  btn-danger delete_btn" data-id="<?php echo $row['id']; ?>"><i class="fa fa-trash"></i></button></a>
                  </td>

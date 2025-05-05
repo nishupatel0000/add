@@ -68,7 +68,7 @@ require_once 'includes/aside.php';
         <td><?php echo $row['description']; ?></td>
         <td><?php echo $row['rating']; ?></td>
 
-        <td><img src="../../foodflow/user/assets/image/<?php echo $row['image']; ?>" width="300px" height="250px"></td>
+        <td><img src="../admin/assets/img/<?php echo $row['image']; ?>" width="200px" height="150px"></td>
         
          
         
