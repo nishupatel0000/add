@@ -160,9 +160,9 @@ require_once '../common/config.php';
                                 <input type="password" class="form-control-input" id="password" name="password">
                                 <label class="label-control" for="password">Password</label>
                                 <div class="help-block with-errors"></div>
-                                <b id="passworderr" class="error"></b>
                                 <span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-                            </div>
+                                <b id="passworderr" class="error"></b>
+                              </div>
                         
                             <div class="form-group"> 
                                 <input type="submit" class="form-control-submit-button" name="submit" id="login" value ="LOG IN">

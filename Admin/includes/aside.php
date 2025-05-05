@@ -50,9 +50,15 @@
                </a>
              </li>
              <li class="nav-item">
+               <a href="category.php" class="nav-link">
+                 <i class="nav-icon bi bi-bullseye"></i>
+                 <p>Category</p>
+               </a>
+             </li>
+             <li class="nav-item">
                <a href="category_info.php" class="nav-link">
-                 <i class="nav-icon bi bi-list"></i>
-                 <p>Categories</p>
+                 <i class="nav-icon bi bi-menu-button-wide-fill"></i>
+                 <p>Menu</p>
                </a>
              </li>
              <li class="nav-item">
