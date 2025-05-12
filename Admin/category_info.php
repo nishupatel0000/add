@@ -13,11 +13,7 @@ require_once 'includes/aside.php';
     margin-top: 63px;
   }
 
-  .btn_user {
-    display: flex;
-    justify-content: flex-end;
-    margin-right: 10px;
-  }
+
 
   .btn {
     height: 50px;
@@ -31,13 +27,13 @@ require_once 'includes/aside.php';
 </style>
 <div class="row align-items-center mb-3">
   <div class="col-sm-6">
-    <h3 class="mb-0 fw-semibold">Foods </h3>
+    <h3 class="mb-0 fw-semibold">Food Menu </h3>
   </div>
   <div class="col-sm-6">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb justify-content-sm-end mb-0">
         <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+        <li class="breadcrumb-item active" aria-current="page">Food Menu</li>
       </ol>
     </nav>
   </div>
@@ -47,22 +43,22 @@ require_once 'includes/aside.php';
   <div class="col-md-12">
     <div class="card mb-4" style="height: 2000px;">
       <div class="card-header">
-        List of foods
+        List of Food Menu
         <div class="mb-4 btn_user">
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newfood">
-            <i class="fa fa-plus"></i>&nbsp; Add New Food
+            <i class="fa fa-plus"></i>&nbsp; Add New Menu
           </button>
           <div class="modal fade" id="newfood" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <form id="food">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add User</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Add Menu</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
                     <div class="mb-3">
-                      <label for="cat_title" class="form-label"></label>
+                      <label for="cat_title" class="form-label">Food Category</label>
                       <select name="type" id="category" class="form-control">
                         <option value="">Select Type of food</option>
                         <?php
@@ -106,8 +102,7 @@ require_once 'includes/aside.php';
 
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <input type="submit" class="btn btn-primary" name="submit" value="Add Food" id="add_food_btn">
+                    <input type="submit" class="btn btn-primary" name="submit" value="Add" id="add_food_btn">
                   </div>
                 </div>
               </form>
@@ -127,27 +122,29 @@ require_once 'includes/aside.php';
                 <div class="modal-body">
                   <input type="hidden" name="id" id="myid">
                   <div class="mb-3">
-                  <label for="Food_title" class="form-label">Food Category</label>
+                    <label for="Food_title" class="form-label">Food Category</label>
 
-                  <select name="type" id="type" class="form-control">
-                        <option value="">Select Type of food</option>
-                        <?php
-                        $cat_query = "SELECT * FROM category";
-                        $cat_result = mysqli_query($con_query, $cat_query);
-                        while ($cat = mysqli_fetch_assoc($cat_result)) {
-                          echo '<option value="' . $cat['id'] . '">' . $cat['category_name'] . '</option>';
-                        }
-                        ?>
-                      </select>
+                    <select name="type" id="type" class="form-control">
+                      <option value="">Select Type of food</option>
+                      <?php
+                      $cat_query = "SELECT * FROM category";
+                      $cat_result = mysqli_query($con_query, $cat_query);
+                      while ($cat = mysqli_fetch_assoc($cat_result)) {
+                        echo '<option value="' . $cat['id'] . '">' . $cat['category_name'] . '</option>';
+                      }
+                      ?>
+                    </select>
+                    <div id="type_error" class="error"></div>
+
                     <label for="Food_title" class="form-label">Title</label>
-                 
+
                     <input type="text" name="food_title" id="category_title" class="form-control">
-                    <div id="name_er" class="error"></div>
+                    <div id="name_error" class="error"></div>
                   </div>
                   <div class="mb-3">
                     <label for="des" class="form-label">Content / Description</label>
                     <textarea name="category_description" id="description" rows="8" cols="50" class="form-control" placeholder="Enter the content or description"></textarea>
-                    <div id="category_description_err" class="error"></div>
+                    <div id="category_description_error" class="error"></div>
 
 
                   </div>
@@ -155,11 +152,14 @@ require_once 'includes/aside.php';
                     <label for="price" class="form-label">Price</label>
                     <input type="text" name="category_price" id="food_price" class="form-control" placeholder="Enter the price">
 
-                    <div id="category_price_err" class="error"></div>
+                    <div id="category_price_error" class="error"></div>
                   </div>
                   <div class="mb-3">
                     <label for="image" class="form-label">Image</label>
                     <input type="file" name="category_image" id="food_image" class="form-control">
+                    <input type="hidden" name="old_category_image" id="old_category_image" value="">
+
+                    <img src="" id="food_image_preview" width="250px" height="200px">
                     <div id="category_image_err" class="error"></div>
                   </div>
 
@@ -201,7 +201,7 @@ require_once 'includes/aside.php';
                 <td><?php echo $row['description']; ?></td>
                 <td><?php echo $row['price']; ?></td>
                 <td><?php echo $row['category_name']; ?></td>
-                <td><img src="../Admin/assets/img/<?php echo $row['image']; ?>" width="200px" height="150px"></td>
+                <td><img src="../Admin/assets/img/menu/<?php echo $row['image']; ?>"  class="profile_img"></td>
                 <td id="mytd">
                   <a href=""> <button class="btn btn-primary edit" data-id="<?php echo $row['id']; ?>" data-bs-toggle="modal" data-bs-target="#editcategory"> <i class="fa fa-edit"></i></button></a>
 
@@ -225,6 +225,7 @@ require_once 'includes/aside.php';
 </div>
 <script>
   $(document).ready(function() {
+    const base_url = "<?php echo $base_url; ?>";
 
     $("#add_food_btn").click(function(e) {
       e.preventDefault();
@@ -242,11 +243,11 @@ require_once 'includes/aside.php';
         success: function(data) {
           if (data.status == 200) {
             Swal.fire({
-
+              title: "Menu has been saved successfully",
               icon: "success",
-              title: "food has been saved successfully",
-              showConfirmButton: false,
-              timer: 1500
+              draggable: true
+            }).then(() => {
+              location.reload();
             });
 
             $('#newfood').modal('hide');
@@ -288,111 +289,140 @@ require_once 'includes/aside.php';
 
 
     });
-  });
-</script>
 
 
-<script>
-  $(".delete_btn").click(function(e) {
-    e.preventDefault();
-    var id = $(this).data("id");
-    Swal.fire({
-      title: "Are you sure?",
-      text: "Do You Want to delete this record? !",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
-      confirmButtonText: "Yes, delete it!"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire("Delete Successfully!", "", "success");
-        $.ajax({
-          url: "category_data.php",
-          type: "POST",
-          data: {
-            "action": "category_delete",
-            "id": id
-          },
-          success: function(data) {
-            // alert(data);
-          }
-        });
-      }
-    });
-
-  });
-</script>
-
-<script>
-  $(".edit").click(function(e) {
-    e.preventDefault();
-    var id = $(this).data("id");
-    $.ajax({
-      url: 'category_data.php',
-      type: 'POST',
-      data: {
-        id: id,
-        "action": "category_view",
-      },
-
-
-      success: function(response) {
-
-
-        var userDetails = JSON.parse(response);
-
-        $("#myid").val(userDetails.id);
-        $("#category_title").val(userDetails.title);
-        $("#description").val(userDetails.description);
-        $("#food_price").val(userDetails.price);
-        $("#type").val(userDetails.category_id);
-
-        // $("#food_image").val(userDetails.image);
-
-
-
-      },
-      error: function() {
-        alert("Error fetching user details.");
-      }
-    });
-
-
-  })
-</script>
-<script>
-    $("#update_menu").click(function(e) {
-        e.preventDefault();
-        var editform = document.getElementById('editForm');
-
-        var formdata = new FormData(editform);
-        formdata.append("action", "update_menu");
-        $.ajax({
+    $(".delete_btn").click(function(e) {
+      e.preventDefault();
+      var id = $(this).data("id");
+      Swal.fire({
+        title: "Are you sure?",
+        text: "Do You Want to delete this menu??",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $.ajax({
             url: "category_data.php",
             type: "POST",
-            dataType: "json",
-            data: formdata,
-            processData: false,
-            contentType: false,
-            success: function(res) {
-                if (res.code == 200) {
-                    //  $("#editModal").hide();  
-                    $('#editModal').modal('hide');
-
-                    location.reload();
-                } else {
-                    // alert(res.errors.email);
-
-                    if (res.errors.type) {
-                        $("#name_er").text(res.errors.type);
-                    } else {
-                        $("#name_er").text("");
-                    }
-                }
+            data: {
+              "action": "category_delete",
+              "id": id
+            },
+            success: function(data) {
+              Swal.fire(" Menu Delete Successfully!", "", "success")
+                .then(() => {
+                  location.reload();
+                });
             }
-        })
+          });
+        }
+      });
+
+    });
+
+    $(".edit").click(function(e) {
+      e.preventDefault();
+      var id = $(this).data("id");
+      $.ajax({
+        url: 'category_data.php',
+        type: 'POST',
+        data: {
+          id: id,
+          "action": "category_view",
+        },
+
+
+        success: function(response) {
+          // console.log("sdfs" + base_url);
+          var userDetails = JSON.parse(response);
+
+          $("#myid").val(userDetails.id);
+          $("#category_title").val(userDetails.title);
+          $("#description").val(userDetails.description);
+          $("#food_price").val(userDetails.price);
+          $("#type").val(userDetails.category_id);
+          $("#food_image_preview").attr('src', base_url + "admin/assets/img/menu/" + userDetails.image);
+          $("#old_category_image").val(userDetails.image);
+
+
+          // $("#food_image").val(userDetails.image);
+
+
+
+        },
+        error: function() {
+          alert("Error fetching user details.");
+        }
+      });
+
+
     })
+
+    $("#update_menu").click(function(e) {
+      e.preventDefault();
+      var editform = document.getElementById('editForm');
+
+      var formdata = new FormData(editform);
+      formdata.append("action", "update_menu");
+      $.ajax({
+        url: "category_data.php",
+        type: "POST",
+        dataType: "json",
+        data: formdata,
+        processData: false,
+        contentType: false,
+        success: function(res) {
+
+
+          if (res.code == 200) {
+            console.log(res.msg);
+            //  $("#editModal").hide();  
+            $('#editcategory').modal('hide');
+            Swal.fire({
+              title: " Menu Updated SuccessFully!!",
+              icon: "success",
+              draggable: true
+            }).then(() => {
+              location.reload();
+            });
+
+          } else {
+            // alert(res.errors.email);
+            // alert(res.errors.food_title);
+
+            if (res.errors.type) {
+              $("#type_error").text(res.errors.type);
+            } else {
+              $("#type_error").text("");
+            }
+            if (res.errors.food_title) {
+              $("#name_error").text(res.errors.food_title);
+            } else {
+              $("#name_error").text("");
+            }
+            if (res.errors.category_description) {
+              $("#category_description_error").text(res.errors.category_description);
+            } else {
+              $("#category_description_error").text("");
+            }
+
+            if (res.errors.price) {
+              $("#category_price_error").text(res.errors.price);
+            } else {
+              $("#category_price_error").text("");
+            }
+
+
+
+
+          }
+        }
+      })
+    })
+  });
 </script>
 <?php
 require_once 'includes/footer.php';

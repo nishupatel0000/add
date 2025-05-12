@@ -31,13 +31,13 @@ require_once 'includes/aside.php';
 </style>
 <div class="row align-items-center mb-3">
     <div class="col-sm-6">
-        <h3 class="mb-0 fw-semibold">Foods </h3>
+        <h3 class="mb-0 fw-semibold"> Food Category </h3>
     </div>
     <div class="col-sm-6">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb justify-content-sm-end mb-0">
                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                <li class="breadcrumb-item active" aria-current="page">Food Category</li>
             </ol>
         </nav>
     </div>
@@ -47,10 +47,10 @@ require_once 'includes/aside.php';
     <div class="col-md-12">
         <div class="card mb-4" style="height: 2000px;">
             <div class="card-header">
-                List of foods
+                List of food category
                 <div class="mb-4 btn_user">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newfood">
-                        <i class="fa fa-plus"></i>&nbsp; Add New category
+                        <i class="fa fa-plus"></i>&nbsp; Add New   Category
                     </button>
                     <div class="modal fade" id="newfood" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
@@ -103,7 +103,7 @@ require_once 'includes/aside.php';
                                                 <option value="Dinner">Dinner</option>
                                             </select> -->
                                     <input type="text" name="type" id="category_type" class="form-control">
-                                    <div id="name_er" class="error"></div>
+                                    <div id="type_er" class="error"></div>
                                 </div>
 
 
@@ -182,21 +182,21 @@ require_once 'includes/aside.php';
                 success: function(data) {
                     if (data.status == 200) {
                         Swal.fire({
-
-                            icon: "success",
                             title: "category has been saved successfully",
-                            showConfirmButton: false,
-                            timer: 1500
+                            icon: "success",
+                            draggable: true
+                        }).then(() => {
+                            location.reload();
                         });
 
                         $('#newfood').modal('hide');
-                        location.reload(true);
+                        // location.reload(true);
                     } else {
 
                         if (data.errors.type) {
-                            $("#name_er").text(data.errors.type);
+                            $("#type_err").text(data.errors.type);
                         } else {
-                            $("#name_er").text("");
+                            $("#type_err").text("");
                         }
                     }
                 }
@@ -223,7 +223,8 @@ require_once 'includes/aside.php';
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                Swal.fire("Delete Successfully!", "", "success");
+
+
                 $.ajax({
                     url: "category_data.php",
                     type: "POST",
@@ -232,8 +233,10 @@ require_once 'includes/aside.php';
                         "id": id
                     },
                     success: function(data) {
-                        // alert(data); 
-                        location.reload();
+                        Swal.fire("Delete Successfully!", "", "success")
+                            .then(() => {
+                                location.reload();
+                            });
                     }
                 });
             }
@@ -255,7 +258,7 @@ require_once 'includes/aside.php';
 
 
             success: function(response) {
-  
+
 
                 var userDetails = JSON.parse(response);
 
@@ -287,18 +290,27 @@ require_once 'includes/aside.php';
             processData: false,
             contentType: false,
             success: function(res) {
-                if (res.code == 200) {
-                    //  $("#editModal").hide();  
-                    $('#editModal').modal('hide');
 
-                    location.reload();
+                if (res.code == 200) {
+
+                    $('#editcategory').modal('hide');
+                    Swal.fire({
+                        title: " Data Updated SuccessFully!",
+                        icon: "success",
+                        draggable: true
+                    }).then(() => {
+                        location.reload();
+                    });
+
+
+
                 } else {
                     // alert(res.errors.email);
 
                     if (res.errors.type) {
-                        $("#name_er").text(res.errors.type);
+                        $("#type_er").text(res.errors.type);
                     } else {
-                        $("#name_er").text("");
+                        $("#type_er").text("");
                     }
                 }
             }
@@ -307,5 +319,7 @@ require_once 'includes/aside.php';
 </script>
 <?php
 require_once 'includes/footer.php';
+
+
 
 ?>

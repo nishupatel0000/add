@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once '../common/config.php';
-$id=$_GET['id'];
+$id=$_POST['id'];
 $delete = "DELETE FROM user WHERE id='$id'";
 $result = mysqli_query($con_query, $delete);
 

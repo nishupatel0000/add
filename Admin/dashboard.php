@@ -1,5 +1,8 @@
 <?php
 session_start();
+ 
+
+
 require_once '../common/config.php';
 // if (!isset($_SESSION['username'])) {
 //     header('location:login.php');
@@ -14,7 +17,7 @@ require_once '../common/config.php';
 <?php  require_once  'includes/header.php';   ?>
   
     <?php  require_once  'includes/aside.php';   ?>
-     
+    
     
          
    
@@ -48,7 +51,7 @@ require_once '../common/config.php';
                 
                       ?>
                     <h3><?php print_r($count);?></h3>
-                    <p>Total User</p>
+                    <p>Total Users</p>
                   </div>
                   <svg
                     class="small-box-icon"
@@ -71,7 +74,7 @@ require_once '../common/config.php';
                 <div class="small-box text-bg-success">
                   <div class="inner">
                     <?php
-                  $sel_type = "select  * FROM categories";  
+                  $sel_type = "select  * FROM category";  
                   $res_cars = mysqli_query($con_query, $sel_type);
                   $all = mysqli_num_rows($res_cars);
                   
@@ -80,7 +83,7 @@ require_once '../common/config.php';
                      
                    ?>
                     <h3> <?php echo $all;?></h3>
-                    <p >Categories</p>
+                    <p >Food Category</p>
                   </div>
                   <svg
                     class="small-box-icon"
@@ -93,7 +96,7 @@ require_once '../common/config.php';
                       d="M18.375 2.25c-1.035 0-1.875.84-1.875 1.875v15.75c0 1.035.84 1.875 1.875 1.875h.75c1.035 0 1.875-.84 1.875-1.875V4.125c0-1.036-.84-1.875-1.875-1.875h-.75zM9.75 8.625c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-.75a1.875 1.875 0 01-1.875-1.875V8.625zM3 13.125c0-1.036.84-1.875 1.875-1.875h.75c1.036 0 1.875.84 1.875 1.875v6.75c0 1.035-.84 1.875-1.875 1.875h-.75A1.875 1.875 0 013 19.875v-6.75z"
                     ></path>
                   </svg>
-                  <a href="category_info.php" class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"
+                  <a href="category.php" class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"
                   >
                     More info <i class="bi bi-link-45deg"></i>
                   </a>

@@ -9,9 +9,12 @@
     <!--begin::Copyright-->
     <strong>
       Copyright &copy; 2014-2024&nbsp;
-      <a href="https://adminlte.io" class="text-decoration-none">ParkMaster</a>.
+      <a href="https://adminlte.io" class="text-decoration-none">FoodFlow</a>.
     </strong>
     All rights reserved.
+    <span style="margin-left: 10px;">
+    <a href="/privacy-policy.php" class="text-decoration-none">Privacy Policy</a>
+  </span>
     <!--end::Copyright-->
   </footer>
   <!--end::Footer-->

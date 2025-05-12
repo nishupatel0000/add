@@ -68,6 +68,28 @@
       font-size: 18px;
 
     }
+
+    .dataTables_filter {
+      margin-bottom: 15px;
+    }
+
+    .btn_user {
+      display: flex;
+      justify-content: flex-end;
+      margin-right: 10px;
+    }
+
+    .profile_img {
+      width: 150px;
+      height: 150px;
+      border-radius: 10px;
+    }
+
+    .innerdiv {
+      border: 1px solid black;
+      margin: 5px 80px;
+      padding: 15px;
+    }
   </style>
 </head>
 <!--end::Head-->
@@ -87,7 +109,7 @@
               <i class="bi bi-list"></i>
             </a>
           </li>
-          <li class="nav-item d-none d-md-block"><a href="./dashboard.php" class="nav-link">Home</a></li>
+          <!-- <li class="nav-item d-none d-md-block"><a href="./dashboard.php" class="nav-link">Home</a></li> -->
         </ul>
         <!--end::Start Navbar Links-->
         <!--begin::End Navbar Links-->

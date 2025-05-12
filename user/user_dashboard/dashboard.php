@@ -2,44 +2,44 @@
 session_start();
 
 require_once '../../common/config.php';
-$select_home = "select * from hom_about LIMIT 1";
-$result = mysqli_query($con_query,$select_home);
+$select_home = "select * from banner";
+$result = mysqli_query($con_query, $select_home);
 $row = mysqli_num_rows($result);
-while($data=mysqli_fetch_assoc($result)){ 
+while ($data = mysqli_fetch_assoc($result)) {
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
+  <!DOCTYPE html>
+  <html lang="en">
 
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <title>FoodFlow</title>
-  <meta name="description" content="">
-  <meta name="keywords" content="">
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>FoodFlow</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
 
-  <!-- Favicons -->
-  <link href="assets/img/favicon.jpg" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <!-- Favicons -->
+    <link href="assets/img/favicon.jpg" rel="icon">
+    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <!-- Vendor CSS Files -->
+    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-  <!-- Main CSS File -->
-  <link href="../user_dashboard/assets/css/main.css" rel="stylesheet">
-  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Main CSS File -->
+    <link href="../user_dashboard/assets/css/main.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-  <!-- =======================================================
+    <!-- =======================================================
   * Template Name: Yummy
   * Template URL: https://bootstrapmade.com/yummy-bootstrap-restaurant-website-template/
   * Updated: Aug 07 2024 with Bootstrap v5.3.3
@@ -47,75 +47,123 @@ while($data=mysqli_fetch_assoc($result)){
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 
-<style>
- .title{
-  
- }
+    <style>
+      #about_picture {
+        width: 750px;
+        height: 540px;
+      }
 
-</style>
+      .profile_img {
+        width: 200px;
+        height: 200px;
+        border-radius: 10px;
+      }
 
-</head>
+      .secondary_image {
+        width: 500px;
+        height: 365px;
+      }
 
-<body class="index-page">
+      /* #hero {
+        background: url('../../admin/assets/img/banner-bg.jpg') no-repeat center center;
+        background-size: cover;
+        height: 995px;
+        width: 100%;
+        position: relative;
+        z-index: 1;
+      } */
 
-  <header id="header" class="header d-flex align-items-center sticky-top">
-    <div class="container position-relative d-flex align-items-center justify-content-between">
+      /* #hero::before {
+        content: "";
+        background: rgba(0, 0, 0, 0.4); */
+      /* optional dark overlay */
+      /* position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        z-index: -1; */
+      /* } */
 
-      <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
-        <!-- Uncomment the line below if you also wish to use an image logo -->
-        <!-- <img src="assets/img/logo.png" alt=""> -->
-        <h1 class="sitename">FoodFlow</h1>
-        <span>.</span>
-      </a>
+      .hero-img img {
+        width: 100%;
+        max-width: 500px;
+        height: 350px;
+        /* object-fit: cover; */
+        /* border-radius: 20px; */
+        /* box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); */
+        transition: transform 0.5s ease, box-shadow 0.5s ease;
+      }
 
-      <nav id="navmenu" class="navmenu">
-        <ul>
-          <li><a href="#hero" class="active">Home<br></a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#menu">Menu</a></li>
-          <li><a href="#events">Events</a></li>
-          <li><a href="#chefs">Chefs</a></li>
-          <li><a href="#gallery">Gallery</a></li>
-          
-          </li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-      </nav>
+      .hero-img img:hover {
+        transform: scale(1.03);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+      }
+    </style>
 
-      <!-- <a class="btn-getstarted" href="index.html#book-a-table">Book a Table</a> -->
-      <a href="#" class="btn btn-danger d-flex align-items-center gap-2" id="logoutbtn" title="Logout">
-  <i class="bi bi-box-arrow-right"></i>
- 
-</a>
+  </head>
 
-    </div>
-  </header>
+  <body class="index-page">
 
-  <main class="main">
+    <header id="header" class="header d-flex align-items-center sticky-top">
+      <div class="container position-relative d-flex align-items-center justify-content-between">
 
-    <!-- Hero Section -->
-    <section id="hero" class="hero section light-background">
+        <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
+          <!-- Uncomment the line below if you also wish to use an image logo -->
+          <!-- <img src="assets/img/logo.png" alt=""> -->
+          <h1 class="sitename">FoodFlow</h1>
+          <span>.</span>
+        </a>
 
-      <div class="container">
-        <div class="row gy-4 justify-content-center justify-content-lg-between">
-          <div class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center">
-            <h1 data-aos="fade-up"><?php echo $data['title'];?></h1>
-            <p data-aos="fade-up" data-aos-delay="100"><?php echo $data['description'];?></p>
-            <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
-              <a href="#book-a-table" class="btn-get-started">Booka a Table</a>
-              <a href="https://youtu.be/YXYjwALuA7c?si=xxsaDJ5wfY0K8n_N" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
-           
+        <nav id="navmenu" class="navmenu">
+          <ul>
+            <li><a href="#hero" class="active">Home<br></a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#events">Events</a></li>
+            <li><a href="#chefs">Chefs</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+
+            </li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+
+        <!-- <a class="btn-getstarted" href="index.html#book-a-table">Book a Table</a> -->
+        <a href="#" class="btn btn-danger d-flex align-items-center gap-2" id="logoutbtn" title="Logout">
+          <i class="bi bi-box-arrow-right"></i>
+
+        </a>
+
+      </div>
+    </header>
+
+    <main class="main">
+
+      <!-- Hero Section -->
+      <section id="hero" class="hero section light-background">
+        <!-- <img src="../../admin/assets/img/banner-bg.jpg" alt="" data-aos="fade-in"> -->
+
+        <div class="container">
+          <div class="row gy-4 justify-content-center justify-content-lg-between">
+            <div class="col-lg-5 order-2 order-lg-1 d-flex flex-column justify-content-center">
+              <h1 data-aos="fade-up"><?php echo $data['title']; ?></h1>
+              <p data-aos="fade-up" data-aos-delay="100"><?php echo $data['description']; ?></p>
+              <div class="d-flex" data-aos="fade-up" data-aos-delay="200">
+                <a href="#book-a-table" class="btn-get-started">Booka a Table</a>
+                <a href="https://youtu.be/YXYjwALuA7c?si=xxsaDJ5wfY0K8n_N" class="glightbox btn-watch-video d-flex align-items-center"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
+
+              </div>
+            </div>
+            <div class="col-lg-5 order-1 order-lg-2 hero-img" data-aos="zoom-out">
+              <img src=" ../../admin/assets/img/banner/<?php echo $data['image']; ?>" class="img-fluid animated" alt="">
             </div>
           </div>
-          <div class="col-lg-5 order-1 order-lg-2 hero-img" data-aos="zoom-out">
-            <img src="../image/<?php echo $data['image']; ?>" class="img-fluid animated" alt="">
-          </div>
         </div>
-      </div>
 
-    </section><!-- /Hero Section -->
-<?php } ?>
+      </section><!-- /Hero Section -->
+    <?php } ?>
     <!-- About Section -->
     <section id="about" class="about section">
 
@@ -129,36 +177,42 @@ while($data=mysqli_fetch_assoc($result)){
 
         <div class="row gy-4">
           <?php
-          $select_admin = "select * from admin_home LIMIT 1";
-          $res_admin = mysqli_query($con_query,$select_admin);
-          $row = mysqli_num_rows( $res_admin );
-          while($data=mysqli_fetch_assoc($res_admin )){ 
+          $select_about_us = "select * from about_us ";
+          $result = mysqli_query($con_query, $select_about_us);
+
+          $row = mysqli_fetch_assoc($result);
+
           ?>
           <div class="col-lg-7" data-aos="fade-up" data-aos-delay="100">
-            <img src="../image/<?php echo $data['image']; ?>" class="img-fluid mb-4" alt="">
+            <img src="../../admin/assets/img/about/<?php echo ($row != NULL) ? $row['primary_image'] : "resturant.jpg"  ?>" height="500px" class="img-fluid mb-4" alt="" id="about_picture">
+
             <div class="book-a-table">
               <h3>Book a Table</h3>
-              <p>+1 5589 55488 55</p>
+              <p>
+                <?php echo ($row != NULL) ? $row['booking_no'] : "+1 5589 55488 55"  ?>
+              </p>
             </div>
           </div>
           <div class="col-lg-5" data-aos="fade-up" data-aos-delay="250">
             <div class="content ps-0 ps-lg-5">
               <p class="fst-italic">
-              <?php echo $data['title'];?>
+                <?php echo ($row != NULL) ? $row['title'] : "Why do we use it?"  ?>"
               </p>
               <ul>
-                <li><i class="bi bi-check-circle-fill"></i> <span><?php echo $data['description'];?></span></li>
-                
+                <li><i class="bi bi-check-circle-fill"></i> <span> <?php echo ($row != NULL) ? $row['description'] : "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters"  ?>
+                  </span></li>
+
               </ul>
-              
+
 
               <div class="position-relative mt-4">
-                <img src="assets/img/about-2.jpg" class="img-fluid" alt="">
-                <a href="https://youtu.be/ebtoOdddJE0?si=r2tdCfmIVYcnihhL" class="glightbox pulsating-play-btn"></a>
+                <!-- <img src="assets/img/about-2.jpg" class="img-fluid" alt=""> -->
+                <img src="../../admin/assets/img/about/<?php echo ($row != NULL) ? $row['secondary_image'] : "about-2.jpg"  ?>" class="img-fluid mb-4 secondary_image" alt="">
+
+                <a href="https://youtu.be/3tEsnya_uZs?si=zXekxy3XnzBzUv_a" class="glightbox pulsating-play-btn"></a>
               </div>
             </div>
           </div>
-            <?php } ?>
 
         </div>
 
@@ -173,7 +227,7 @@ while($data=mysqli_fetch_assoc($result)){
 
         <div class="row gy-4">
 
-           
+
 
           <div class="col-lg-8 d-flex align-items-stretch">
             <div class="row gy-4" data-aos="fade-up" data-aos-delay="200">
@@ -303,33 +357,30 @@ while($data=mysqli_fetch_assoc($result)){
             </div>
 
             <div class="row gy-5">
-                  <?php 
-                      $category_lunch = "select * from categories where type = 'starters'";
-                      $res = mysqli_query($con_query,$category_lunch);
-                      while($data=mysqli_fetch_assoc($res)){ 
+              <?php
+              $category_lunch = "SELECT menu.* FROM menu INNER JOIN category ON menu.category_id = category.id WHERE category.category_name = 'starter'";
+              $res = mysqli_query($con_query, $category_lunch);
+              while ($data = mysqli_fetch_assoc($res)) {
 
-                  ?>
-                  
+              ?> <div class="col-lg-4 menu-item">
+                  <a href="../../admin/assets/img/menu/<?php echo $data['image']; ?>" class="glightbox"> <img src="../../admin/assets/img/menu/<?php echo $data['image']; ?>" style="width: 90%; height: 400px; object-fit: cover;" class="img-fluid animated profile_img" alt=""></a>
 
-              <div class="col-lg-4 menu-item">
-              <a href="../image/<?php echo $data['image']; ?>" class="glightbox"> <img src="../image/<?php echo $data['image']; ?>"  style="width: 80%; height: 300px; object-fit: cover;" class="img-fluid animated" alt=""></a>
+                  <h4 class="mt-3"><?php echo $data['title']; ?></h4>
+                  <p class="ingredients">
+                    <?php echo $data['description']; ?>
+                  </p>
+                  <p class="price">
+                    <?php echo $data['price']; ?>
+                  </p>
+                </div><!-- Menu Item -->
 
-                <h4 class="mt-3" ><?php echo $data['food_title'];?></h4>
-                <p class="ingredients">
-                <?php echo $data['food_description'];?>
-                </p>
-                <p class="price">
-                <?php echo $data['food_price'];?>
-                </p>
-              </div><!-- Menu Item -->
- 
-                 <?php
-                      }
-                      ?>
-        
+              <?php
+              }
+              ?>
 
-       
-              
+
+
+
             </div>
           </div><!-- End Starter Menu Content -->
 
@@ -341,35 +392,35 @@ while($data=mysqli_fetch_assoc($result)){
             </div>
 
             <div class="row gy-5">
-            <?php 
-                      $category_lunch = "select * from categories where type = 'Breakfast'";
-                      $res = mysqli_query($con_query,$category_lunch);
-                      while($data=mysqli_fetch_assoc($res)){ 
+              <?php
+              $category_lunch =  "SELECT menu.* FROM menu INNER JOIN category ON menu.category_id = category.id WHERE category.category_name = 'Breakfast'";
+              $res = mysqli_query($con_query, $category_lunch);
+              while ($data = mysqli_fetch_assoc($res)) {
 
-                  ?>
-                  
-              <div class="col-lg-4 menu-item">
-                <a href="../image/<?php echo $data['image']; ?>" class="glightbox"> <img src="../image/<?php echo $data['image']; ?>"  style="width: 80%; height: 280px; object-fit: cover;" class="img-fluid animated" alt=""></a>
-                <h4 class="mt-3" ><?php echo $data['food_title'];?></h4>
+              ?>
 
-                <p class="ingredients">
-                <?php echo $data['food_description'];?>
-                </p>
-                <p class="price">
-                <?php echo $data['food_price'];?>
+                <div class="col-lg-4 menu-item">
+                  <a href="../../admin/assets/img/menu/<?php echo $data['image']; ?>" class="glightbox"> <img src="../../admin/assets/img/menu/<?php echo $data['image']; ?>" style="width: 90%; height: 400px; object-fit: cover;" class="img-fluid animated profile_img" alt=""></a>
+                  <h4 class="mt-3"><?php echo $data['title']; ?></h4>
 
-                </p>
-              </div><!-- Menu Item -->
+                  <p class="ingredients">
+                    <?php echo $data['description']; ?>
+                  </p>
+                  <p class="price">
+                    <?php echo $data['price']; ?>
+
+                  </p>
+                </div><!-- Menu Item -->
 
               <?php
-                      }
-                      ?>
-        
+              }
+              ?>
 
-          
- 
 
- 
+
+
+
+
 
             </div>
           </div><!-- End Breakfast Menu Content -->
@@ -382,32 +433,32 @@ while($data=mysqli_fetch_assoc($result)){
             </div>
 
             <div class="row gy-5">
-            <?php 
-                      $category_lunch = "select * from categories where type = 'Lunch'";
-                      $res = mysqli_query($con_query,$category_lunch);
-                      while($data=mysqli_fetch_assoc($res)){ 
+              <?php
+              $category_lunch = "SELECT menu.* FROM menu INNER JOIN category ON menu.category_id = category.id WHERE category.category_name = 'Lunch'";
+              $res = mysqli_query($con_query, $category_lunch);
+              while ($data = mysqli_fetch_assoc($res)) {
 
-                  ?>
-              <div class="col-lg-4 menu-item">
-                <a href="../image/<?php echo $data['image']; ?>" class="glightbox"><img src="../image/<?php echo $data['image'];?>" class="menu-img img-fluid" alt=""></a>
-                <h4 class="mt-3"  ><?php echo $data['food_title'];?></h4>
-                <p class="ingredients">
-                <?php echo $data['food_description'];?>
-                </p>
-                <p class="price">
-                <?php echo $data['food_price'];?>
-                </p>
-              </div><!-- Menu Item -->
- 
-                 <?php
-                      }
-                      ?>
-        
+              ?>
+                <div class="col-lg-4 menu-item">
+                  <a href=" ../../admin/assets/img/menu/<?php echo $data['image']; ?>" class="glightbox"><img src=" ../../admin/assets/img/menu/<?php echo $data['image']; ?>" style="width: 90%; height: 400px; object-fit: cover;" class="img-fluid animated profile_img" alt=""></a>
+                  <h4 class="mt-3"><?php echo $data['title']; ?></h4>
+                  <p class="ingredients">
+                    <?php echo $data['description']; ?>
+                  </p>
+                  <p class="price">
+                    <?php echo $data['price']; ?>
+                  </p>
+                </div><!-- Menu Item -->
 
-           
- 
- 
- 
+              <?php
+              }
+              ?>
+
+
+
+
+
+
 
             </div>
           </div><!-- End Lunch Menu Content -->
@@ -420,123 +471,123 @@ while($data=mysqli_fetch_assoc($result)){
             </div>
 
             <div class="row gy-5">
-            <?php 
-                      $category_lunch = "select * from categories where type = 'Dinner'";
-                      $res = mysqli_query($con_query,$category_lunch);
-                      while($data=mysqli_fetch_assoc($res)){ 
+              <?php
+              $category_lunch = "SELECT menu.* FROM menu INNER JOIN category ON menu.category_id = category.id WHERE category.category_name = 'Dinner'";
+              $res = mysqli_query($con_query, $category_lunch);
+              while ($data = mysqli_fetch_assoc($res)) {
 
-                  ?>
+              ?>
                 <div class="col-lg-4 menu-item">
-                <a href="../image/<?php echo $data['image']; ?>" class="glightbox"> <img src="../image/<?php echo $data['image']; ?>"  style="width: 80%; height: 300px; object-fit: cover;" class="img-fluid animated" alt=""></a>
-                <h4  class="mt-3" ><?php echo $data['food_title'];?></h4>
+                  <a href="../../admin/assets/img/menu/<?php echo $data['image']; ?>" class="glightbox profile_img"> <img src="../../admin/assets/img/menu/<?php echo $data['image']; ?>" style="width: 90%; height: 400px; object-fit: cover;" class="img-fluid animated profile_img" alt=""></a>
+                  <h4 class="mt-3"><?php echo $data['title']; ?></h4>
 
-                <p class="ingredients">
-                <?php echo $data['food_description'];?>
-                </p>
-                <p class="price">
-                <?php echo $data['food_price'];?>
+                  <p class="ingredients">
+                    <?php echo $data['description']; ?>
+                  </p>
+                  <p class="price">
+                    <?php echo $data['price']; ?>
 
-                </p>
-              </div><!-- Menu Item -->
+                  </p>
+                </div><!-- Menu Item -->
 
               <?php
-                      }
-                      ?>
-        
-              </div><!-- Menu Item -->
+              }
+              ?>
 
-  
+            </div><!-- Menu Item -->
 
-       
 
-     
 
-         
- 
 
-            </div>
-          </div><!-- End Dinner Menu Content -->
 
-        </div>
+
+
+
+
+
+          </div>
+        </div><!-- End Dinner Menu Content -->
+
+      </div>
 
       </div>
 
     </section><!-- /Menu Section -->
 
- 
+
     <section id="testimonials" class="testimonials section light-background">
 
-<!-- Section Title -->
-<div class="container section-title" data-aos="fade-up">
-  <h2>TESTIMONIALS</h2>
-  <p>What Are They <span class="description-title">Saying About Us</span></p>
-</div><!-- End Section Title -->
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>TESTIMONIALS</h2>
+        <p>What Are They <span class="description-title">Saying About Us</span></p>
+      </div><!-- End Section Title -->
 
-<div class="container" data-aos="fade-up" data-aos-delay="100">
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
 
-  <div class="swiper init-swiper">
-    <script type="application/json" class="swiper-config">
-      {
-        "loop": true,
-        "speed": 600,
-        "autoplay": {
-          "delay": 5000
-        },
-        "slidesPerView": 1,
-        "pagination": {
-          "el": ".swiper-pagination",
-          "type": "bullets",
-          "clickable": true
-        }
-      }
-    </script>
+        <div class="swiper init-swiper">
+          <script type="application/json" class="swiper-config">
+            {
+              "loop": true,
+              "speed": 600,
+              "autoplay": {
+                "delay": 5000
+              },
+              "slidesPerView": 1,
+              "pagination": {
+                "el": ".swiper-pagination",
+                "type": "bullets",
+                "clickable": true
+              }
+            }
+          </script>
 
-    <div class="swiper-wrapper">
-      <?php
-      $select_home = "SELECT * FROM testimonial";
-      $result = mysqli_query($con_query, $select_home);
-      while($data = mysqli_fetch_assoc($result)){ 
-      ?>
-      <div class="swiper-slide">
-        <div class="testimonial-item">
-          <div class="row gy-4 justify-content-center">
+          <div class="swiper-wrapper">
+            <?php
+            $select_home = "SELECT * FROM testimonial";
+            $result = mysqli_query($con_query, $select_home);
+            while ($data = mysqli_fetch_assoc($result)) {
+            ?>
+              <div class="swiper-slide">
+                <div class="testimonial-item">
+                  <div class="row gy-4 justify-content-center">
 
-            <div class="col-lg-6">
-              <div class="testimonial-content">
-                <p>
-                  <i class="bi bi-quote quote-icon-left"></i>
-                  <span><?php echo $data['description']; ?></span>
-                  <i class="bi bi-quote quote-icon-right"></i>
-                </p>
-                <h3><?php echo $data['username']; ?></h3>
-                <h4><?php echo $data['designation']; ?></h4>
-                <div class="stars">
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
+                    <div class="col-lg-6">
+                      <div class="testimonial-content">
+                        <p>
+                          <i class="bi bi-quote quote-icon-left"></i>
+                          <span><?php echo $data['description']; ?></span>
+                          <i class="bi bi-quote quote-icon-right"></i>
+                        </p>
+                        <h3><?php echo $data['username']; ?></h3>
+                        <h4><?php echo $data['designation']; ?></h4>
+                        <div class="stars">
+                          <i class="bi bi-star-fill"></i>
+                          <i class="bi bi-star-fill"></i>
+                          <i class="bi bi-star-fill"></i>
+                          <i class="bi bi-star-fill"></i>
+                          <i class="bi bi-star-fill"></i>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-2 text-center">
+                      <img src="../../admin/assets/img/testimonials/<?php echo $data['image']; ?>" class="img-fluid mb-4" alt="">
+                    </div>
+
+                  </div>
                 </div>
-              </div>
-            </div>
-
-            <div class="col-lg-2 text-center">
-            <img src="../image/<?php echo $data['image']; ?>" class="img-fluid mb-4" alt="">
-            </div>
-
+              </div><!-- End testimonial item -->
+            <?php } ?>
           </div>
+
+          <div class="swiper-pagination"></div>
         </div>
-      </div><!-- End testimonial item -->
-      <?php } ?>
-    </div>
 
-    <div class="swiper-pagination"></div>
-  </div>
+      </div>
 
-</div>
-
-</section>
-<!-- /Testimonials Section -->
+    </section>
+    <!-- /Testimonials Section -->
 
     <!-- Events Section -->
     <section id="events" class="events section">
@@ -570,39 +621,31 @@ while($data=mysqli_fetch_assoc($result)){
             }
           </script>
           <div class="swiper-wrapper">
+            <?php
+            $select_img = "select *  from event";
+            $result_img = mysqli_query($con_query, $select_img);
 
-            <div class="swiper-slide event-item d-flex flex-column justify-content-end" style="background-image: url(assets/img/events-1.jpg)">
-              <h3>Custom Parties</h3>
-              <div class="price align-self-start">$99</div>
-              <p class="description">
-                Quo corporis voluptas ea ad. Consectetur inventore sapiente ipsum voluptas eos omnis facere. Enim facilis veritatis id est rem repudiandae nulla expedita quas.
-              </p>
-            </div><!-- End Event item -->
+            while ($data = mysqli_fetch_assoc($result_img)) {
 
-            <div class="swiper-slide event-item d-flex flex-column justify-content-end" style="background-image: url(assets/img/events-2.jpg)">
-              <h3>Private Parties</h3>
-              <div class="price align-self-start">$289</div>
-              <p class="description">
-                In delectus sint qui et enim. Et ab repudiandae inventore quaerat doloribus. Facere nemo vero est ut dolores ea assumenda et. Delectus saepe accusamus aspernatur.
-              </p>
-            </div><!-- End Event item -->
+            ?>
 
-            <div class="swiper-slide event-item d-flex flex-column justify-content-end" style="background-image: url(assets/img/events-3.jpg)">
-              <h3>Birthday Parties</h3>
-              <div class="price align-self-start">$499</div>
-              <p class="description">
-                Laborum aperiam atque omnis minus omnis est qui assumenda quos. Quis id sit quibusdam. Esse quisquam ducimus officia ipsum ut quibusdam maxime. Non enim perspiciatis.
-              </p>
-            </div><!-- End Event item -->
+              <div class="swiper-slide event-item d-flex flex-column justify-content-end" style="background-image: url(../../admin/assets/img/event/<?php echo $data['image']; ?>)">
+                <h3><?php echo $data['title']; ?></h3>
+                <div class="price align-self-start">
+                  <?php echo $data['price']; ?>
+                </div>
+                <p class="description">
+                  <?php echo $data['description']; ?>
+                </p>
+              </div><!-- End Event item -->
 
-            <div class="swiper-slide event-item d-flex flex-column justify-content-end" style="background-image: url(assets/img/events-4.jpg)">
-              <h3>Wedding Parties</h3>
-              <div class="price align-self-start">$899</div>
-              <p class="description">
-                Laborum aperiam atque omnis minus omnis est qui assumenda quos. Quis id sit quibusdam. Esse quisquam ducimus officia ipsum ut quibusdam maxime. Non enim perspiciatis.
-              </p>
-            </div><!-- End Event item -->
 
+
+
+
+
+            <?php }
+            ?>
           </div>
           <div class="swiper-pagination"></div>
         </div>
@@ -614,46 +657,46 @@ while($data=mysqli_fetch_assoc($result)){
     <!-- Chefs Section -->
     <section id="chefs" class="chefs section">
 
-<!-- Section Title -->
-<div class="container section-title" data-aos="fade-up">
-  <h2>Chefs</h2>
-  <p><span>Our</span> <span class="description-title">Professional Chefs</span></p>
-</div><!-- End Section Title -->
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Chefs</h2>
+        <p><span>Our</span> <span class="description-title">Professional Chefs</span></p>
+      </div><!-- End Section Title -->
 
-<div class="container">
-  <div class="row gy-4">
+      <div class="container">
+        <div class="row gy-4">
 
-    <?php
-    $select_home = "SELECT * FROM chef";
-    $result = mysqli_query($con_query, $select_home);
-    while($data = mysqli_fetch_assoc($result)){ 
-    ?> 
+          <?php
+          $select_home = "SELECT * FROM chef";
+          $result = mysqli_query($con_query, $select_home);
+          while ($data = mysqli_fetch_assoc($result)) {
+          ?>
 
-    <div class="col-lg-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
-      <div class="team-member">
-        <div class="member-img">
-          <img src="../image/<?php echo $data['image']; ?>" class="img-fluid animated" alt="">
-          <div class="social">
-            <a href=""><i class="bi bi-twitter-x"></i></a>
-            <a href=""><i class="bi bi-facebook"></i></a>
-            <a href=""><i class="bi bi-instagram"></i></a>
-            <a href=""><i class="bi bi-linkedin"></i></a>
-          </div>
-        </div>
-        <div class="member-info">
-          <h4><?php echo $data['title']; ?></h4>
-          <span><?php echo $data['designation']; ?></span>
-          <p><?php echo $data['description']; ?></p>
+            <div class="col-lg-4 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+              <div class="team-member">
+                <div class="member-img">
+                  <img src="../../admin/assets/img/chefs/<?php echo $data['image']; ?>" class="img-fluid animated" alt="">
+                  <div class="social">
+                    <a href=""><i class="bi bi-twitter-x"></i></a>
+                    <a href=""><i class="bi bi-facebook"></i></a>
+                    <a href=""><i class="bi bi-instagram"></i></a>
+                    <a href=""><i class="bi bi-linkedin"></i></a>
+                  </div>
+                </div>
+                <div class="member-info">
+                  <h4><?php echo $data['title']; ?></h4>
+                  <span><?php echo $data['designation']; ?></span>
+                  <p><?php echo $data['description']; ?></p>
+                </div>
+              </div>
+            </div><!-- End Chef Team Member -->
+
+          <?php } ?>
+
         </div>
       </div>
-    </div><!-- End Chef Team Member -->
 
-    <?php } ?>
-
-  </div>
-</div>
-
-</section><!-- /Chefs Section -->
+    </section><!-- /Chefs Section -->
 
 
     <!-- Book A Table Section -->
@@ -756,15 +799,25 @@ while($data=mysqli_fetch_assoc($result)){
             }
           </script>
           <div class="swiper-wrapper align-items-center">
-            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="assets/img/gallery/gallery-1.jpg"><img src="assets/img/gallery/gallery-1.jpg" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="assets/img/gallery/gallery-2.jpg"><img src="assets/img/gallery/gallery-2.jpg" class="img-fluid" alt=""></a></div>
+            <?php
+            $select_img = "select *  from gallery";
+            $result_img = mysqli_query($con_query, $select_img);
+
+            while ($data = mysqli_fetch_assoc($result_img)) {
+
+            ?>
+              <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="assets/img/gallery/gallery-1.jpg"><img src="../../admin/assets/img/gallery/<?php echo $data['gallery_image']; ?>" class="img-fluid" alt=""></a></div>
+              <!-- <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="assets/img/gallery/gallery-2.jpg"><img src="assets/img/gallery/gallery-2.jpg" class="img-fluid" alt=""></a></div>
             <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="assets/img/gallery/gallery-3.jpg"><img src="assets/img/gallery/gallery-3.jpg" class="img-fluid" alt=""></a></div>
             <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="assets/img/gallery/gallery-4.jpg"><img src="assets/img/gallery/gallery-4.jpg" class="img-fluid" alt=""></a></div>
             <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="assets/img/gallery/gallery-5.jpg"><img src="assets/img/gallery/gallery-5.jpg" class="img-fluid" alt=""></a></div>
             <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="assets/img/gallery/gallery-6.jpg"><img src="assets/img/gallery/gallery-6.jpg" class="img-fluid" alt=""></a></div>
             <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="assets/img/gallery/gallery-7.jpg"><img src="assets/img/gallery/gallery-7.jpg" class="img-fluid" alt=""></a></div>
-            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="assets/img/gallery/gallery-8.jpg"><img src="assets/img/gallery/gallery-8.jpg" class="img-fluid" alt=""></a></div>
+            <div class="swiper-slide"><a class="glightbox" data-gallery="images-gallery" href="assets/img/gallery/gallery-8.jpg"><img src="assets/img/gallery/gallery-8.jpg" class="img-fluid" alt=""></a></div> -->
+            <?php
+            } ?>
           </div>
+
           <div class="swiper-pagination"></div>
         </div>
 
@@ -786,15 +839,20 @@ while($data=mysqli_fetch_assoc($result)){
         <div class="mb-5">
           <iframe style="width: 100%; height: 400px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameborder="0" allowfullscreen=""></iframe>
         </div><!-- End Google Maps -->
+        <?php
+        $select_contact = "select * from contact_us";
+        $result_contact = mysqli_query($con_query, $select_contact);
+        $row = mysqli_fetch_assoc($result_contact);
+        ?>
 
         <div class="row gy-4">
-
           <div class="col-md-6">
             <div class="info-item d-flex align-items-center" data-aos="fade-up" data-aos-delay="200">
               <i class="icon bi bi-geo-alt flex-shrink-0"></i>
               <div>
                 <h3>Address</h3>
-                <p>A108 Adam Street, New York, NY 535022</p>
+
+                <p> <?php echo ($row['address'] != Null) ? $row['address'] : "A108 Adam Street, New York, NY 535022" ?> </p>
               </div>
             </div>
           </div><!-- End Info Item -->
@@ -804,7 +862,8 @@ while($data=mysqli_fetch_assoc($result)){
               <i class="icon bi bi-telephone flex-shrink-0"></i>
               <div>
                 <h3>Call Us</h3>
-                <p>+1 5589 55488 55</p>
+                <p> <?php echo ($row['contact_number'] != Null) ? $row['contact_number'] : "+1 5589 55488 55" ?> </p>
+
               </div>
             </div>
           </div><!-- End Info Item -->
@@ -814,7 +873,8 @@ while($data=mysqli_fetch_assoc($result)){
               <i class="icon bi bi-envelope flex-shrink-0"></i>
               <div>
                 <h3>Email Us</h3>
-                <p>info@example.com</p>
+                <p> <?php echo ($row['email'] != Null) ? $row['email'] : "pozow@mailinator.com" ?> </p>
+
               </div>
             </div>
           </div><!-- End Info Item -->
@@ -824,7 +884,9 @@ while($data=mysqli_fetch_assoc($result)){
               <i class="icon bi bi-clock flex-shrink-0"></i>
               <div>
                 <h3>Opening Hours<br></h3>
-                <p><strong>Mon-Sat:</strong> 11AM - 23PM; <strong>Sunday:</strong> Closed</p>
+
+                <p><strong>Mon-Sat:</strong> <?php echo ($row['from_time'] != Null) ? $row['from_time'] : "9AM" ?> - <?php echo ($row['to_time'] != Null) ? $row['to_time'] : "7AM" ?>
+                </p>
               </div>
             </div>
           </div><!-- End Info Item -->
@@ -865,116 +927,33 @@ while($data=mysqli_fetch_assoc($result)){
 
     </section><!-- /Contact Section -->
 
-  </main>
+    </main>
 
-  <footer id="footer" class="footer dark-background">
 
-    <div class="container">
-      <div class="row gy-3">
-        <div class="col-lg-3 col-md-6 d-flex">
-          <i class="bi bi-geo-alt icon"></i>
-          <div class="address">
-            <h4>Address</h4>
-            <p>A108 Adam Street</p>
-            <p>New York, NY 535022</p>
-            <p></p>
-          </div>
 
-        </div>
-
-        <div class="col-lg-3 col-md-6 d-flex">
-          <i class="bi bi-telephone icon"></i>
-          <div>
-            <h4>Contact</h4>
-            <p>
-              <strong>Phone:</strong> <span>+1 5589 55488 55</span><br>
-              <strong>Email:</strong> <span>info@example.com</span><br>
-            </p>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 d-flex">
-          <i class="bi bi-clock icon"></i>
-          <div>
-            <h4>Opening Hours</h4>
-            <p>
-              <strong>Mon-Sat:</strong> <span>11AM - 23PM</span><br>
-              <strong>Sunday</strong>: <span>Closed</span>
-            </p>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6">
-          <h4>Follow Us</h4>
-          <div class="social-links d-flex">
-            <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
-            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="container copyright text-center mt-4">
-      <p>© <span>Copyright</span> <strong class="px-1 sitename">Yummy</strong> <span>All Rights Reserved</span></p>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you've purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> Distributed by <a href="https://themewagon.com">ThemeWagon</a>
-      </div>
-    </div>
-
-  </footer>
-
-  <!-- Scroll Top -->
-  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Preloader -->
-  <div id="preloader"></div>
-<<<<<<< HEAD
-  
-=======
-
->>>>>>> 6320afb0230e0e9bd1c59da62d2dae9deff1ed4a
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-
-  <!-- Main JS File -->
-  <script src="assets/js/main.js"></script>
-
-</body>
-<<<<<<< HEAD
-<script>
-
-  $("#logoutbtn").click(function(e){
-e.preventDefault();
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You will be logged out.",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#6c757d',
-      confirmButtonText: 'Yes, log out',
-      cancelButtonText: 'Cancel'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        // Redirect to logout.php
-        window.location.href = '../../user/logout.php';
-      }
+  </body>
+  <script>
+    $("#logoutbtn").click(function(e) {
+      e.preventDefault();
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You will be logged out.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Yes, log out',
+        cancelButtonText: 'Cancel'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Redirect to logout.php
+          window.location.href = '../../user/logout.php';
+        }
+      });
     });
-  });
-</script>
-=======
->>>>>>> 6320afb0230e0e9bd1c59da62d2dae9deff1ed4a
+  </script>
 
-</html>
+  <?php
+  require_once 'includes/footer.php'; ?>
+
+  </html>

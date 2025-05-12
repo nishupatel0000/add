@@ -1,3 +1,12 @@
+<?php 
+require_once '../common/config.php';
+ 
+$select_contact = "select * from contact_us";
+$result_contact = mysqli_query($con_query, $select_contact);
+$row = mysqli_fetch_assoc($result_contact);
+ 
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +27,7 @@
 	<meta property="og:type" content="article" />
 
     <!-- Website Title -->
-    <title>Privacy Policy - Tivo - SaaS App HTML Landing Page Template</title>
+    <title>Privacy Policy - FoodFlow</title>
     
     <!-- Styles -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700&display=swap&subset=latin-ext" rel="stylesheet">
@@ -29,7 +38,7 @@
 	<link href="css/styles.css" rel="stylesheet">
 	
 	<!-- Favicon  -->
-    <link rel="icon" href="image/favicon.png">
+    <link href="../admin/assets/img/favicon.jpg" rel="icon">
 </head>
 <body data-spy="scroll" data-target=".fixed-top">
     
@@ -52,8 +61,8 @@
             <!-- <a class="navbar-brand logo-text page-scroll" href="index.html">Tivo</a> -->
 
             <!-- Image Logo -->
-            <a class="navbar-brand logo-image" href="index.html"><img src="image/logo.svg" alt="alternative"></a> 
-            
+             
+     
             <!-- Mobile Menu Toggle Button -->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-awesome fas fa-bars"></span>
@@ -61,39 +70,7 @@
             </button>
             <!-- end of mobile menu toggle button -->
 
-            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link page-scroll" href="index.html#header">HOME <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link page-scroll" href="index.html#features">FEATURES</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link page-scroll" href="index.html#details">DETAILS</a>
-                    </li>
-
-                    <!-- Dropdown Menu -->          
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle page-scroll" href="index.html#video" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">VIDEO</a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="article-details.html"><span class="item-text">ARTICLE DETAILS</span></a>
-                            <div class="dropdown-items-divide-hr"></div>
-                            <a class="dropdown-item" href="terms-conditions.html"><span class="item-text">TERMS CONDITIONS</span></a>
-                            <div class="dropdown-items-divide-hr"></div>
-                            <a class="dropdown-item" href="privacy-policy.html"><span class="item-text">PRIVACY POLICY</span></a>
-                        </div>
-                    </li>
-                    <!-- end of dropdown menu -->
-
-                    <li class="nav-item">
-                        <a class="nav-link page-scroll" href="index.html#pricing">PRICING</a>
-                    </li>
-                </ul>
-                <span class="nav-item">
-                    <a class="btn-outline-sm" href="log-in.html">LOG IN</a>
-                </span>
-            </div>
+       
         </div> <!-- end of container -->
     </nav> <!-- end of navbar -->
     <!-- end of navigation -->
@@ -118,7 +95,6 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumbs">
-                        <a href="index.html">Home</a><i class="fa fa-angle-double-right"></i><span>Privacy Policy</span>
                     </div> <!-- end of breadcrumbs -->
                 </div> <!-- end of col -->
             </div> <!-- end of row -->
@@ -134,8 +110,17 @@
                 <div class="col-lg-12">
                     <div class="text-container">
                         <h3>Private Data We Receive And Collect</h3>
-                        <p>Tivo also automatically collects and receives certain information from your computer or mobile device, including the activities you perform on our Website, the Platforms, and the Applications, the type of hardware and software you are using (for example, your operating system or browser), and information obtained from cookies. For example, each time you visit the Website or otherwise use the Services, we automatically collect your IP address, browser and device type, access times, the web page from which you came, the regions from which you navigate the web page, and the web page(s) you access (as applicable). There is more to this section and we want to keep you informed about it.</p>
-                        <p>When you first register for a Tivo account, and when you use the Services, we collect some <a class="blue" href="#your-link">Personal Information</a> about you such as:</p>
+                        <?php
+                        $select_home = "select * from privacy";
+                          $result = mysqli_query($con_query,$select_home);
+                       
+                         $data = mysqli_fetch_assoc($result);
+
+                          ?>
+                        <p> <?php echo $data['description']; ?>
+                        
+                             </p>
+
                         <div class="row">
                             <div class="col-md-6">
                                 <ul class="list-unstyled li-space-lg indent">
@@ -218,54 +203,8 @@
 					    <p>By using any of the Services, or submitting or collecting any Personal Information via the Services, you consent to the collection, transfer, storage disclosure, and use of your Personal Information in the manner set out in this Privacy Policy. If you do not consent to the use of your Personal Information in these ways, please stop using the Services should be safe and easy to guarantee a great user experience.</p>
                     </div> <!-- end of text-container -->
                                        
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="text-container last">
-                                <h3>Inquire What Data We Have</h3>
-                                <p>Tivo Landing Page uses tracking technology on the landing page, in the Applications, and in the Platforms, including mobile application identifiers and a unique Tivo user ID to help us. Recognize you across different Services, to monitor usage and web traffic routing for the Services, and to customize and improve the Services.</p>
-                                <p>By visiting Tivo or using the Services you agree to the use of cookies in your browser and HTML-based emails. You visit a website, by using any of the Services, or submitting or collecting any Personal Information via the Services, you consent and use of your <a class="blue" href="#your-link">Personal Information</a></p>
-                            </div> <!-- end of text container -->
-                        </div> <!-- end of col-->
-                        <div class="col-md-6">
-
-                            <!-- Privacy Form -->
-                            <div class="form-container">
-                                <form id="privacyForm" data-toggle="validator" data-focus="false">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control-input" id="pname" required>
-                                        <label class="label-control" for="pname">Name</label>
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="email" class="form-control-input" id="pemail" required>
-                                        <label class="label-control" for="pemail">Email</label>
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                    <div class="form-group">
-                                        <select class="form-control-select" id="pselect" required>
-                                            <option class="select-option" value="" disabled selected>Select Option</option>
-                                            <option class="select-option" value="Delete data">Delete my data</option>
-                                            <option class="select-option" value="Show me data">Show me my data</option>
-                                        </select>
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                    <div class="form-group checkbox">
-                                        <input type="checkbox" id="pterms" value="Agreed-to-Terms" required>I have read and agree to Tivo's <a href="privacy-policy.html">Privacy Policy</a> and <a href="terms-conditions.html">Terms Conditions</a>
-                                        <div class="help-block with-errors"></div>
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="submit" class="form-control-submit-button">SUBMIT</button>
-                                    </div>
-                                    <div class="form-message">
-                                        <div id="pmsgSubmit" class="h3 text-center hidden"></div>
-                                    </div>
-                                </form>
-                            </div> <!-- end of form container -->
-                            <!-- end of privacy form -->
-
-                        </div> <!-- end of col--> 
-                    </div> <!-- end of row -->
-                    <a class="btn-outline-reg" href="index.html">BACK</a>
+                    
+                    <a class="btn-outline-reg" href="user_dashboard/dashboard.php">BACK</a>
                 </div> <!-- end of col-->
             </div> <!-- end of row -->
         </div> <!-- end of container -->
@@ -278,9 +217,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="breadcrumbs">
-                        <a href="index.html">Home</a><i class="fa fa-angle-double-right"></i><span>Privacy Policy</span>
-                    </div> <!-- end of breadcrumbs -->
+                   <!-- end of breadcrumbs -->
                 </div> <!-- end of col -->
             </div> <!-- end of row -->
         </div> <!-- end of container -->
@@ -290,63 +227,16 @@
     
     <!-- Footer -->
     <svg class="ex-footer-frame" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" viewBox="0 0 1920 79"><defs><style>.cls-2{fill:#5f4def;}</style></defs><title>footer-frame</title><path class="cls-2" d="M0,72.427C143,12.138,255.5,4.577,328.644,7.943c147.721,6.8,183.881,60.242,320.83,53.737,143-6.793,167.826-68.128,293-60.9,109.095,6.3,115.68,54.364,225.251,57.319,113.58,3.064,138.8-47.711,251.189-41.8,104.012,5.474,109.713,50.4,197.369,46.572,89.549-3.91,124.375-52.563,227.622-50.155A338.646,338.646,0,0,1,1920,23.467V79.75H0V72.427Z" transform="translate(0 -0.188)"/></svg>
-    <div class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="footer-col first">
-                        <h4>About Tivo</h4>
-                        <p class="p-small">We're passionate about offering some of the best business growth services for start more words</p>
-                    </div>
-                </div> <!-- end of col -->
-                <div class="col-md-4">
-                    <div class="footer-col middle">
-                        <h4>Important Links</h4>
-                        <ul class="list-unstyled li-space-lg p-small">
-                            <li class="media">
-                                <i class="fas fa-square"></i>
-                                <div class="media-body">Our business partners <a class="white" href="#your-link">startupguide.com</a></div>
-                            </li>
-                            <li class="media">
-                                <i class="fas fa-square"></i>
-                                <div class="media-body">Read our <a class="white" href="terms-conditions.html">Terms & Conditions</a>, <a class="white" href="privacy-policy.html">Privacy Policy</a></div>
-                            </li>
-                        </ul>
-                    </div>
-                </div> <!-- end of col -->
-                <div class="col-md-4">
-                    <div class="footer-col last">
-                        <h4>Contact</h4>
-                        <ul class="list-unstyled li-space-lg p-small">
-                            <li class="media">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <div class="media-body">22 Innovative, San Francisco, CA 94043, US</div>
-                            </li>
-                            <li class="media">
-                                <i class="fas fa-envelope"></i>
-                                <div class="media-body"><a class="white" href="mailto:contact@Tivo.com">contact@Tivo.com</a> <i class="fas fa-globe"></i><a class="white" href="#your-link">www.Tivo.com</a></div>
-                            </li>
-                        </ul>
-                    </div> 
-                </div> <!-- end of col -->
-            </div> <!-- end of row -->
-        </div> <!-- end of container -->
-    </div> <!-- end of footer -->  
+    <?php
+  require_once 'user_dashboard/includes/footer.php'; ?>
+    <!-- end of footer -->  
     <!-- end of footer -->
 
 
     <!-- Copyright -->
-    <div class="copyright">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <p class="p-small">Copyright © 2020 <a href="https://inovatik.com">Template by Inovatik</a><br>
-                        Distributed By <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
-                    </p>
-                </div> <!-- end of col -->
-            </div> <!-- enf of row -->
-        </div> <!-- end of container -->
-    </div> <!-- end of copyright --> 
+  
+ 
+ <!-- end of copyright --> 
     <!-- end of copyright -->
     
     	

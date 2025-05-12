@@ -18,7 +18,7 @@ require_once "../common/config.php";
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb justify-content-sm-end mb-0">
         <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+        <li class="breadcrumb-item active" aria-current="page">Admin</li>
       </ol>
     </nav>
   </div>
@@ -188,9 +188,15 @@ require_once "../common/config.php";
       success: function(response) {
         if (response.code == 200) {
           //  $("#editModal").hide();  
-          $('#editForm').modal('hide');
+          $('#editModal').modal('hide');
+          Swal.fire({
+            title: "Update Data SuccessFully!",
+            icon: "success",
+            draggable: true
+          }).then(() => {
+            location.reload();
+          });
 
-          location.reload();
         } else {
           if (response.error.name) {
             $("#name_er").text(response.error.name);

@@ -1,6 +1,13 @@
  <style>
-
+   .li-active {
+     background-color: #007bff !important;
+     color: white !important;
+   }
  </style>
+ <?php
+
+  $current_page = basename($_SERVER['PHP_SELF']);
+  ?>
  <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
    <!--begin::Sidebar Brand-->
    <div class="sidebar-brand">
@@ -28,53 +35,56 @@
          role="menu"
          data-accordion="false">
          <li class="nav-item menu-open">
-           <a href="dashboard.php" class="nav-link active">
-             <i class="nav-icon bi bi-palette"></i>
-             <p>
-               Dashboard
-               <!-- <i class="nav-arrow bi bi-chevron-right"></i> -->
+           <!--  -->
 
-             </p>
-           </a>
            <ul class="nav nav-treeview">
              <li class="nav-item">
-               <a href="admin_info.php" class="nav-link active">
-                 <i class="nav-icon bi bi-circle"></i>
-                 <p>Admin Info</p>
+               <a href="dashboard.php" class="nav-link <?= ($current_page == 'dashboard.php') ? 'li-active' : '' ?>">
+                 <i class="nav-icon bi bi-palette"></i>
+                 <p>
+                   Dashboard
+                 </p>
                </a>
              </li>
              <li class="nav-item">
-               <a href="user_info.php" class="nav-link">
+               <a href="admin_info.php" class="nav-link <?= ($current_page == 'admin_info.php') ? 'li-active' : '' ?>">
+                 <i class="nav-icon bi bi-circle"></i>
+                 <p>Admin Info</p>
+
+               </a>
+             </li>
+             <li class="nav-item">
+               <a href="user_info.php" class="nav-link <?= ($current_page == 'user_info.php') ? 'li-active' : '' ?>">
                  <i class="nav-icon bi bi-person"></i>
                  <p>Users</p>
                </a>
              </li>
              <li class="nav-item">
-               <a href="category.php" class="nav-link">
+               <a href="category.php" class="nav-link <?= ($current_page == 'category.php') ? 'li-active' : '' ?>">
                  <i class="nav-icon bi bi-bullseye"></i>
-                 <p>Category</p>
+                 <p>Food Category</p>
                </a>
              </li>
              <li class="nav-item">
-               <a href="category_info.php" class="nav-link">
+               <a href="category_info.php" class="nav-link <?= ($current_page == 'category_info.php') ? 'li-active' : '' ?>">
                  <i class="nav-icon bi bi-menu-button-wide-fill"></i>
-                 <p>Menu</p>
+                 <p>Food Menu</p>
                </a>
              </li>
              <li class="nav-item">
-               <a href="chef_info.php" class="nav-link">
+               <a href="chef_info.php" class="nav-link <?= ($current_page == 'chef_info.php') ? 'li-active' : '' ?>">
                  <i class="nav-icon bi bi-person"></i>
                  <p>Chefs</p>
                </a>
              </li>
              <li class="nav-item">
-               <a href="testimonial.php" class="nav-link">
+               <a href="testimonial.php" class="nav-link <?= ($current_page == 'testimonial.php') ? 'li-active' : '' ?>">
                  <i class="nav-icon bi bi-chat"></i>
                  <p>Testimonial</p>
                </a>
              </li>
              <li class="nav-item has-treeview menu-open">
-               <a href="#" class="nav-link">
+               <a href="#" class="nav-link  ">
                  <i class="nav-icon bi bi-book"></i>
                  <p>
                    Static Page
@@ -90,9 +100,34 @@
                    </a>
                  </li>
                  <li class="nav-item">
-                   <a href="#" class="nav-link">
-                     <i class="nav-icon fa fa-eye-alt"></i>
-                     <p></p>
+                   <a href="banner.php" class="nav-link">
+                     <i class="nav-iconfas fa fa-bullhorn"></i>
+                     <p>Banner</p>
+                   </a>
+                 </li>
+                 <li class="nav-item">
+                   <a href="contact_us.php" class="nav-link">
+                     <i class="nav-iconfas bi bi-phone"></i>
+                     <p>Contact Us</p>
+                   </a>
+                 </li>
+
+                 <li class="nav-item">
+                   <a href="gallery.php" class="nav-link">
+                     <i class="nav-iconfas bi  bi-image"></i>
+                     <p>Gallery</p>
+                   </a>
+                 </li>
+                 <li class="nav-item">
+                   <a href="event.php" class="nav-link">
+                     <i class="nav-iconfas fas fa-glass-cheers"></i>
+                     <p>Event</p>
+                   </a>
+                 </li>
+                 <li class="nav-item">
+                   <a href="privacy.php" class="nav-link">
+                     <i class="nav-iconfas fas fa-file-contract"></i>
+                     <p>Privacy</p>
                    </a>
                  </li>
                </ul>
