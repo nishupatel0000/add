@@ -50,11 +50,11 @@ require_once 'includes/aside.php';
                 List of food category
                 <div class="mb-4 btn_user">
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newfood">
-                        <i class="fa fa-plus"></i>&nbsp; Add New   Category
+                        <i class="fa fa-plus"></i>&nbsp; Add New Category
                     </button>
                     <div class="modal fade" id="newfood" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
-                            <form id="category" method="post">
+                            <form id="category_add" method="post">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
@@ -70,7 +70,7 @@ require_once 'includes/aside.php';
                                                 <option value="Lunch">Lunch</option>
                                                 <option value="Dinner">Dinner</option>
                                             </select> -->
-                                            <input type="text" name="type" id="type" class="form-control">
+                                            <input type="text" name="type" id="type" class="form-control" placeholder="Enter Category Name">
                                             <div id="type_err" class="error"></div>
                                         </div>
                                     </div>
@@ -83,41 +83,42 @@ require_once 'includes/aside.php';
                     </div>
                 </div>
             </div>
-            <div class="modal fade" id="editcategory" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <form method="POST" id="editForm">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="editModalLabel">Edit Category</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <input type="hidden" name="id" id="myid">
-                                <div class="mb-3">
-                                    <label for="cat_title" class="form-label">Category Name</label>
-                                    <!-- <select name="type" id="category_type" class="form-control">
-                                                <option value="">Select Type of food</option>
-                                                <option value="starters">starters</option>
-                                                <option value="Breakfast">Breakfast</option>
-                                                <option value="Lunch">Lunch</option>
-                                                <option value="Dinner">Dinner</option>
-                                            </select> -->
-                                    <input type="text" name="type" id="category_type" class="form-control">
-                                    <div id="type_er" class="error"></div>
-                                </div>
+         <div class="modal fade" id="editcategory" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form method="POST" id="edit_category">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit Category</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
 
-
-
-                            </div>
-                            <div class="modal-footer">
-                                <input type="submit" class="btn btn-primary" name="update" value="Update" id="update_category">
-                            </div>
-
-
+                <div class="modal-body">
+                    <!-- Loader -->
+                    <div id="loader" style="display: none; text-align: center; padding: 20px;">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
                         </div>
-                    </form>
+                    </div>
+
+                    <!-- Form content -->
+                    <div id="form_content">
+                        <input type="hidden" name="id" id="myid">
+                        <div class="mb-3">
+                            <label for="category_type" class="form-label">Category Name</label>
+                            <input type="text" name="type" id="category_type" class="form-control" placeholder="Enter Category Name">
+                            <div id="type_er" class="error text-danger mt-1"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <input type="submit" class="btn btn-primary" name="update" value="Update" id="update_category">
                 </div>
             </div>
+        </form>
+    </div>
+</div>
+
             <div class="card-body">
 
                 <table id="myTable1" class="table table-striped table table-bordered mt-5" border="1px" cellspacing="0" width="100%">
@@ -168,7 +169,7 @@ require_once 'includes/aside.php';
 
         $("#add_cat_btn").click(function(e) {
             e.preventDefault();
-            let form = document.getElementById("category");
+            let form = document.getElementById("category_add");
             let formdata = new FormData(form);
             formdata.append("action", "category_insert");
             $.ajax({
@@ -248,6 +249,9 @@ require_once 'includes/aside.php';
     $(".edit").click(function(e) {
         e.preventDefault();
         var id = $(this).data("id");
+        $("#form_content").hide();
+        $("#loader").show();
+
         $.ajax({
             url: 'category_data.php',
             type: 'POST',
@@ -265,7 +269,8 @@ require_once 'includes/aside.php';
                 $("#myid").val(userDetails.id);
 
                 $("#category_type").val(userDetails.category_name);
-
+                $("#loader").hide();
+                $("#form_content").show();
             },
             error: function() {
                 alert("Error fetching user details.");
@@ -278,7 +283,7 @@ require_once 'includes/aside.php';
 <script>
     $("#update_category").click(function(e) {
         e.preventDefault();
-        var editform = document.getElementById('editForm');
+        var editform = document.getElementById('edit_category');
 
         var formdata = new FormData(editform);
         formdata.append("action", "update_category");

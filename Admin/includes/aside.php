@@ -78,8 +78,8 @@
                </a>
              </li>
                   <li class="nav-item">
-               <a href="booking_inquiry.php" class="nav-link <?= ($current_page == 'testimonial.php') ? 'li-active' : '' ?>">
-                 <i class="nav-icon bi bi-chat"></i>
+               <a href="booking_inquiry.php" class="nav-link <?= ($current_page == 'booking_inquiry.php') ? 'li-active' : '' ?>">
+                 <i class="nav-icon bi bi-bell"></i>
                  <p>Booking Inquiry</p>
                </a>
              </li>
@@ -94,38 +94,46 @@
                </a>
                <ul class="nav nav-treeview" style="display: block;">
                  <li class="nav-item">
-                   <a href="about_home.php" class="nav-link">
+               <a href="about_home.php" class="nav-link <?= ($current_page == 'about_home.php') ? 'li-active' : '' ?>">
+
+                   <!-- <a href="about_home.php" class="nav-link"> -->
                      <i class="nav-icon fa fa-list-alt"></i>
                      <p>About Home</p>
                    </a>
                  </li>
                  <li class="nav-item">
-                   <a href="banner.php" class="nav-link">
+               <a href="banner.php" class="nav-link <?= ($current_page == 'banner.php') ? 'li-active' : '' ?>">
+
                      <i class="nav-iconfas fa fa-bullhorn"></i>
                      <p>Banner</p>
                    </a>
                  </li>
                  <li class="nav-item">
-                   <a href="contact_us.php" class="nav-link">
+                  <a href="contact_us.php" class="nav-link <?= ($current_page == 'contact_us.php') ? 'li-active' : '' ?>">
+ 
                      <i class="nav-iconfas bi bi-phone"></i>
                      <p>Contact Us</p>
                    </a>
                  </li>
 
                  <li class="nav-item">
-                   <a href="gallery.php" class="nav-link">
+                  <a href="gallery.php" class="nav-link <?= ($current_page == 'gallery.php') ? 'li-active' : '' ?>">
+
+              
                      <i class="nav-iconfas bi  bi-image"></i>
                      <p>Gallery</p>
                    </a>
                  </li>
                  <li class="nav-item">
-                   <a href="event.php" class="nav-link">
+                  <a href="event.php" class="nav-link <?= ($current_page == 'event.php') ? 'li-active' : '' ?>">
+ 
                      <i class="nav-iconfas fas fa-glass-cheers"></i>
                      <p>Event</p>
                    </a>
                  </li>
                  <li class="nav-item">
-                   <a href="privacy.php" class="nav-link">
+                  <a href="privacy.php" class="nav-link <?= ($current_page == 'privacy.php') ? 'li-active' : '' ?>">
+
                      <i class="nav-iconfas fas fa-file-contract"></i>
                      <p>Privacy</p>
                    </a>

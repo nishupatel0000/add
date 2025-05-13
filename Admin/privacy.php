@@ -37,7 +37,7 @@ require_once 'includes/aside.php';
               <div class="form-group mb-2">
                   <input type="hidden" name="privacy_id" id="privacy_id" value="<?php echo $row['id']; ?>" >
                   <label for="description_edit" class="form-label">Description</label>
-                <textarea class="form-control" id="description_edit" name="description_edit" rows="10"> <?php echo $row['description']; ?></textarea>
+                <textarea class="form-control" id="description_edit" name="description_edit" rows="10" placeholder="Enter Description"> <?php echo $row['description']; ?></textarea>
                 <div id="description_edit_error" class="error"></div>
 
               </div>  

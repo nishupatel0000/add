@@ -26,7 +26,7 @@ require_once 'includes/aside.php';
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb justify-content-sm-end mb-0">
                 <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">event</li>
+                <li class="breadcrumb-item active" aria-current="page">Event</li>
             </ol>
         </nav>
     </div>
@@ -44,7 +44,7 @@ require_once 'includes/aside.php';
                     </button>
                     <div class="modal fade" id="newevent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
-                            <form id="event">
+                            <form id="event_add">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="exampleModalLabel">Add event</h5>
@@ -98,7 +98,7 @@ require_once 'includes/aside.php';
             <div class="card-body">
                 <div class="modal fade" id="editevent" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
-                        <form method="POST" id="editForm">
+                        <form   id="edit_event" >
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="editModalLabel">Edit event</h5>
@@ -131,7 +131,7 @@ require_once 'includes/aside.php';
                                     <div class="mb-3">
                                         <label for="event_edit_image" class="form-label">Image</label>
                                         <input type="file" name="event_edit_image" id="event_edit_image" class="form-control">
-                                        <input type="hidden" name="old_event_image" id="old_event_image" value="">
+                                        <input type="hidden" name="old_event_image" id="old_event_image">
 
                                         <img src="" id="event_image_preview" width="250px" height="200px">
                                     </div>
@@ -213,7 +213,7 @@ require_once 'includes/aside.php';
         // insert/add event
         $("#add_event_btn").click(function(e) {
             e.preventDefault();
-            let form = document.getElementById("event");
+            let form = document.getElementById("event_add");
             let formdata = new FormData(form);
             formdata.append("action", "event_insert");
             $.ajax({
@@ -353,8 +353,8 @@ require_once 'includes/aside.php';
         // update
         $("#update_event").click(function(e) {
             e.preventDefault();
-            var editform = document.getElementById('editForm');
-
+            var editform = document.getElementById('edit_event');
+       
             var formdata = new FormData(editform);
             formdata.append("action", "update_event");
             $.ajax({
@@ -373,13 +373,16 @@ require_once 'includes/aside.php';
                             title: " Data Updated SuccessFully!",
                             icon: "success",
                             draggable: true
-                        }).then(() => {
-                            location.reload();
-                        });
+                        }) .then(() => {
+                                    location.reload();
+                                });
+                        
 
 
 
                     } else {
+
+                        alert("error");
                         // alert(res.errors.email);
 
                         if (res.errors.edit_title) {

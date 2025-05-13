@@ -52,7 +52,7 @@ require_once 'includes/aside.php';
               </div>
               <div class="form-group mb-2">
                 <label for="description__edit" class="form-label">Description</label>
-                <textarea class="form-control" id="description__edit" name="description__edit" rows="10"> <?php echo $row['description']; ?></textarea>
+                <textarea class="form-control" id="description__edit" name="description__edit" rows="10" placeholder="Enter Description "> <?php echo $row['description']; ?></textarea>
                 <div id="description_edit_error" class="error"></div>
               
               </div>

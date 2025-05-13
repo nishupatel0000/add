@@ -670,6 +670,11 @@ if ($_POST['action'] == "update_chef") {
       mkdir($uploadDir, 0755, true);
     }
     move_uploaded_file($fileTmpPath, $destPath);
+
+      $oldimage = $uploadDir . $_POST['old_chef_image'];
+      if (file_exists($oldimage)) {
+        unlink($oldimage);
+      }
   }
 
   if (!empty($err)) {
@@ -684,12 +689,7 @@ if ($_POST['action'] == "update_chef") {
 
     $result = mysqli_query($con_query, $update);
     if ($result) {
-      $uploadDir = '../Admin/assets/img/chefs/';
-
-      $oldimage = $uploadDir . $_POST['old_chef_image'];
-      if (file_exists($oldimage)) {
-        unlink($oldimage);
-      }
+      
       $output = [
         'code' => 200,
         'msg' => "Menu Updated successfully!!!"
@@ -1573,7 +1573,7 @@ if ($_POST['action'] == "update_event") {
 
       $output = [
         'code' => 200,
-        'msg' => "Menu Updated successfully!!!"
+        'msg' => "Event Updated successfully!!!"
       ];
       echo json_encode($output);
       return true;
@@ -1587,6 +1587,32 @@ if ($_POST['action'] == "update_event") {
     }
   }
 }
+if ($_POST['action'] == "event_delete") {
+  $id  = $_POST['id'];
+
+
+  $select_img = "select image from event where id ='$id'";
+  $result_img = mysqli_query($con_query, $select_img);
+  $data = mysqli_fetch_assoc($result_img);
+  $image = $data['image'];
+
+  $del_event = "delete from  event  where id = '$id'";
+  $del_result = mysqli_query($con_query, $del_event);
+  if ($image) {
+    $filePath = "../Admin/assets/img/event/" . $image;
+    if (file_exists($filePath)) {
+      unlink($filePath);
+    }
+  }
+  if ($del_result) {
+    $output =
+      [
+        'msg' => "Data deleted successfully",
+      ];
+    echo json_encode($output);
+  }
+}
+ 
 
 
 if ($_POST['action'] == "privacy_insert") {
@@ -2006,7 +2032,8 @@ echo json_encode($row);
  
  
  }
-  
+  ?>
+ 
 
 
 

@@ -33,7 +33,7 @@ require_once 'includes/aside.php';
 
                             <div class="form-group mb-2">
                                 <label for="title_edit" class="form-label">Title</label>
-                                <textarea class="form-control" id="title_edit" name="title_edit" rows="10"><?php echo $row['title']; ?></textarea>
+                                <textarea class="form-control" id="title_edit" name="title_edit" placeholder="Enter Title" rows="10"><?php echo $row['title']; ?></textarea>
                                 <div id="title_edit_error" class="error"></div>
 
                             </div>

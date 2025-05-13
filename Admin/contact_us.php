@@ -36,7 +36,7 @@ require_once 'includes/aside.php';
                             <div class="form-group mb-2">
                                 <label for="address_edit" class="form-label">address</label>
                                 <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
-                                <textarea class="form-control" id="address_edit" name="address_edit" rows="10"><?php echo $row['address'];?></textarea>
+                                <textarea class="form-control" id="address_edit" name="address_edit" rows="10" placeholder="Enter Address"><?php echo $row['address'];?></textarea>
                                 <div id="address_edit_error" class="error"></div>
 
                             </div>

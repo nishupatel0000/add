@@ -3,9 +3,10 @@ session_start();
 
 if(!isset($_SESSION['email'])){
   header("location:index.php");
-  exit();
-unset($_SESSION['email']);
+ 
+ 
 }
+  
  
 
  

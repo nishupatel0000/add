@@ -11,20 +11,7 @@ if (isset($_SESSION['user_id'])) {
 <!doctype html>
 <html lang="en">
 <!--begin::Head-->
-<style>
-  .avatar-img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-    .error {
-    color: red;
-    font-size: 18px;
 
-  }
-</style>
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -113,6 +100,38 @@ if (isset($_SESSION['user_id'])) {
       border: 1px solid black;
       margin: 5px 80px;
       padding: 15px;
+    }
+
+    #loader {
+      display: none;
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.8);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .spinner {
+      border: 8px solid #f3f3f3;
+      border-top: 8px solid #3498db;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
     }
   </style>
 </head>
@@ -266,53 +285,7 @@ if (isset($_SESSION['user_id'])) {
       </div>
       <!--end::Container-->
     </nav>
-    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <form method="POST" id="editForm">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="editModalLabel">Edit Password</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <input type="hidden" name="id" id="myid">
-              <div class="mb-3">
-                <label for="name" class="form-label">Username</label>
-                <input type="text" class="form-control" id="e_name" name="name">
-                <b id="name_er" class="error"></b>
-              </div>
-              <div class="mb-3">
 
-                <b id="username_er" class="error"></b>
-
-              </div>
-              <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" required>
-                <b id="email_er" class="error"></b>
-
-              </div>
-              <!-- <div class="mb-3">
-            <label for="mobile" class="form-label">Mobile</label>
-            <input type="text" class="form-control" id="mobile" name="mobileno" required>
-            <div id="mobile_er" class="error"></div>
-       
-          </div>
-            -->
-
-
-
-
-            </div>
-            <div class="modal-footer">
-              <input type="submit" class="btn btn-primary" name="update" id="update_user" value="update">
-            </div>
-
-
-          </div>
-        </form>
-      </div>
-    </div>
     <script>
       $("#logoutbtn").click(function(e) {
         e.preventDefault();

@@ -45,7 +45,7 @@ require_once 'includes/aside.php';
           </button>
           <div class="modal fade" id="newtestimonial" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
-              <form id="testimonial" method="post">
+              <form id="testimonial_add" method="post">
                 <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Add Testimonial</h5>
@@ -101,7 +101,7 @@ require_once 'includes/aside.php';
       <div class="card-body">
         <div class="modal fade" id="editcategory" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
           <div class="modal-dialog">
-            <form method="POST" id="editForm">
+            <form method="POST" id="testimonial_edit">
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="editModalLabel">Edit Testimonial</h5>
@@ -114,7 +114,7 @@ require_once 'includes/aside.php';
 
                     <label for="Food_title" class="form-label">Title</label>
 
-                    <input type="text" name="username" id="username" class="form-control">
+                    <input type="text" name="username" id="username" class="form-control" placeholder="Enter Title">
                     <div id="usernameerror" class="error"></div>
                   </div>
 
@@ -217,7 +217,7 @@ require_once 'includes/aside.php';
     $("#add_testimonial_btn").click(function(e) {
       e.preventDefault();
 
-      let form = document.getElementById("testimonial");
+      let form = document.getElementById("testimonial_add");
       let formdata = new FormData(form);
       formdata.append("action", "testimonial_insert");
       $.ajax({
@@ -342,7 +342,7 @@ require_once 'includes/aside.php';
 
     $("#testimonial_update").click(function(e) {
       e.preventDefault();
-      var editform = document.getElementById('editForm');
+      var editform = document.getElementById('testimonial_edit');
 
       var formdata = new FormData(editform);
       formdata.append("action", "update_testimonial");

@@ -60,7 +60,12 @@ $data = mysqli_fetch_assoc($result_data);
                 Leave <strong>Password</strong> and <strong>Confirm Password</strong> empty if you are not
                 going to
                 change the password.
+                <br>
+                <span class="text-danger">*</span>
+                If You want to change Password <strong> Old password </strong>is <strong>
+                 required.</strong>
               </div>
+
             </div>
             <form id="update_form">
               <div class="row g-3 mt-3">
@@ -82,14 +87,21 @@ $data = mysqli_fetch_assoc($result_data);
                   <div class="mb-3">
                     <label for="oldPassword" class="form-label">Old Password</label>
                     <input type="password" class="form-control" id="oldPassword" name="oldPassword" placeholder="Enter old password">
+                    <div id="oldpassword_err" class="error"></div>
+                    <div id="old_empty_err" class="error"></div>
+
                   </div>
                   <div class="mb-3">
                     <label for="newPassword" class="form-label">New Password</label>
                     <input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="Enter new password">
-                  </div>
+                    <div id="new_empty_err" class="error"></div>
+                 
+                 </div>
                   <div class="mb-3">
                     <label for="confirmPassword" class="form-label">Confirm Password</label>
                     <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm new password">
+                    <div id="confirm_err" class="error"></div>
+                
                   </div>
                 </div>
 
@@ -157,47 +169,47 @@ $data = mysqli_fetch_assoc($result_data);
 
 
 
-  $("#update_user").click(function(e) {
-    e.preventDefault();
-    var form = document.getElementById("editForm");
-    var formdata = new FormData(form);
-    formdata.append("action", "update");
-    $.ajax({
-      url: "admin_update.php",
-      type: "post",
-      dataType: "json",
-      data: formdata,
-      processData: false,
-      contentType: false,
-      success: function(response) {
-        if (response.code == 200) {
-          //  $("#editModal").hide();  
-          $('#editModal').modal('hide');
-          Swal.fire({
-            title: "Update Data SuccessFully!",
-            icon: "success",
-            draggable: true
-          }).then(() => {
-            location.reload();
-          });
+  // $("#update_user").click(function(e) {
+  //   e.preventDefault();
+  //   var form = document.getElementById("editForm");
+  //   var formdata = new FormData(form);
+  //   formdata.append("action", "update");
+  //   $.ajax({
+  //     url: "admin_update.php",
+  //     type: "post",
+  //     dataType: "json",
+  //     data: formdata,
+  //     processData: false,
+  //     contentType: false,
+  //     success: function(response) {
+  //       if (response.code == 200) {
+  //         //  $("#editModal").hide();  
+  //         $('#editModal').modal('hide');
+  //         Swal.fire({
+  //           title: "Update Data SuccessFully!",
+  //           icon: "success",
+  //           draggable: true
+  //         }).then(() => {
+  //           location.reload();
+  //         });
 
-        } else {
-          if (response.error.name) {
-            $("#name_er").text(response.error.name);
-          } else {
-            $("#name_er").text("");
-          }
-          if (response.error.email) {
-            $("#email_er").text(response.error.email);
-          } else {
-            $("#email_er").text("");
-          }
+  //       } else {
+  //         if (response.error.name) {
+  //           $("#name_er").text(response.error.name);
+  //         } else {
+  //           $("#name_er").text("");
+  //         }
+  //         if (response.error.email) {
+  //           $("#email_er").text(response.error.email);
+  //         } else {
+  //           $("#email_er").text("");
+  //         }
 
-        }
-      }
-    })
+  //       }
+  //     }
+  //   })
 
-  })
+  // })
 
   $("#update").click(function(e) {
     e.preventDefault();
@@ -214,11 +226,25 @@ $data = mysqli_fetch_assoc($result_data);
       success:function(data){
         console.log(data);
         if(data.code==200){
-          alert(data.msg);
+             Swal.fire({
+            title: "Update Data SuccessFully!",
+            icon: "success",
+            draggable: true
+          }).then(() => {
+            location.reload();
+          });
+
+  //       }
 
         }
         else{
-          alert(data.errors.new_password);
+          // alert("error");
+          // alert(data.errors.old_password);
+          $("#oldpassword_err").text(data.errors.old_password);
+          $("#confirm_err").text(data.errors.new_password);
+          $("#new_empty_err").text(data.errors.new_empty);
+
+          $("#old_empty_err").text(data.errors.old_empty);
 
           // alert(data.msg);
           // alert("something went wrong");

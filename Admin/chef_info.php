@@ -44,7 +44,7 @@ require_once 'includes/aside.php';
           </button>
           <div class="modal fade" id="newchef" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
-              <form id="food">
+              <form id="chef_add" method="POST" enctype="multipart/form-data">
                 <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Add Chef</h5>
@@ -73,7 +73,7 @@ require_once 'includes/aside.php';
 
                     <div class="mb-3">
                       <label for="image" class="form-label">Image</label>
-                      <input type="file" name="chef_image" class="form-control">
+                      <input type="file" name="chef_image" id="chef_image" class="form-control">
                       <div id="chef_image_err" class="error"></div>
                     </div>
 
@@ -93,7 +93,7 @@ require_once 'includes/aside.php';
       <div class="card-body">
       <div class="modal fade" id="editchef" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
           <div class="modal-dialog">
-            <form method="POST" id="editForm">
+            <form method="POST" id="edit_chef">
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="editModalLabel">Edit Chef</h5>
@@ -206,7 +206,7 @@ require_once 'includes/aside.php';
   // insert/add chef
     $("#add_chef_btn").click(function(e) {
       e.preventDefault();
-      let form = document.getElementById("food");
+      let form = document.getElementById("chef_add");
       let formdata = new FormData(form);
       formdata.append("action", "chef_insert");
       $.ajax({
@@ -345,7 +345,7 @@ require_once 'includes/aside.php';
     // update
     $("#update_chef").click(function(e) {
         e.preventDefault();
-        var editform = document.getElementById('editForm');
+        var editform = document.getElementById('edit_chef');
 
         var formdata = new FormData(editform);
         formdata.append("action", "update_chef");
