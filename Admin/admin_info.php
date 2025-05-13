@@ -1,24 +1,41 @@
 <?php
 session_start();
 require_once "../common/config.php";
+
+if (isset($_SESSION['user_id'])) {
+  $userId = $_SESSION['user_id'];
+  $_SESSION['users_id'] = $userId;
+  // echo "Logged in user ID: $userId";
+} else {
+  echo "User not loggeccf d in.";
+}
+
+$display_data = "select * from admin where id='$userId'";
+$result_data = mysqli_query($con_query, $display_data);
+$data = mysqli_fetch_assoc($result_data);
 ?>
+
 
 <?php require_once "includes/header.php"; ?>
 
 
 <?php require_once "includes/aside.php"; ?>
 
-
+<style>
+  .text-red {
+    color: #dc3545 !important;
+  }
+</style>
 
 <div class="row align-items-center mb-3">
   <div class="col-sm-6">
-    <h3 class="mb-0 fw-semibold">Admin</h3>
+    <h3 class="mb-0 fw-semibold">Profile</h3>
   </div>
   <div class="col-sm-6">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb justify-content-sm-end mb-0">
         <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Admin</li>
+        <li class="breadcrumb-item active" aria-current="page">Profile</li>
       </ol>
     </nav>
   </div>
@@ -32,44 +49,57 @@ require_once "../common/config.php";
 
     <div class="row">
       <div class="col-md-12">
-        <div class="card mb-4" style="height: 500px;">
-          <div class="card-header">
-            List of Admins
+        <div class="card mb-4" style="height: 550px;">
+          <div class="card-header with-border bg-primary">
+            <h3 class="card-title" style="color: white;">Edit Profile </h3>
           </div>
           <div class="card-body">
-            <table id="myTable2" class="table table-striped table-bordered" border="1px" cellspacing="0" width="100%">
+            <div class="col-md-12 pad margin no-print">
+              <div style="margin-bottom: 0!important;border-bottom: 1px solid black;" class="callout">
+                <h4><i class="fa fa-info"></i> Note:</h4>
+                Leave <strong>Password</strong> and <strong>Confirm Password</strong> empty if you are not
+                going to
+                change the password.
+              </div>
+            </div>
+            <form id="update_form">
+              <div class="row g-3 mt-3">
+                <!-- Left Column: Username and Email -->
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="username" class="form-label">Username <span class="text-danger">*</span></label>
+                    <input type="hidden" name="old_id" id="old_id" value="<?php echo  $data['id'];?>">
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" value="<?php echo $data['username']; ?>">
+                  </div>
+                  <div class="mb-3">
+                    <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                    <input type="email" class="form-control" id="user_email" name="user_email" placeholder="Enter email" value="<?php echo $data['email']; ?>">
+                  </div>
+                </div>
 
-              <thead>
-                <tr>
-                  <th scope="col">Username</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Operation</th>
+                <!-- Right Column: Password Fields -->
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label for="oldPassword" class="form-label">Old Password</label>
+                    <input type="password" class="form-control" id="oldPassword" name="oldPassword" placeholder="Enter old password">
+                  </div>
+                  <div class="mb-3">
+                    <label for="newPassword" class="form-label">New Password</label>
+                    <input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="Enter new password">
+                  </div>
+                  <div class="mb-3">
+                    <label for="confirmPassword" class="form-label">Confirm Password</label>
+                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm new password">
+                  </div>
+                </div>
 
-                </tr>
-              </thead>
-              <tbody>
-                <?php
-                $select = "SELECT * FROM admin";
-                $result = mysqli_query($con_query, $select);
-                while ($row = mysqli_fetch_assoc($result)) { ?>
-                  <tr>
-                    <td><?php echo $row["username"]; ?></td>
-                    <td><?php echo $row["email"]; ?></td>
-                    <td>
+                <!-- Save Button -->
+                <div class="col-12 text-end">
+                  <button type="submit" class="btn btn-primary" name="update" id="update">Save</button>
+                </div>
+              </div>
 
-                      <button class="btn btn-primary edit" data-id="<?php echo $row['id'] ?>" data-bs-toggle="modal" data-bs-target="#editModal"> <i class="fa fa-edit"></i></button>
-                      <button class="btn btn-danger delete" data-id="<?php echo $row['id'] ?> "> <i class="fa fa-trash"></i></button>
-                    </td>
-
-                  </tr>
-                <?php } ?>
-                <script>
-                  $(document).ready(function() {
-                    $('#myTable2').DataTable();
-                  });
-                </script>
-              </tbody>
-            </table>
+            </form>
           </div>
         </div>
       </div>
@@ -82,53 +112,7 @@ require_once "../common/config.php";
 </div>
 
 
-<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <form method="POST" id="editForm">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editModalLabel">Edit User</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <input type="hidden" name="id" id="myid">
-          <div class="mb-3">
-            <label for="name" class="form-label">Username</label>
-            <input type="text" class="form-control" id="e_name" name="name">
-            <b id="name_er" class="error"></b>
-          </div>
-          <div class="mb-3">
-
-            <b id="username_er" class="error"></b>
-
-          </div>
-          <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email" name="email" required>
-            <b id="email_er" class="error"></b>
-
-          </div>
-          <!-- <div class="mb-3">
-            <label for="mobile" class="form-label">Mobile</label>
-            <input type="text" class="form-control" id="mobile" name="mobileno" required>
-            <div id="mobile_er" class="error"></div>
-       
-          </div>
-            -->
-
-
-
-
-        </div>
-        <div class="modal-footer">
-          <input type="submit" class="btn btn-primary" name="update" id="update_user" value="update">
-        </div>
-
-
-      </div>
-    </form>
-  </div>
-</div>
+ 
 <script>
   $(".delete").click(function(e) {
     e.preventDefault();
@@ -149,9 +133,9 @@ require_once "../common/config.php";
 
 
   })
-</script>
 
-<script>
+
+
   $(".edit").click(function(e) {
     e.preventDefault();
     let id = $(this).data("id");
@@ -170,9 +154,9 @@ require_once "../common/config.php";
     })
 
   });
-</script>
 
-<script>
+
+
   $("#update_user").click(function(e) {
     e.preventDefault();
     var form = document.getElementById("editForm");
@@ -212,6 +196,42 @@ require_once "../common/config.php";
         }
       }
     })
+
+  })
+
+  $("#update").click(function(e) {
+    e.preventDefault();
+    var form= document.getElementById("update_form");
+    var formdata = new FormData(form);
+    formdata.append("action","update_admin");
+    $.ajax({
+      url:"category_data.php",
+      type:"POST",
+      dataType:"json",
+      data:formdata,
+      processData:false,
+      contentType:false,
+      success:function(data){
+        console.log(data);
+        if(data.code==200){
+          alert(data.msg);
+
+        }
+        else{
+          alert(data.errors.new_password);
+
+          // alert(data.msg);
+          // alert("something went wrong");
+        }
+ 
+ 
+       
+
+      
+      }
+      
+    })
+
 
   })
 </script>

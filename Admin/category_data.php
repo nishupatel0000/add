@@ -499,10 +499,10 @@ if ($_POST['action'] == "update_testimonial") {
 
     $result = mysqli_query($con_query, $update);
     if ($result) {
-      
-   
 
-  
+
+
+
       $output = [
         'code' => 200,
         'msg' => "Menu Updated successfully!!!"
@@ -670,7 +670,6 @@ if ($_POST['action'] == "update_chef") {
       mkdir($uploadDir, 0755, true);
     }
     move_uploaded_file($fileTmpPath, $destPath);
-
   }
 
   if (!empty($err)) {
@@ -1232,34 +1231,33 @@ if ($_POST['action'] == "gallery_insert") {
 
     foreach ($_FILES['image']['tmp_name'] as $key => $tmpName) {
       $filename = $_FILES['image']['name'][$key];
-  
+
       // Get the file extension BEFORE using it
       $fileExt = pathinfo($filename, PATHINFO_EXTENSION);
-  
+
       // Generate random filename
       $randomName = substr(str_shuffle("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 10);
       $newFileName = $randomName . '.' . $fileExt;
-  
+
       // Full destination path
       $destPath = $uploadDir . $newFileName;
-  
+
       // Move file to destination
       if (move_uploaded_file($tmpName, $destPath)) {
-          $safeFileName = mysqli_real_escape_string($con_query, $newFileName);
-  
-          $insert = "INSERT INTO gallery (gallery_image) VALUES ('$safeFileName')";
-          $result = mysqli_query($con_query, $insert);
-  
-          if ($result) {
-              $success[] = $newFileName;
-          } else {
-              $error[] = "Database error for: $filename";
-          }
+        $safeFileName = mysqli_real_escape_string($con_query, $newFileName);
+
+        $insert = "INSERT INTO gallery (gallery_image) VALUES ('$safeFileName')";
+        $result = mysqli_query($con_query, $insert);
+
+        if ($result) {
+          $success[] = $newFileName;
+        } else {
+          $error[] = "Database error for: $filename";
+        }
       } else {
-          $error[] = "Failed to upload: $filename";
+        $error[] = "Failed to upload: $filename";
       }
-  }
-  
+    }
   }
 
 
@@ -1306,12 +1304,12 @@ if ($_POST['action'] == "gallery_insert") {
 
 if ($_POST['action'] == "gallery_delete") {
   $id  = $_POST['id'];
- 
+
 
   $select_img = "select gallery_image from gallery where gallery_id ='$id'";
   $result_img = mysqli_query($con_query, $select_img);
   $data = mysqli_fetch_assoc($result_img);
-  $image = $data['gallery_image']; 
+  $image = $data['gallery_image'];
 
   $del_gallery = "delete from  gallery  where gallery_id = '$id'";
   $del_result = mysqli_query($con_query, $del_gallery);
@@ -1348,7 +1346,7 @@ if ($_POST['action'] == "event_insert") {
   }
 
 
-  
+
   if (empty($_POST['event_price'])) {
     $error['event_price'] = ' *price is required';
   } else {
@@ -1366,7 +1364,7 @@ if ($_POST['action'] == "event_insert") {
     $newFileName = $randomName . '.' . $fileExt;
     $uploadDir = '../Admin/assets/img/event/';
     $destPath = $uploadDir . $newFileName;
-   
+
 
 
 
@@ -1508,14 +1506,14 @@ if ($_POST['action'] == "update_event") {
 
 
   $id = $_POST['id'];
- 
+
   if (empty($_POST['event_edit_title'])) {
     $err['edit_title'] = "title is required";
   } else {
     $event_edit_title = $_POST['event_edit_title'];
   }
 
- 
+
 
   if (empty($_POST['event_edit_description'])) {
     $err['event_edit_description'] = "*Field is required";
@@ -1557,7 +1555,6 @@ if ($_POST['action'] == "update_event") {
     if (file_exists($oldimage)) {
       unlink($oldimage);
     }
-
   }
 
   if (!empty($err)) {
@@ -1571,9 +1568,9 @@ if ($_POST['action'] == "update_event") {
     $update = "UPDATE event SET title='$event_edit_title',description='$event_edit_description',price='$event_price',image='$newFileName'   WHERE id='$id'";
     $result = mysqli_query($con_query, $update);
     if ($result) {
-    $uploadDir = '../Admin/assets/img/event/';
+      $uploadDir = '../Admin/assets/img/event/';
 
-    
+
       $output = [
         'code' => 200,
         'msg' => "Menu Updated successfully!!!"
@@ -1616,7 +1613,7 @@ if ($_POST['action'] == "privacy_insert") {
 
     if ($result_privacy) {
 
- 
+
       $data = [
         "status" => 200,
         "msg" => "Banner saved successfully",
@@ -1625,91 +1622,392 @@ if ($_POST['action'] == "privacy_insert") {
       return true;
     }
   }
+}
 
 
-  
+
+
+
+
+
+
+// if (!empty($error)) {
+//   $allerror = [
+
+//     'errors' => $error
+
+//   ];
+//   echo json_encode($allerror);
+//   return false;
+// } else {
+//   $insert_about = "insert into gallery(gallery_image)values('$newFileName')";
+//   $result_about = mysqli_query($con_query, $insert_about);
+
+
+//   if ($result_about) {
+
+
+//     $data = [
+//       "status" => 200,
+//       "msg" => "photo saved successfully",
+//     ];
+//     echo json_encode($data);
+//     return true;
+//   }
+// }
+
+
+if ($_POST['action'] == "privacy_update") {
+
+  $id = $_POST['privacy_id'];
+
+
+
+
+  if (empty($_POST['description_edit'])) {
+    $err['edit_description'] = "Description is required";
+  } else {
+    $edit_description = $_POST['description_edit'];
   }
 
 
 
 
 
-  
+
+  if (!empty($err)) {
+    $allerrs = [
+      'code' => 404,
+      'errors' => $err,
+    ];
+    echo json_encode($allerrs);
+    return false;
+  } else {
+    $update_privacy = "UPDATE privacy SET description='$edit_description' WHERE id='$id'";
+
+    $result = mysqli_query($con_query, $update_privacy);
+    if ($result) {
 
 
-  // if (!empty($error)) {
-  //   $allerror = [
 
-  //     'errors' => $error
-
-  //   ];
-  //   echo json_encode($allerror);
-  //   return false;
-  // } else {
-  //   $insert_about = "insert into gallery(gallery_image)values('$newFileName')";
-  //   $result_about = mysqli_query($con_query, $insert_about);
-
-
-  //   if ($result_about) {
-
-
-  //     $data = [
-  //       "status" => 200,
-  //       "msg" => "photo saved successfully",
-  //     ];
-  //     echo json_encode($data);
-  //     return true;
-  //   }
-  // }
- 
-
-  if ($_POST['action'] == "privacy_update") {
-
-    $id = $_POST['privacy_id'];
-  
- 
-  
-  
-    if (empty($_POST['description_edit'])) {
-      $err['edit_description'] = "Description is required";
-    } else {
-      $edit_description = $_POST['description_edit'];
-    }
-   
-     
-  
-  
-  
-  
-    if (!empty($err)) {
-      $allerrs = [
-        'code' => 404,
-        'errors' => $err,
+      $output = [
+        'code' => 200,
+        'msg' => "Privacy Updated successfully!!!"
       ];
-      echo json_encode($allerrs);
-      return false;
+      echo json_encode($output);
+      return true;
     } else {
-      $update_privacy = "UPDATE privacy SET description='$edit_description' WHERE id='$id'";
-  
-      $result = mysqli_query($con_query, $update_privacy);
-      if ($result) {
-  
-  
-  
-        $output = [
-          'code' => 200,
-          'msg' => "Privacy Updated successfully!!!"
-        ];
-        echo json_encode($output);
-        return true;
-      } else {
-        $dberr = [
-          "code" => 404,
-          "msg"  => "any database related problem"
-        ];
-        echo json_encode($dberr);
-        return false;
-      }
+      $dberr = [
+        "code" => 404,
+        "msg"  => "any database related problem"
+      ];
+      echo json_encode($dberr);
+      return false;
     }
   }
+}
+
+
+// if ($_POST['action'] == "update_admin") {
+//   $id = $_POST['old_id'];
+//   // echo $id;
+//   // die();
+//   $select_password = "select * from admin where id='$id'";
+//   $result_password = mysqli_query($con_query, $select_password);
+//   $data = mysqli_fetch_assoc($result_password);
+
+//   $oldPassword = $_POST['oldPassword'];
+//   // if(!empty($_POST['newPassword'])){
+
+//   $newPassword = $_POST['newPassword'];
+//   // }
+//   $confirmPassword = $_POST['confirmPassword'];
+
+
+//   if (empty($_POST['username'])) {
+//     $err['username'] = "username is required";
+//   } else {
+//     $username = $_POST['username'];
+//   }
+
+
+//   if (empty($_POST['user_email'])) {
+//     $err['user_email'] = "email is required";
+//   } else {
+//     $user_email = $_POST['user_email'];
+//   }
+
+//   if (!empty($oldPassword) ||  !empty($newPassword) || !empty($confirmPassword)) {
+
+//     // echo "in";
+
+//     $old_pass = $data['password'];
+//     if ($oldPassword != $old_pass) {
+
+//       $error['old_password'] = "Password does not match with old one";
+//       // echo $error['old_password'];
+//       if (!empty($error['old_password'])) {
+//         $op = [
+//           "code" => 403,
+//           "msgs" => "old password is not correct",
+//         ];
+//         echo json_encode($op);
+//         return false;
+//       }
+//     }
+
+
+
+
+//     if ($_POST['newPassword'] != $_POST['confirmPassword']) {
+//       $error['new_password'] = "Password does not match";
+//       if (!empty($error['new_password'])) {
+//         $op = [
+//           "code" => 403,
+//           "msgs" => "Confirm password does not match",
+//         ];
+//         echo json_encode($op);
+//         return false;
+//       }
+//     } else {
+
+//       if (empty($_POST['newPassword'])) {
+//         $newPassword =  $data['password'];
+
+//         // echo "old data updated";
+ 
+//       } else {
+           
+//    $newPassword = $_POST['newPassword'];
+//         $update_password = "update admin set password='$newPassword' where id='$id'";
+//         $result_password = mysqli_query($con_query, $update_password);
+//         if ($result_password) {
+//           $final_op = [
+//             "code" => 200,
+//             "msg" => "succeess",
+//           ];
+//           echo json_encode($final_op);
+//           return false;
+//         }
+//       }
+//     }
+//   } else {
+//     if (!empty($err)) {
+//       $allerror = [
+//         "code" => 404,
+//         "errors" => $err,
+
+//       ];
+//       echo json_encode($allerror);
+//       return false;
+//     } else {
+//       $newPassword =  $data['password'];
+
+//       $update_data = "update admin set username='$username',email='$user_email',password='$newPassword' where id='$id'";
+//       $result_update = mysqli_query($con_query, $update_data);
+//       if ($result_update) {
+//         $output = [
+//           "code" => 200,
+//           "msg" => "successfully updated",
+
+//         ];
+//         echo json_encode($output);
+//         return true;
+//       }
+//     }
+//   }
+
+
+  if ($_POST['action'] == "update_admin") {
+    $id = $_POST['old_id'];
+    $username = $_POST['username'];
+    $user_email = $_POST['user_email'];
+    $oldPassword = $_POST['oldPassword'];
+    $newPassword = $_POST['newPassword'];
+    $confirmPassword = $_POST['confirmPassword'];
+
+    $errors = [];
+
+  
+    if (empty($username)) {
+        $errors['username'] = "Username is required";
+    }
+
+    if (empty($user_email)) {
+        $errors['user_email'] = "Email is required";
+    }
+ 
+    $select_query = "SELECT password FROM admin WHERE id = '$id'";
+    $result = mysqli_query($con_query, $select_query);
+    $data = mysqli_fetch_assoc($result);
+    $currentPassword = $data['password'];
+ 
+    if (!empty($oldPassword) || !empty($newPassword) || !empty($confirmPassword)) {
+ 
+        if ($oldPassword != $currentPassword) {
+            $errors['old_password'] = "Old password does not match";
+        }
+        if ($newPassword != $confirmPassword) {
+            $errors['new_password'] = "New password and confirmation do not match";
+        }
+    }
+
+    if (!empty($errors)) {
+        $response = [
+            "code" => 403,
+            "errors" => $errors,
+        ];
+        echo json_encode($response);
+        return;
+    }
+
+  
+    if (!empty($newPassword)) {
+    
+        $update_query = "UPDATE admin SET username = '$username', email = '$user_email', password = '$newPassword' WHERE id = '$id'";
+    } else {
+  
+        $update_query = "UPDATE admin SET username = '$username', email = '$user_email' WHERE id = '$id'";
+    }
+
+    $update_result = mysqli_query($con_query, $update_query);
+
+    if ($update_result) {
+        $response = [
+            "code" => 200,
+            "msg" => "Successfully updated",
+        ];
+    } else {
+        $response = [
+            "code" => 500,
+            "msg" => "Update failed",
+        ];
+    }
+
+    echo json_encode($response);
+}
+
+
+
+
+
+
+ 
+
+
+
+// }
+
+
+
+if ($_POST['action'] == "book_insert") {
+
+  if (empty($_POST['name'])) {
+    $error['name'] = ' * Name is required';
+  } else {
+
+    $name = $_POST['name'];
+  }
+    if (empty($_POST['email'])) {
+    $error['email'] = ' * Email is required';
+  } else {
+
+    $email = $_POST['email'];
+  }
+
+
+    if (empty($_POST['phone'])) {
+    $error['phone'] = ' * Phone is required';
+  } else {
+
+    $phone = $_POST['phone'];
+  }
+  
+    if (empty($_POST['date'])) {
+    $error['date'] = ' * Date is required';
+  } else {
+
+    $date = $_POST['date'];
+  }
+    
+    if (empty($_POST['time'])) {
+    $error['time'] = ' * Time is required';
+  } else {
+
+    $time = $_POST['time'];
+  }
+
+    
+    if (empty($_POST['people'])) {
+    $error['people'] = ' * Field is required';
+  } else {
+
+    $people = $_POST['people'];
+  }
+
+      if (empty($_POST['message'])) {
+    $error['message'] = ' * Field is required';
+  } else {
+
+    $message = $_POST['message'];
+  }
+  
+
+
+
+  
+
+ 
+
+
+
+
+
+  if (!empty($error)) {
+    $allerror = [
+
+      'errors' => $error
+
+    ];
+    echo json_encode($allerror);
+    return false;
+  } else {
+    $insert_book = "insert into book_table(name,email,phone,date,time,people,message)values('$name','$email','$phone','$date','$time','$people','$message')";
+
+    $result_book = mysqli_query($con_query, $insert_book);
+
+
+    if ($result_book) {
+
+
+      $data = [
+        "status" => 200,
+        "msg" => "data saved successfully",
+      ];
+      echo json_encode($data);
+      return true;
+    }
+  }
+}
+
+if ($_POST['action'] == "data_get") {
+
+ 
+$id = $_POST['id'];
+ 
+require_once '../common/config.php';  
+$select = "SELECT * FROM book_table where id='$id'";
+$result = mysqli_query($con_query, $select);
+$row = mysqli_fetch_assoc($result);
+echo json_encode($row);
+
+
+
+ 
+ 
+ }
+  
+
+
+
   

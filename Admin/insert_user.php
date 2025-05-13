@@ -1,4 +1,5 @@
 <?php 
+session_start();
 // echo json_encode("hello");
 require_once '../common/config.php';
 if ($_POST['action'] == "register") {
@@ -68,6 +69,8 @@ if ($_POST['action'] == "register") {
 
 }
 if ($_POST['action'] == "login") {
+
+ 
     if (empty($_POST['email'])) {
         $error['email'] = "* Email is required";
     } else {
@@ -98,6 +101,8 @@ if ($_POST['action'] == "login") {
         $old_password = $data['password'];
         $_SESSION['email'] = $data['email'];
         if ($email == $old_email && $password == $old_password) {
+         $_SESSION['user_id'] = $data['id'];
+
             $result = [
                 "code" => 200,
                 "msg" => "User logged in successfully"

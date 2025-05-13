@@ -1,7 +1,14 @@
 <?php
 session_start();
+
+if(!isset($_SESSION['email'])){
+  header("location:index.php");
+  exit();
+unset($_SESSION['email']);
+}
  
 
+ 
 
 require_once '../common/config.php';
 // if (!isset($_SESSION['username'])) {

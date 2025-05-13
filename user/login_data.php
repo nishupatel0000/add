@@ -8,6 +8,7 @@ require_once '../common/config.php';
 if ($_POST['action'] == "login") {
     $email = $_POST['email'];
     $password = $_POST['password'];
+     
 
 
     if (empty($_POST['email'])) {
@@ -48,14 +49,23 @@ if ($_POST['action'] == "login") {
         $old_email = $data['email'];
         $old_password = $data['password'];
         $_SESSION['email'] = $data['email'];
+         
+      
+        // $id= $data['id'];
         if ($email == $old_email && $password == $old_password) {
+            
+         $_SESSION['user_id'] = $data['id'];
             $result = [
                 "code" => 200,
-                "msg" => "User logged in successfully"
-            ];
+                "msg" => "User logged in successfully",
+           
+                   
 
+            ];
+          
             echo json_encode($result);
             return true;
+         
         }
     }
 

@@ -46,13 +46,7 @@
                  </p>
                </a>
              </li>
-             <li class="nav-item">
-               <a href="admin_info.php" class="nav-link <?= ($current_page == 'admin_info.php') ? 'li-active' : '' ?>">
-                 <i class="nav-icon bi bi-circle"></i>
-                 <p>Admin Info</p>
-
-               </a>
-             </li>
+          
              <li class="nav-item">
                <a href="user_info.php" class="nav-link <?= ($current_page == 'user_info.php') ? 'li-active' : '' ?>">
                  <i class="nav-icon bi bi-person"></i>
@@ -81,6 +75,12 @@
                <a href="testimonial.php" class="nav-link <?= ($current_page == 'testimonial.php') ? 'li-active' : '' ?>">
                  <i class="nav-icon bi bi-chat"></i>
                  <p>Testimonial</p>
+               </a>
+             </li>
+                  <li class="nav-item">
+               <a href="booking_inquiry.php" class="nav-link <?= ($current_page == 'testimonial.php') ? 'li-active' : '' ?>">
+                 <i class="nav-icon bi bi-chat"></i>
+                 <p>Booking Inquiry</p>
                </a>
              </li>
              <li class="nav-item has-treeview menu-open">

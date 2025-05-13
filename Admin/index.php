@@ -1,53 +1,18 @@
 <?php
  
+ session_start();
+ require_once '../common/config.php';
+  if (isset($_SESSION['logout_msg'])): ?>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      showToast("<?= addslashes($_SESSION['logout_msg']) ?>");
+    });
+  </script>
+  <?php unset($_SESSION['logout_msg']); ?>
+<?php endif; ?>
 
-require_once '../common/config.php';
-if (isset($_POST['login'])) {
-    if (empty($_POST['lemail'])) {
-        $_SESSION['lemail'] = "Email is required";
-    } else {
-        $email = $_POST['lemail'];
-    }
-
-    if (empty($_POST['lpassword'])) {
-        $_SESSION['lpassword'] = "Password is required";
-    }
-    
-     else {
-        $password = $_POST['lpassword'];
-    }
-
-    if (!empty($email) && !empty($password)) {
-        $select = "SELECT * FROM admin WHERE email='$email'";
-        $res = mysqli_query($con_query, $select);
-
-        if (mysqli_num_rows($res) > 0) {
-            $data = mysqli_fetch_assoc($res);
-            $old_email = $data['email'];
-            $old_password = $data['password'];
-
-            if ($email == $old_email && $password == $old_password) {
-                $_SESSION['username'] = $data['username'];
-                $_SESSION['lemail'] = $email;
-                header('Location: dashboard.php');
-                // header('Location:admin_details.php');
-                exit();
-            } else {
-               
-                $_SESSION['error'] = "Email or password does not match";
-            }
-        } else {
-            $_SESSION['error'] = "No account found with this email";
-        }
-    }
-}
-
-
-// $row = mysqli_num_rows($res);
-// echo $row;
-
-
-?>
+ 
+ 
 <!doctype html>
 <html lang="en">
   <head>
@@ -133,6 +98,11 @@ if (isset($_POST['login'])) {
       
 
     }
+    .login-page{
+      margin-bottom: 80px;
+    }
+
+    
 
 
     </style>
@@ -187,6 +157,18 @@ if (isset($_SESSION['error'])) {
 }
 
 ?>
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 1100">
+
+
+  <div id="toastMessage" class="toast align-items-center text-white bg-primary border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">Placeholder message</div>
+      <div class="progress" style="height: 3px;">
+        <div class="progress-bar progress-bar-striped bg-light progress-bar-animated" role="progressbar" style="width: 100%;"></div>
+      </div>
+    </div>
+  </div>
+</div>
         <div class="card-body login-card-body">
           <form  method="post" id="login">
             <div class="input-group mb-3">
@@ -222,18 +204,18 @@ if (isset($_SESSION['error'])) {
             <!--end::Row-->
           </form>
           <div class="social-auth-links text-center mb-3 d-grid gap-2">
-            <p>- OR -</p>
-            <a href="https://www.facebook.com/tecocraft.infusion.pvt.ltd/" class="btn btn-primary">
+            <!-- <p>- OR -</p> -->
+            <!-- <a href="https://www.facebook.com/tecocraft.infusion.pvt.ltd/" class="btn btn-primary">
               <i class="bi bi-facebook me-2"></i> Sign in using Facebook
             </a>
             <a href="#" class="btn btn-danger">
               <i class="bi bi-google me-2"></i> Sign in using Google+
-            </a>
+            </a> -->
           </div>
           <!-- /.social-auth-links -->
-          <p class="mb-0">
+          <!-- <p class="mb-0">
             <a href="register.php" class="text-center" style="text-decoration: none;"> Don't have account? Register</a>
-          </p>
+          </p> -->
         </div>
         <!-- /.login-card-body -->
       </div>
@@ -316,6 +298,9 @@ if (isset($_SESSION['error'])) {
       dataType: "json",
       success: function(data) {
         if (data.code == 200) {
+          // alert(data.code);
+          // alert(data.id);
+      
           window.location.href = "dashboard.php";
         } else {
          
@@ -346,6 +331,21 @@ if (isset($_SESSION['error'])) {
     })
   })
     </script> 
+
+
+<!-- Bootstrap & Toast script -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function showToast(message = 'Action completed!') {
+    const toastEl = document.getElementById('toastMessage');
+    toastEl.querySelector('.toast-body').textContent = message;
+   const toast = new bootstrap.Toast(toastEl, {
+      delay: 3000,     
+      autohide: true    
+    });
+    toast.show();
+  }
+</script>
     <!--end::OverlayScrollbars Configure-->
     <!--end::Script-->
   </body>

@@ -1,6 +1,30 @@
+<?php
+if (isset($_SESSION['user_id'])) {
+  $userId = $_SESSION['user_id'];
+  $_SESSION['users_id'] = $userId;
+  // echo "Logged in user ID: $userId";
+  // header("location:admin_info.php");
+} else {
+  echo "User not logged in.";
+}
+?>
 <!doctype html>
 <html lang="en">
 <!--begin::Head-->
+<style>
+  .avatar-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+    .error {
+    color: red;
+    font-size: 18px;
+
+  }
+</style>
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -127,16 +151,7 @@
                   <div class="flex-shrink-0">
 
                   </div>
-                  <div class="flex-grow-1">
-                    <h3 class="dropdown-item-title">
-                      Brad Diesel
-                      <span class="float-end fs-7 text-danger"><i class="bi bi-star-fill"></i></span>
-                    </h3>
-                    <p class="fs-7">Call me whenever you can...</p>
-                    <p class="fs-7 text-secondary">
-                      <i class="bi bi-clock-fill me-1"></i> 4 Hours Ago
-                    </p>
-                  </div>
+
                 </div>
                 <!--end::Message-->
               </a>
@@ -173,7 +188,7 @@
           <!--end::Messages Dropdown Menu-->
           <!--begin::Notifications Dropdown Menu-->
 
-          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
+          <!-- <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
             <span class="dropdown-item dropdown-header">15 Notifications</span>
             <div class="dropdown-divider"></div>
             <a href="#" class="dropdown-item">
@@ -192,7 +207,7 @@
             </a>
             <div class="dropdown-divider"></div>
             <a href="#" class="dropdown-item dropdown-footer"> See All Notifications </a>
-          </div>
+          </div> -->
           </li>
           <!--end::Notifications Dropdown Menu-->
           <!--begin::Fullscreen Toggle-->
@@ -205,45 +220,116 @@
           <!--end::Fullscreen Toggle-->
           <!--begin::User Menu Dropdown-->
           <li class="nav-item dropdown user-menu">
-            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-
-              <span class="d-none d-md-inline"></span>
+            <div class="dropdown text-end">
+              <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-circle"></i> Account
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                  <a href="admin_info.php" class="dropdown-item d-flex align-items-center" id="profilebtn" title="Profile">
+                    <i class="bi bi-person me-2"></i> Profile
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="dropdown-item text-danger d-flex align-items-center" id="logoutbtn" title="Logout">
+                    <i class="bi bi-box-arrow-right me-2"></i> Logout
+                  </a>
+                </li>
+              </ul>
+            </div>
             </a>
+            <!-- <img src="../admin/assets/img/pic.jpg" alt="Profile" class="avatar-img d-none d-md-inline rounded-circle" width="40" height="40">
+            </a> -->
+
             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
-              <!--begin::User Image-->
-              <li class="user-header text-bg-primary">
-                <img
-                  src="assets/img/user2-160x160.jpg"
-                  class="rounded-circle shadow"
-                  alt="User Image" />
-                <p>
-                  Alexander Pierce - Web Developer
-                  <small>Member since Nov. 2023</small>
-                </p>
-              </li>
-              <!--end::User Image-->
-              <!--begin::Menu Body-->
-              <li class="user-body">
-                <!--begin::Row-->
-                <div class="row">
-                  <div class="col-4 text-center"><a href="#">Followers</a></div>
-                  <div class="col-4 text-center"><a href="#">Sales</a></div>
-                  <div class="col-4 text-center"><a href="#">Friends</a></div>
+
+              <!-- Menu Body: Vertical List -->
+
+
+              <!-- Menu Footer: Profile & Sign Out -->
+              <li class="user-footer px-3 py-2">
+                <div class="d-grid gap-2">
+                  <a href="admin_info.php" style="text-decoration: none;color:black;">Profile</a>
+                  <a href="#" style="text-decoration: none;color:black;" id="logoutbtn">Sign out</a>
+                  <!-- <a href="#"  style="text-decoration: none;color:black;" >Change Password</a> -->
+                  <a href="" style="text-decoration: none;color:black;" data-bs-toggle="modal" data-bs-target="#editModal">Change Password</i> </a>
+
                 </div>
-                <!--end::Row-->
               </li>
-              <!--end::Menu Body-->
-              <!--begin::Menu Footer-->
-              <li class="user-footer">
-                <a href="#" class="btn btn-default btn-flat">Profile</a>
-                <a href="#" class="btn btn-default btn-flat float-end">Sign out</a>
-              </li>
-              <!--end::Menu Footer-->
+
             </ul>
           </li>
+
           <!--end::User Menu Dropdown-->
         </ul>
         <!--end::End Navbar Links-->
       </div>
       <!--end::Container-->
     </nav>
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <form method="POST" id="editForm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="editModalLabel">Edit Password</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <input type="hidden" name="id" id="myid">
+              <div class="mb-3">
+                <label for="name" class="form-label">Username</label>
+                <input type="text" class="form-control" id="e_name" name="name">
+                <b id="name_er" class="error"></b>
+              </div>
+              <div class="mb-3">
+
+                <b id="username_er" class="error"></b>
+
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+                <b id="email_er" class="error"></b>
+
+              </div>
+              <!-- <div class="mb-3">
+            <label for="mobile" class="form-label">Mobile</label>
+            <input type="text" class="form-control" id="mobile" name="mobileno" required>
+            <div id="mobile_er" class="error"></div>
+       
+          </div>
+            -->
+
+
+
+
+            </div>
+            <div class="modal-footer">
+              <input type="submit" class="btn btn-primary" name="update" id="update_user" value="update">
+            </div>
+
+
+          </div>
+        </form>
+      </div>
+    </div>
+    <script>
+      $("#logoutbtn").click(function(e) {
+        e.preventDefault();
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "You will be logged out.",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#6c757d',
+          confirmButtonText: 'Yes, log out',
+          cancelButtonText: 'Cancel'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // Redirect to logout.php
+            window.location.href = '../admin/logout.php';
+          }
+        });
+      });
+    </script>

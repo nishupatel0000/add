@@ -1,6 +1,10 @@
 <?php
 session_start();
-
+if(!isset($_SESSION['user_id'])){
+  header("location:../index.php");
+ 
+}
+ 
 require_once '../../common/config.php';
 $select_home = "select * from banner";
 $result = mysqli_query($con_query, $select_home);
@@ -63,6 +67,15 @@ while ($data = mysqli_fetch_assoc($result)) {
         width: 500px;
         height: 365px;
       }
+
+      .error {
+        color: red;
+        font-size: 18px;
+
+      }
+
+
+
 
       /* #hero {
         background: url('../../admin/assets/img/banner-bg.jpg') no-repeat center center;
@@ -715,42 +728,55 @@ while ($data = mysqli_fetch_assoc($result)) {
           <div class="col-lg-4 reservation-img" style="background-image: url(assets/img/reservation.jpg);"></div>
 
           <div class="col-lg-8 d-flex align-items-center reservation-form-bg" data-aos="fade-up" data-aos-delay="200">
-            <form action="forms/book-a-table.php" method="post" role="form" class="php-email-form">
+            <form id="bookform">
               <div class="row gy-4">
                 <div class="col-lg-4 col-md-6">
-                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required="">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name">
+                  <div id="name_err" class="error"></div>
                 </div>
                 <div class="col-lg-4 col-md-6">
-                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required="">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email">
+                  <div id="email_err" class="error"></div>
+
                 </div>
                 <div class="col-lg-4 col-md-6">
-                  <input type="text" class="form-control" name="phone" id="phone" placeholder="Your Phone" required="">
+                  <input type="text" class="form-control" name="phone" id="phone" placeholder="Your Phone">
+                  <div id="phone_err" class="error"></div>
+
                 </div>
                 <div class="col-lg-4 col-md-6">
-                  <input type="date" name="date" class="form-control" id="date" placeholder="Date" required="">
+                  <input type="date" name="date" class="form-control" id="date" placeholder="Date">
+                  <div id="date_err" class="error"></div>
+
                 </div>
                 <div class="col-lg-4 col-md-6">
-                  <input type="time" class="form-control" name="time" id="time" placeholder="Time" required="">
+                  <input type="time" class="form-control" name="time" id="time" placeholder="Time">
+                  <div id="time_err" class="error"></div>
+
                 </div>
                 <div class="col-lg-4 col-md-6">
-                  <input type="number" class="form-control" name="people" id="people" placeholder="# of people" required="">
+                  <input type="number" class="form-control" name="people" id="people" placeholder="# of people">
+                  <div id="people_err" class="error"></div>
                 </div>
+
               </div>
 
               <div class="form-group mt-3">
-                <textarea class="form-control" name="message" rows="5" placeholder="Message"></textarea>
+                <textarea class="form-control" name="message" id="message" rows="5" placeholder="Message"></textarea>
+                <div id="message_err" class="error"></div>
+
               </div>
 
-              <div class="text-center mt-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your booking request was sent. We will call back or send an Email to confirm your reservation. Thank you!</div>
-                <button type="submit">Book a Table</button>
-              </div>
-            </form>
-          </div><!-- End Reservation Form -->
+              <div class="text-center">
+                <button type="submit" name="submit" id="submit" class="btn btn-danger btn-book ">Book a Table</button>
 
-        </div>
+              </div>
+
+          </div>
+          </form>
+        </div><!-- End Reservation Form -->
+
+      </div>
 
       </div>
 
@@ -951,6 +977,88 @@ while ($data = mysqli_fetch_assoc($result)) {
         }
       });
     });
+
+    $("#submit").click(function(e) {
+      e.preventDefault();
+      // alert("hello");
+      var form = document.getElementById("bookform");
+      var formdata = new FormData(form);
+      formdata.append("action", "book_insert");
+
+      $.ajax({
+        url: "../../admin/category_data.php",
+        type: "POST",
+        dataType: "json",
+        data: formdata,
+        processData: false,
+        contentType: false,
+        success: function(data) {
+          console.log(data);
+          if (data.status == 200) {
+            Swal.fire({
+              title: "Data has been saved successfully",
+              icon: "success",
+              draggable: true
+            }).then(() => {
+              location.reload();
+            });
+            // location.reload(true);
+          } else {
+
+            if (data.errors.name) {
+              $("#name_err").text(data.errors.name);
+            } else {
+              $("#name_err").text("");
+            }
+            if (data.errors.email) {
+              $("#email_err").text(data.errors.email);
+            } else {
+              $("#email_err").text("");
+            }
+            if (data.errors.phone) {
+              $("#phone_err").text(data.errors.phone);
+            } else {
+              $("#phone_err").text("");
+            }
+            if (data.errors.date) {
+              $("#date_err").text(data.errors.date);
+            } else {
+              $("#date_err").text("");
+
+            }
+
+            if (data.errors.time) {
+              $("#time_err").text(data.errors.time);
+            } else {
+              $("#time_err").text("");
+
+            }
+            if (data.errors.people) {
+              $("#people_err").text(data.errors.people);
+            } else {
+              $("#people_err").text("");
+
+            }
+            if (data.errors.message) {
+              $("#message_err").text(data.errors.message);
+            } else {
+              $("#message_err").text("");
+
+            }
+
+
+
+          }
+
+
+
+
+
+        }
+
+      })
+
+    })
   </script>
 
   <?php
